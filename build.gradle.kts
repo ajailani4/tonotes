@@ -1,11 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    val composeVersion by extra("1.1.1")
-    val hiltVersion by extra("2.40.5")
-    val roomVersion by extra("2.4.2")
-
     dependencies {
-        classpath("com.google.dagger:hilt-android-gradle-plugin:$hiltVersion")
+        classpath(Hilt.androidGradlePlugin)
     }
 }
 

@@ -6,14 +6,14 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = "com.tonotes.app"
-        minSdk = 21
-        targetSdk = 32
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = AppConfig.applicationId
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -38,7 +38,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = rootProject.extra["composeVersion"] as String
+        kotlinCompilerExtensionVersion = Compose.composeVersion
     }
     packagingOptions {
         resources {
@@ -48,37 +48,33 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.8.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation(AndroidX.coreKtx)
+    implementation(AndroidX.lifecycleRuntime)
+    implementation(AndroidX.splashScreen)
 
-    // UI Components
-    implementation("androidx.core:core-splashscreen:1.0.0-alpha01")
-    implementation("androidx.compose.ui:ui:${rootProject.extra["composeVersion"]}")
-    implementation("androidx.compose.material3:material3:1.0.0-alpha13")
-    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["composeVersion"]}")
-    implementation("androidx.navigation:navigation-compose:2.5.0-alpha01")
+    implementation(Compose.activity)
+    implementation(Compose.ui)
+    implementation(Compose.material3)
+    implementation(Compose.uiToolingPreview)
+    implementation(Compose.navigation)
+    implementation(Compose.hiltNavigation)
 
-    // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:${rootProject.extra["hiltVersion"]}")
-    kapt("com.google.dagger:hilt-android-compiler:${rootProject.extra["hiltVersion"]}")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation(Hilt.android)
+    kapt(Hilt.androidCompiler)
+    implementation(Hilt.lifecycleVM)
+    kapt(Hilt.compiler)
 
-    // Room
-    implementation("androidx.room:room-runtime:${rootProject.extra["roomVersion"]}")
-    annotationProcessor("androidx.room:room-compiler:${rootProject.extra["roomVersion"]}")
-    kapt("androidx.room:room-compiler:${rootProject.extra["roomVersion"]}")
-    implementation("androidx.room:room-ktx:${rootProject.extra["roomVersion"]}")
+    implementation(Room.runtime)
+    annotationProcessor(Room.compiler)
+    kapt(Room.compiler)
+    implementation(Room.ktx)
 
-    // Testing
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["composeVersion"]}")
-    debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["composeVersion"]}")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:${rootProject.extra["composeVersion"]}")
+    testImplementation(JUnit.JUnit)
+    androidTestImplementation(AndroidXTest.JUnit)
+    androidTestImplementation(AndroidXTest.espressoCore)
+    androidTestImplementation(Compose.uiTestJUnit4)
+    debugImplementation(Compose.uiTooling)
+    debugImplementation(Compose.uiTestManifest)
 }
 
 // Compiler flag to use experimental Compose APIs
