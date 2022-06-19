@@ -59,6 +59,8 @@ dependencies {
     implementation(Compose.navigation)
     implementation(Compose.hiltNavigation)
 
+    implementation(Coroutines.coroutines)
+
     implementation(Hilt.android)
     kapt(Hilt.androidCompiler)
     implementation(Hilt.lifecycleVM)
@@ -70,6 +72,12 @@ dependencies {
     implementation(Room.ktx)
 
     testImplementation(JUnit.JUnit)
+    testImplementation(Mockito.core)
+    testImplementation(AndroidXTest.coreTesting)
+    testImplementation(CoroutinesTest.test)
+    testImplementation(Mockito.inline)
+    testImplementation(Mockito.mockitoKotlin)
+
     androidTestImplementation(AndroidXTest.JUnit)
     androidTestImplementation(AndroidXTest.espressoCore)
     androidTestImplementation(Compose.uiTestJUnit4)
