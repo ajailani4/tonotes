@@ -48,6 +48,11 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.core))
+    implementation(project(Modules.noteData))
+    implementation(project(Modules.noteDomain))
+    implementation(project(Modules.noteUI))
+
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntime)
     implementation(AndroidX.splashScreen)
@@ -59,30 +64,10 @@ dependencies {
     implementation(Compose.navigation)
     implementation(Compose.hiltNavigation)
 
-    implementation(Coroutines.coroutines)
-
     implementation(Hilt.android)
     kapt(Hilt.androidCompiler)
     implementation(Hilt.lifecycleVM)
     kapt(Hilt.compiler)
-
-    implementation(Room.runtime)
-    annotationProcessor(Room.compiler)
-    kapt(Room.compiler)
-    implementation(Room.ktx)
-
-    testImplementation(JUnit.JUnit)
-    testImplementation(Mockito.core)
-    testImplementation(AndroidXTest.coreTesting)
-    testImplementation(CoroutinesTest.test)
-    testImplementation(Mockito.inline)
-    testImplementation(Mockito.mockitoKotlin)
-
-    androidTestImplementation(AndroidXTest.JUnit)
-    androidTestImplementation(AndroidXTest.espressoCore)
-    androidTestImplementation(Compose.uiTestJUnit4)
-    debugImplementation(Compose.uiTooling)
-    debugImplementation(Compose.uiTestManifest)
 }
 
 // Compiler flag to use experimental Compose APIs
