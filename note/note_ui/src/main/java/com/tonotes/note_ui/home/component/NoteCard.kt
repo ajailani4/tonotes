@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.tonotes.core.convertToString
 import com.tonotes.note_domain.model.Note
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,7 +38,7 @@ fun NoteCard(
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 modifier = Modifier.align(Alignment.End),
-                text = note.date,
+                text = note.date.convertToString(),
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.labelMedium
             )

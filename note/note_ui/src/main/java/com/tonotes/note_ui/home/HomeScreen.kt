@@ -21,6 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_ui.home.component.NoteCard
+import java.time.LocalDate
+import java.util.*
 
 @Composable
 fun HomeScreen() {
@@ -30,13 +32,13 @@ fun HomeScreen() {
             id = 1,
             title = "Lorem Ipsum",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis est, dictum consectetur enim vitae, venenatis lobortis augue.",
-            date = "22 June 2022"
+            date = Date()
         ),
         Note(
             id = 2,
             title = "Lorem Ipsum",
             description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis est, dictum consectetur enim vitae, venenatis lobortis augue.",
-            date = "22 June 2022"
+            date = Date()
         )
     )
 

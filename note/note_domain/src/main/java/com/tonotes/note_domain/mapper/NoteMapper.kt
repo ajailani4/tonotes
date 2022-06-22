@@ -1,19 +1,15 @@
 package com.tonotes.note_domain.mapper
 
+import com.tonotes.core.convertToDate
 import com.tonotes.note_data.local.entity.NoteEntity
 import com.tonotes.note_domain.model.Note
-import java.text.SimpleDateFormat
-import java.util.*
-
-val localeID = Locale(Locale.getDefault().displayLanguage, "ID")
-val dateFormatter = SimpleDateFormat("dd MM yyyy", localeID)
 
 fun NoteEntity.toNote(): Note {
     return Note(
         id = id,
         title = title,
         description = description,
-        date = dateFormatter.format(date!!)
+        date = date.convertToDate()
     )
 }
 
@@ -22,6 +18,6 @@ fun Note.toNoteEntity(): NoteEntity {
         id = id,
         title = title,
         description = description,
-        date = dateFormatter.parse(date)
+        date = date.toString()
     )
 }
