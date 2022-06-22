@@ -44,7 +44,11 @@ fun HomeScreen() {
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {}) {
+            FloatingActionButton(
+                containerColor = MaterialTheme.colorScheme.primary,
+                onClick = {}
+            )
+                {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Plus icon"
