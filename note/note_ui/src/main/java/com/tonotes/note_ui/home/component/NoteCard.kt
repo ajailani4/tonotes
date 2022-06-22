@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.tonotes.core.convertToString
+import com.tonotes.core.util.convertToString
 import com.tonotes.note_domain.model.Note
 
 @OptIn(ExperimentalMaterial3Api::class)

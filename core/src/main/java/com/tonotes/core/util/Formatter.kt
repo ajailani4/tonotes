@@ -1,4 +1,4 @@
-package com.tonotes.core
+package com.tonotes.core.util
 
 import java.text.SimpleDateFormat
 import java.util.*

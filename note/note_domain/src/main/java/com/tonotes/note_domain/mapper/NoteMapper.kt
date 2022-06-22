@@ -1,6 +1,6 @@
 package com.tonotes.note_domain.mapper
 
-import com.tonotes.core.convertToDate
+import com.tonotes.core.util.convertToDate
 import com.tonotes.note_data.local.entity.NoteEntity
 import com.tonotes.note_domain.model.Note
 
