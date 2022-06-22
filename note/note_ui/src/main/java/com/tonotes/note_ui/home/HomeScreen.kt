@@ -8,10 +8,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +23,7 @@ import com.tonotes.note_ui.home.component.NoteCard
 import java.time.LocalDate
 import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen() {
     val (text, setText) = remember { mutableStateOf("") }
@@ -42,18 +42,31 @@ fun HomeScreen() {
         )
     )
 
-    LazyColumn(contentPadding = PaddingValues(20.dp)) {
-        item {
-            SearchTextField(text, setText)
-            Spacer(modifier = Modifier.height(25.dp))
-        }
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Plus icon"
+                )
+            }
+        },
+    ) { innerPadding ->
+        Box(modifier = Modifier.padding(innerPadding)) {
+            LazyColumn(contentPadding = PaddingValues(20.dp)) {
+                item {
+                    SearchTextField(text, setText)
+                    Spacer(modifier = Modifier.height(25.dp))
+                }
 
-        items(notes) { note ->
-            NoteCard(
-                note = note,
-                onClick = {}
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+                items(notes) { note ->
+                    NoteCard(
+                        note = note,
+                        onClick = {}
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+            }
         }
     }
 }
