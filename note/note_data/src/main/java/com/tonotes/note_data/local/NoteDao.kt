@@ -1,4 +1,4 @@
-package com.tonotes.note_data.local.db
+package com.tonotes.note_data.local
 
 import androidx.room.Dao
 

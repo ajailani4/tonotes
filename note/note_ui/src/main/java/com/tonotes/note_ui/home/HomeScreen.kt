@@ -3,6 +3,8 @@ package com.tonotes.note_ui.home
 import com.tonotes.core.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -17,13 +19,40 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.tonotes.note_domain.model.Note
+import com.tonotes.note_ui.home.component.NoteCard
 
 @Composable
 fun HomeScreen() {
     val (text, setText) = remember { mutableStateOf("") }
+    val notes = listOf(
+        Note(
+            id = 1,
+            title = "Lorem Ipsum",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis est, dictum consectetur enim vitae, venenatis lobortis augue.",
+            date = "22 June 2022"
+        ),
+        Note(
+            id = 2,
+            title = "Lorem Ipsum",
+            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis est, dictum consectetur enim vitae, venenatis lobortis augue.",
+            date = "22 June 2022"
+        )
+    )
 
-    Column(modifier = Modifier.fillMaxWidth()) {
-        SearchTextField(text, setText)
+    LazyColumn(contentPadding = PaddingValues(20.dp)) {
+        item {
+            SearchTextField(text, setText)
+            Spacer(modifier = Modifier.height(25.dp))
+        }
+
+        items(notes) { note ->
+            NoteCard(
+                note = note,
+                onClick = {}
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
     }
 }
 
@@ -36,7 +65,6 @@ fun SearchTextField(
 
     BasicTextField(
         modifier = Modifier
-            .padding(20.dp)
             .background(
                 color = MaterialTheme.colorScheme.surfaceVariant,
                 shape = CircleShape
