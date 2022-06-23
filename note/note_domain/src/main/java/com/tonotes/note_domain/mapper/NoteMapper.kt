@@ -1,6 +1,7 @@
 package com.tonotes.note_domain.mapper
 
 import com.tonotes.core.util.convertToDate
+import com.tonotes.core.util.convertToString
 import com.tonotes.note_data.local.entity.NoteEntity
 import com.tonotes.note_domain.model.Note
 
@@ -18,6 +19,6 @@ fun Note.toNoteEntity(): NoteEntity {
         id = id,
         title = title,
         description = description,
-        date = date.toString()
+        date = date.convertToString()
     )
 }

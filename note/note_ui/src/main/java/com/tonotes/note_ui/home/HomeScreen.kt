@@ -18,31 +18,28 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.tonotes.core.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_ui.home.component.NoteCard
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
-    val (text, setText) = remember { mutableStateOf("") }
-    val notes = listOf(
-        Note(
-            id = 1,
-            title = "Lorem Ipsum",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis est, dictum consectetur enim vitae, venenatis lobortis augue.",
-            date = Date()
-        ),
-        Note(
-            id = 2,
-            title = "Lorem Ipsum",
-            description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi felis est, dictum consectetur enim vitae, venenatis lobortis augue.",
-            date = Date()
-        )
-    )
+fun HomeScreen(
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
+    val onEvent = homeViewModel::onEvent
+    val notesState = homeViewModel.notesState
+    val searchQuery = homeViewModel.searchQuery
+
+    val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         floatingActionButton = {
             FloatingActionButton(
                 containerColor = MaterialTheme.colorScheme.primary,
@@ -59,16 +56,51 @@ fun HomeScreen() {
         Box(modifier = Modifier.padding(innerPadding)) {
             LazyColumn(contentPadding = PaddingValues(20.dp)) {
                 item {
-                    SearchTextField(text, setText)
+                    SearchTextField(
+                        searchQuery = searchQuery,
+                        onSearchQueryChanged = {
+                            onEvent(HomeEvent.OnSearchQueryChanged(it))
+                        }
+                    )
                     Spacer(modifier = Modifier.height(25.dp))
                 }
 
-                items(notes) { note ->
-                    NoteCard(
-                        note = note,
-                        onClick = {}
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
+                when (notesState) {
+                    is UIState.Success -> {
+                        val notes = notesState.data
+
+                        if (notes != null) {
+                            if (notes.isNotEmpty()) {
+                                items(notes) { note ->
+                                    NoteCard(
+                                        note = note,
+                                        onClick = {}
+                                    )
+                                    Spacer(modifier = Modifier.height(16.dp))
+                                }
+                            } else {
+                                item {
+                                    Box(
+                                        modifier = Modifier.fillMaxSize(),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Text(
+                                            text = stringResource(id = R.string.no_notes),
+                                            style = MaterialTheme.typography.titleLarge
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    is UIState.Error -> {
+                        coroutineScope.launch {
+                            notesState.message?.let { snackbarHostState.showSnackbar(it) }
+                        }
+                    }
+
+                    else -> {}
                 }
             }
         }
@@ -77,8 +109,8 @@ fun HomeScreen() {
 
 @Composable
 fun SearchTextField(
-    text: String,
-    onTextChanged: (String) -> Unit
+    searchQuery: String,
+    onSearchQueryChanged: (String) -> Unit
 ) {
     var isFocused by remember { mutableStateOf(false) }
 
@@ -90,8 +122,8 @@ fun SearchTextField(
             )
             .fillMaxWidth()
             .onFocusChanged { isFocused = it.isFocused },
-        value = text,
-        onValueChange = onTextChanged,
+        value = searchQuery,
+        onValueChange = onSearchQueryChanged,
         singleLine = true,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
         textStyle = MaterialTheme.typography.bodyLarge,
@@ -107,7 +139,7 @@ fun SearchTextField(
                 )
                 Spacer(modifier = Modifier.width(12.dp))
 
-                if (text.isEmpty() && !isFocused) {
+                if (searchQuery.isEmpty() && !isFocused) {
                     Text(
                         text = stringResource(id = R.string.search_notes),
                         color = MaterialTheme.colorScheme.onSurfaceVariant

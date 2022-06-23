@@ -1,12 +1,10 @@
 package com.tonotes.note_data.repository
 
 import com.tonotes.core.util.Resource
-import com.tonotes.note_data.local.datasource.NoteLocalDataSource
-import com.tonotes.note_data.local.datasource.NoteLocalDataSourceImpl
+import com.tonotes.note_data.local.NoteLocalDataSource
 import com.tonotes.note_data.local.entity.NoteEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
