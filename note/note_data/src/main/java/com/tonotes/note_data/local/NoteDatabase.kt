@@ -10,7 +10,6 @@ import com.tonotes.note_data.mapper.DateConverter
     entities = [NoteEntity::class],
     version = 1
 )
-@TypeConverters(DateConverter::class)
 abstract class NoteDatabase : RoomDatabase() {
     abstract val noteDao: NoteDao
 }
