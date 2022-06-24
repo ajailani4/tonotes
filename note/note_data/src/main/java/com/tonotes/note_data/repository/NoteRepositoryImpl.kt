@@ -11,9 +11,9 @@ import javax.inject.Inject
 class NoteRepositoryImpl @Inject constructor(
     private val noteLocalDataSource: NoteLocalDataSource
 ) : NoteRepository {
-    override fun getNotes(): Flow<Resource<List<NoteEntity>>> =
+    override fun getNotes(searchQuery: String): Flow<Resource<List<NoteEntity>>> =
         flow {
-            noteLocalDataSource.getNotes().catch {
+            noteLocalDataSource.getNotes(searchQuery).catch {
                 emit(Resource.Error(it.localizedMessage))
             }.collect {
                 emit(Resource.Success(it))

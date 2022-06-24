@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getNotes() {
         viewModelScope.launch {
-            val resource = getNotesUseCase()
+            val resource = getNotesUseCase(searchQuery)
 
             resource.catch {
                 notesState = UIState.Error(it.localizedMessage)

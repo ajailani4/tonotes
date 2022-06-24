@@ -5,5 +5,5 @@ import com.tonotes.note_data.local.entity.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
-    fun getNotes(): Flow<Resource<List<NoteEntity>>>
+    fun getNotes(searchQuery: String): Flow<Resource<List<NoteEntity>>>
 }
