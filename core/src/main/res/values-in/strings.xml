@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_notes">Cari catatan</string>
+    <string name="no_notes">You have no notes yet</string>
+</resources>
