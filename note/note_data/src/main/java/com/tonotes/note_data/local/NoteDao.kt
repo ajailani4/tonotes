@@ -13,6 +13,7 @@ interface NoteDao {
             FROM noteentity 
             WHERE title LIKE '%' || :searchQuery || '%' 
             OR description LIKE '%' || :searchQuery || '%'
+            ORDER BY id DESC
         """
     )
     fun getNotes(searchQuery: String): Flow<List<NoteEntity>>
