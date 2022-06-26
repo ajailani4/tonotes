@@ -37,7 +37,8 @@ import java.util.*
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel = hiltViewModel()
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    onNavigateToNoteDetail: (id: Int) -> Unit
 ) {
     val onEvent = homeViewModel::onEvent
     val notesState = homeViewModel.notesState
@@ -88,7 +89,9 @@ fun HomeScreen(
                                 items(notes) { note ->
                                     NoteCard(
                                         note = note,
-                                        onClick = {}
+                                        onClick = {
+                                            onNavigateToNoteDetail(note.id)
+                                        }
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
                                 }

@@ -6,4 +6,6 @@ class NoteLocalDataSource @Inject constructor(
     private val noteDao: NoteDao
 ) {
     fun getNotes(searchQuery: String) = noteDao.getNotes(searchQuery)
+
+    fun getNoteDetail(id: Int) = noteDao.getNoteDetail(id)
 }

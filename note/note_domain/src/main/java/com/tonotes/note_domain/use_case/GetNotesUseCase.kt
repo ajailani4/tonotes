@@ -10,11 +10,9 @@ import javax.inject.Inject
 class GetNotesUseCase @Inject constructor(
     private val noteRepository: NoteRepository
 ) {
-    suspend operator fun invoke(searchQuery: String): Flow<Resource<List<Note>>> =
-        flow {
-            noteRepository.getNotes(searchQuery).catch {
-                emit(Resource.Error(it.localizedMessage))
-            }.collect {
+    suspend operator fun invoke(searchQuery: String) =
+        flow<Resource<List<Note>>> {
+            noteRepository.getNotes(searchQuery).collect {
                 when (it) {
                     is Resource.Success -> {
                         val notes = it.data?.map { noteEntity ->
