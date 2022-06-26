@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.tonotes.core.Constants
 import com.tonotes.note_ui.home.HomeScreen
 import com.tonotes.note_ui.note_detail.NoteDetailScreen
 
@@ -15,15 +16,15 @@ fun Navigation(navController: NavHostController) {
         composable(route = Screen.HomeScreen.route) {
             HomeScreen(
                 onNavigateToNoteDetail = { id ->
-                    navController.navigate(Screen.NoteDetailScreen.route + "?id=$id")
+                    navController.navigate(Screen.NoteDetailScreen.route + "?${Constants.NOTE_ID}=$id")
                 }
             )
         }
 
         composable(
-            route = Screen.NoteDetailScreen.route + "?id={id}",
+            route = Screen.NoteDetailScreen.route + "?${Constants.NOTE_ID}={${Constants.NOTE_ID}}",
             arguments = listOf(
-                navArgument("id") {
+                navArgument(Constants.NOTE_ID) {
                     type = NavType.IntType
                 }
             )
