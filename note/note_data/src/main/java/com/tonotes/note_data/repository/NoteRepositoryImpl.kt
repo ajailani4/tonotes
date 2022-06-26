@@ -29,4 +29,12 @@ class NoteRepositoryImpl @Inject constructor(
                 emit(Resource.Success(it))
             }
         }.flowOn(ioDispatcher)
+
+    override suspend fun insertNote(noteEntity: NoteEntity) {
+        noteLocalDataSource.insertNote(noteEntity)
+    }
+
+    override suspend fun editNote(noteEntity: NoteEntity) {
+        noteLocalDataSource.editNote(noteEntity)
+    }
 }

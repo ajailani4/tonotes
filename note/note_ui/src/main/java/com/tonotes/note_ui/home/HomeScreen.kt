@@ -28,17 +28,15 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tonotes.core.UIState
-import com.tonotes.note_domain.model.Note
 import com.tonotes.note_ui.home.component.NoteCard
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    onNavigateToNoteDetail: (id: Int) -> Unit
+    onNavigateToNoteDetail: (id: Int) -> Unit,
+    onNavigateToAddEditNote: (id: Int) -> Unit
 ) {
     val onEvent = homeViewModel::onEvent
     val notesState = homeViewModel.notesState
@@ -55,9 +53,10 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(
                 containerColor = MaterialTheme.colorScheme.primary,
-                onClick = {}
-            )
-                {
+                onClick = {
+                    onNavigateToAddEditNote(0)
+                }
+            ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Plus icon"
@@ -90,7 +89,7 @@ fun HomeScreen(
                                     NoteCard(
                                         note = note,
                                         onClick = {
-                                            onNavigateToNoteDetail(note.id)
+                                            onNavigateToNoteDetail(note.id!!)
                                         }
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))
@@ -108,6 +107,12 @@ fun HomeScreen(
                                     }
                                 }
                             }
+                        }
+                    }
+
+                    is UIState.Fail -> {
+                        coroutineScope.launch {
+                            notesState.message?.let { snackbarHostState.showSnackbar(it) }
                         }
                     }
 
@@ -150,7 +155,9 @@ fun SearchTextField(
         },
         singleLine = true,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-        textStyle = MaterialTheme.typography.bodyLarge,
+        textStyle = MaterialTheme.typography.bodyLarge.copy(
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        ),
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = {
             focusManager.clearFocus()

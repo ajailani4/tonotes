@@ -6,6 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.tonotes.core.Constants.NavArgument.NOTE_ID
+import com.tonotes.note_ui.add_edit_note.AddEditNoteScreen
 import com.tonotes.note_ui.home.HomeScreen
 import com.tonotes.note_ui.note_detail.NoteDetailScreen
 
@@ -15,23 +17,40 @@ fun Navigation(navController: NavHostController) {
         composable(route = Screen.HomeScreen.route) {
             HomeScreen(
                 onNavigateToNoteDetail = { id ->
-                    navController.navigate(Screen.NoteDetailScreen.route + "?id=$id")
+                    navController.navigate(Screen.NoteDetailScreen.route + "/$id")
+                },
+                onNavigateToAddEditNote = { id ->
+                    navController.navigate(Screen.AddEditNoteScreen.route + "/$id")
                 }
             )
         }
 
         composable(
-            route = Screen.NoteDetailScreen.route + "?id={id}",
+            route = Screen.NoteDetailScreen.route + "/{$NOTE_ID}",
             arguments = listOf(
-                navArgument("id") {
+                navArgument(NOTE_ID) {
                     type = NavType.IntType
                 }
             )
         ) {
             NoteDetailScreen(
-                onNavigateUp = {
-                    navController.navigateUp()
+                onNavigateUp = { navController.navigateUp() },
+                onNavigateToAddEditNote = { id ->
+                    navController.navigate(Screen.AddEditNoteScreen.route + "/$id")
                 }
+            )
+        }
+
+        composable(
+            route = Screen.AddEditNoteScreen.route + "/{$NOTE_ID}",
+            arguments = listOf(
+                navArgument(NOTE_ID) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            AddEditNoteScreen(
+                onNavigateUp = { navController.navigateUp() }
             )
         }
     }

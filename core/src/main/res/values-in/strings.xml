@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_notes">Cari catatan</string>
-    <string name="no_notes">Kamu belum memiliki catatan</string>
+    <string name="no_notes">Belum ada catatan</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Hapus</string>
+    <string name="add_note">Tambah Catatan</string>
+    <string name="edit_note">Edit Catatan</string>
+    <string name="title">Judul</string>
+    <string name="description">Deksripsi</string>
+    <string name="save">Simpan</string>
+    <string name="please_fill_completely">Mohon diisi dengan lengkap</string>
 </resources>

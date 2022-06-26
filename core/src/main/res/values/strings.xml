@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search_notes">Search notes</string>
-    <string name="no_notes">You have no notes yet</string>
+    <string name="no_notes">No notes yet</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="add_note">Add Note</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
+    <string name="please_fill_completely">Please fill completely</string>
 </resources>
