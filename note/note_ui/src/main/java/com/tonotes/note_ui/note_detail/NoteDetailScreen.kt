@@ -2,6 +2,8 @@ package com.tonotes.note_ui.note_detail
 
 import com.tonotes.core.R
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
@@ -115,6 +117,7 @@ fun NoteDetailScreen(
                     .fillMaxWidth()
                     .padding(top = 10.dp, bottom = 20.dp)
                     .padding(horizontal = 20.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
                 when (noteDetailState) {
                     is UIState.Success -> {
