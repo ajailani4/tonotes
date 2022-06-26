@@ -31,6 +31,7 @@ fun NoteDetailScreen(
     val onEvent = noteDetailViewModel::onEvent
     val noteDetailState = noteDetailViewModel.noteDetailState
     val menuVisibility = noteDetailViewModel.menuVisibility
+    val deleteDialogVis = noteDetailViewModel.deleteDialogVis
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -93,6 +94,7 @@ fun NoteDetailScreen(
                                 )
                             },
                             onClick = {
+                                onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(true))
                                 onEvent(NoteDetailEvent.OnMenuVisibilityChanged(false))
                             },
                             leadingIcon = {
@@ -150,5 +152,35 @@ fun NoteDetailScreen(
                 }
             }
         }
+    }
+
+    if (deleteDialogVis) {
+        AlertDialog(
+            onDismissRequest = {
+                onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+            },
+            title = {
+                Text(text = stringResource(id = R.string.delete_note))
+            },
+            text = {
+                Text(text = stringResource(id = R.string.delete_note_confirm_msg))
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+                    onEvent(NoteDetailEvent.DeleteNote)
+                    onNavigateUp()
+                }) {
+                    Text(text = stringResource(id = R.string.yes))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+                }) {
+                    Text(text = stringResource(id = R.string.no))
+                }
+            }
+        )
     }
 }

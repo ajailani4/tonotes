@@ -10,16 +10,17 @@ import com.tonotes.core.Constants.NavArgument.NOTE_ID
 import com.tonotes.core.Resource
 import com.tonotes.core.UIState
 import com.tonotes.note_domain.model.Note
+import com.tonotes.note_domain.use_case.DeleteNoteUseCase
 import com.tonotes.note_domain.use_case.GetNoteDetailUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class NoteDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getNoteDetailUseCase: GetNoteDetailUseCase
+    private val getNoteDetailUseCase: GetNoteDetailUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase
 ) : ViewModel() {
     val noteId = savedStateHandle.get<Int>(NOTE_ID)!!
 
@@ -29,13 +30,20 @@ class NoteDetailViewModel @Inject constructor(
     var menuVisibility by mutableStateOf(false)
         private set
 
+    var deleteDialogVis by mutableStateOf(false)
+        private set
+
     init {
         getNoteDetail()
     }
 
     fun onEvent(event: NoteDetailEvent) {
         when (event) {
+            is NoteDetailEvent.DeleteNote -> deleteNote()
+
             is NoteDetailEvent.OnMenuVisibilityChanged -> menuVisibility = event.menuVisibility
+
+            is NoteDetailEvent.OnDeleteDialogVisChanged -> deleteDialogVis = event.deleteDialogVis
         }
     }
 
@@ -50,6 +58,12 @@ class NoteDetailViewModel @Inject constructor(
                     is Resource.Error -> UIState.Fail(it.message)
                 }
             }
+        }
+    }
+
+    private fun deleteNote() {
+        viewModelScope.launch {
+            deleteNoteUseCase(noteId)
         }
     }
 }
