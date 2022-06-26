@@ -2,6 +2,8 @@
 <resources>
     <string name="search_notes">Search notes</string>
     <string name="no_notes">No notes yet</string>
+    <string name="add_note">Add Note</string>
+    <string name="edit_note">Edit Note</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
     <string name="save">Save</string>

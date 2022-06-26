@@ -2,6 +2,8 @@
 <resources>
     <string name="search_notes">Cari catatan</string>
     <string name="no_notes">Belum ada catatan</string>
+    <string name="add_note">Tambah Catatan</string>
+    <string name="edit_note">Edit Catatan</string>
     <string name="title">Judul</string>
     <string name="description">Deksripsi</string>
     <string name="save">Simpan</string>

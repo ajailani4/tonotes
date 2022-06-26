@@ -3,8 +3,10 @@ package com.tonotes.note_ui.add_edit_note
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tonotes.core.Constants.NavArgument.NOTE_ID
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.InsertNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,8 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditNoteViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val insertNoteUseCase: InsertNoteUseCase
 ) : ViewModel() {
+    val noteId = savedStateHandle.get<Int>(NOTE_ID)
     var title by mutableStateOf("")
         private set
 

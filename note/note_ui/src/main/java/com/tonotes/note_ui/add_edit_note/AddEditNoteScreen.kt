@@ -25,6 +25,7 @@ fun AddEditNoteScreen(
     addEditNoteViewModel: AddEditNoteViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit
 ) {
+    val noteId = addEditNoteViewModel.noteId
     val onEvent = addEditNoteViewModel::onEvent
     val title = addEditNoteViewModel.title
     val description = addEditNoteViewModel.description
@@ -41,7 +42,13 @@ fun AddEditNoteScreen(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
             SmallTopAppBar(
-                title = {},
+                title = {
+                    Text(
+                        text = stringResource(id = if (noteId == 0) R.string.add_note else R.string.edit_note),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onNavigateUp) {
                         Icon(
