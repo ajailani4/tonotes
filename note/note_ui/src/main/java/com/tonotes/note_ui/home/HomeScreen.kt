@@ -153,7 +153,9 @@ fun SearchTextField(
         },
         singleLine = true,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-        textStyle = MaterialTheme.typography.bodyLarge,
+        textStyle = MaterialTheme.typography.bodyLarge.copy(
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        ),
         keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = {
             focusManager.clearFocus()
