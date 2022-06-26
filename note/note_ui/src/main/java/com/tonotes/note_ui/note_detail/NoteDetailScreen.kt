@@ -70,11 +70,7 @@ fun NoteDetailScreen(
                     ) {
                         DropdownMenuItem(
                             text = {
-                                Text(
-                                    text = stringResource(id = R.string.edit),
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    style = MaterialTheme.typography.labelLarge
-                                )
+                                Text(text = stringResource(id = R.string.edit))
                             },
                             onClick = {
                                 onNavigateToAddEditNote(noteId)
@@ -89,11 +85,7 @@ fun NoteDetailScreen(
                         )
                         DropdownMenuItem(
                             text = {
-                                Text(
-                                    text = stringResource(id = R.string.delete),
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    style = MaterialTheme.typography.labelLarge
-                                )
+                                Text(text = stringResource(id = R.string.delete))
                             },
                             onClick = {
                                 onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(true))
