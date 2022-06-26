@@ -20,6 +20,7 @@ class AddEditNoteViewModel @Inject constructor(
     private val insertNoteUseCase: InsertNoteUseCase
 ) : ViewModel() {
     val noteId = savedStateHandle.get<Int>(NOTE_ID)
+
     var title by mutableStateOf("")
         private set
 

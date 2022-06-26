@@ -113,6 +113,12 @@ fun HomeScreen(
                         }
                     }
 
+                    is UIState.Fail -> {
+                        coroutineScope.launch {
+                            notesState.message?.let { snackbarHostState.showSnackbar(it) }
+                        }
+                    }
+
                     is UIState.Error -> {
                         coroutineScope.launch {
                             notesState.message?.let { snackbarHostState.showSnackbar(it) }

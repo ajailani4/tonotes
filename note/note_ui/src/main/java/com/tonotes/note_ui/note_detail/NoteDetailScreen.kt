@@ -135,6 +135,14 @@ fun NoteDetailScreen(
                         }
                     }
 
+                    is UIState.Fail -> {
+                        LaunchedEffect(Unit) {
+                            coroutineScope.launch {
+                                noteDetailState.message?.let { snackbarHostState.showSnackbar(it) }
+                            }
+                        }
+                    }
+
                     is UIState.Error -> {
                         LaunchedEffect(Unit) {
                             coroutineScope.launch {
