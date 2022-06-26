@@ -111,19 +111,22 @@ fun NoteDetailScreen(
             )
         }
     ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, bottom = 20.dp)
-                    .padding(horizontal = 20.dp)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                when (noteDetailState) {
-                    is UIState.Success -> {
-                        val note = noteDetailState.data
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+        ) {
+            when (noteDetailState) {
+                is UIState.Success -> {
+                    val note = noteDetailState.data
 
-                        if (note != null) {
+                    if (note != null) {
+                        Column(
+                            modifier = Modifier
+                                .padding(top = 10.dp, bottom = 20.dp)
+                                .padding(horizontal = 20.dp)
+                        ) {
                             Text(
                                 text = note.title,
                                 color = MaterialTheme.colorScheme.onBackground,
@@ -142,17 +145,17 @@ fun NoteDetailScreen(
                             )
                         }
                     }
+                }
 
-                    is UIState.Error -> {
-                        LaunchedEffect(Unit) {
-                            coroutineScope.launch {
-                                noteDetailState.message?.let { snackbarHostState.showSnackbar(it) }
-                            }
+                is UIState.Error -> {
+                    LaunchedEffect(Unit) {
+                        coroutineScope.launch {
+                            noteDetailState.message?.let { snackbarHostState.showSnackbar(it) }
                         }
                     }
-
-                    else -> {}
                 }
+
+                else -> {}
             }
         }
     }
