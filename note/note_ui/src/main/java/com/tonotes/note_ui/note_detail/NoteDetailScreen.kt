@@ -68,13 +68,13 @@ fun NoteDetailScreen(
                                 color = MaterialTheme.colorScheme.onBackground,
                                 style = MaterialTheme.typography.titleLarge
                             )
-                            Spacer(modifier = Modifier.height(7.dp))
+                            Spacer(modifier = Modifier.height(10.dp))
                             Text(
                                 text = note.date.convertToString(),
                                 color = MaterialTheme.colorScheme.secondary,
                                 style = MaterialTheme.typography.labelLarge
                             )
-                            Spacer(modifier = Modifier.height(20.dp))
+                            Spacer(modifier = Modifier.height(25.dp))
                             Text(
                                 text = note.description,
                                 color = MaterialTheme.colorScheme.onBackground
