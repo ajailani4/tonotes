@@ -19,7 +19,7 @@ fun Navigation(navController: NavHostController) {
                 onNavigateToNoteDetail = { id ->
                     navController.navigate(Screen.NoteDetailScreen.route + "/$id")
                 },
-                onNavigateToAddOrEditNote = { id ->
+                onNavigateToAddEditNote = { id ->
                     navController.navigate(Screen.AddEditNoteScreen.route + "/$id")
                 }
             )
@@ -34,7 +34,10 @@ fun Navigation(navController: NavHostController) {
             )
         ) {
             NoteDetailScreen(
-                onNavigateUp = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() },
+                onNavigateToAddEditNote = { id ->
+                    navController.navigate(Screen.AddEditNoteScreen.route + "/$id")
+                }
             )
         }
 

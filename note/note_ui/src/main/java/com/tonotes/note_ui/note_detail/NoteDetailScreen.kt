@@ -24,8 +24,10 @@ import kotlinx.coroutines.launch
 @Composable
 fun NoteDetailScreen(
     noteDetailViewModel: NoteDetailViewModel = hiltViewModel(),
-    onNavigateUp: () -> Unit
+    onNavigateUp: () -> Unit,
+    onNavigateToAddEditNote: (id: Int) -> Unit
 ) {
+    val noteId = noteDetailViewModel.noteId
     val onEvent = noteDetailViewModel::onEvent
     val noteDetailState = noteDetailViewModel.noteDetailState
     val menuVisibility = noteDetailViewModel.menuVisibility
@@ -72,6 +74,7 @@ fun NoteDetailScreen(
                                 )
                             },
                             onClick = {
+                                onNavigateToAddEditNote(noteId)
                                 onEvent(NoteDetailEvent.OnMenuVisibilityChanged(false))
                             },
                             leadingIcon = {
@@ -132,14 +135,6 @@ fun NoteDetailScreen(
                                 text = note.description,
                                 color = MaterialTheme.colorScheme.onBackground
                             )
-                        }
-                    }
-
-                    is UIState.Fail -> {
-                        LaunchedEffect(Unit) {
-                            coroutineScope.launch {
-                                noteDetailState.message?.let { snackbarHostState.showSnackbar(it) }
-                            }
                         }
                     }
 

@@ -28,18 +28,15 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tonotes.core.UIState
-import com.tonotes.note_domain.model.Note
 import com.tonotes.note_ui.home.component.NoteCard
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
     onNavigateToNoteDetail: (id: Int) -> Unit,
-    onNavigateToAddOrEditNote: (id: Int) -> Unit
+    onNavigateToAddEditNote: (id: Int) -> Unit
 ) {
     val onEvent = homeViewModel::onEvent
     val notesState = homeViewModel.notesState
@@ -57,7 +54,7 @@ fun HomeScreen(
             FloatingActionButton(
                 containerColor = MaterialTheme.colorScheme.primary,
                 onClick = {
-                    onNavigateToAddOrEditNote(0)
+                    onNavigateToAddEditNote(0)
                 }
             ) {
                 Icon(

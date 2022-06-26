@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.tonotes.core.UIState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,6 +28,7 @@ fun AddEditNoteScreen(
 ) {
     val noteId = addEditNoteViewModel.noteId
     val onEvent = addEditNoteViewModel::onEvent
+    val noteDetailState = addEditNoteViewModel.noteDetailState
     val title = addEditNoteViewModel.title
     val description = addEditNoteViewModel.description
 
@@ -131,7 +133,12 @@ fun AddEditNoteScreen(
                         .padding(20.dp),
                     onClick = {
                         if (title.isNotEmpty() && description.isNotEmpty()) {
-                            onEvent(AddEditNoteEvent.InsertNote)
+                            if (noteId == 0) {
+                                onEvent(AddEditNoteEvent.InsertNote)
+                            } else {
+                                onEvent(AddEditNoteEvent.EditNote)
+                            }
+
                             onNavigateUp()
                         } else {
                             coroutineScope.launch {
@@ -149,5 +156,29 @@ fun AddEditNoteScreen(
                 }
             }
         }
+    }
+
+    when (noteDetailState) {
+        is UIState.Success -> {
+            val note = noteDetailState.data
+
+            if (note != null) {
+                onEvent(AddEditNoteEvent.OnTitleChanged(note.title))
+                onEvent(AddEditNoteEvent.OnDescriptionChanged(note.description))
+                onEvent(AddEditNoteEvent.SetDate(note.date))
+            }
+
+            onEvent(AddEditNoteEvent.Idle)
+        }
+
+        is UIState.Error -> {
+            LaunchedEffect(Unit) {
+                coroutineScope.launch {
+                    noteDetailState.message?.let { snackbarHostState.showSnackbar(it) }
+                }
+            }
+        }
+
+        else -> {}
     }
 }

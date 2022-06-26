@@ -33,4 +33,8 @@ class NoteRepositoryImpl @Inject constructor(
     override suspend fun insertNote(noteEntity: NoteEntity) {
         noteLocalDataSource.insertNote(noteEntity)
     }
+
+    override suspend fun editNote(noteEntity: NoteEntity) {
+        noteLocalDataSource.editNote(noteEntity)
+    }
 }

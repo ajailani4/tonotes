@@ -18,9 +18,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NoteDetailViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     private val getNoteDetailUseCase: GetNoteDetailUseCase
 ) : ViewModel() {
+    val noteId = savedStateHandle.get<Int>(NOTE_ID)!!
+
     var noteDetailState by mutableStateOf<UIState<Note>>(UIState.Idle)
         private set
 
@@ -39,11 +41,9 @@ class NoteDetailViewModel @Inject constructor(
 
     private fun getNoteDetail() {
         viewModelScope.launch {
-            val resource = getNoteDetailUseCase(savedStateHandle.get<Int>(NOTE_ID)!!)
+            val resource = getNoteDetailUseCase(noteId)
 
-            resource.catch {
-                noteDetailState = UIState.Error(it.localizedMessage)
-            }.collect {
+            resource.collect {
                 noteDetailState = when (it) {
                     is Resource.Success -> UIState.Success(it.data)
 

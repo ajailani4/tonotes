@@ -11,4 +11,6 @@ class NoteLocalDataSource @Inject constructor(
     fun getNoteDetail(id: Int) = noteDao.getNoteDetail(id)
 
     suspend fun insertNote(noteEntity: NoteEntity) = noteDao.insertNote(noteEntity)
+
+    suspend fun editNote(noteEntity: NoteEntity) = noteDao.editNote(noteEntity)
 }
