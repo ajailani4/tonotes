@@ -13,22 +13,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditNoteScreen(
+    addEditNoteViewModel: AddEditNoteViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit
 ) {
-    val (title, setTitle) = remember { mutableStateOf("") }
-    val (description, setDescription) = remember { mutableStateOf("") }
+    val onEvent = addEditNoteViewModel::onEvent
+    val title = addEditNoteViewModel.title
+    val description = addEditNoteViewModel.description
 
     var isTitleFocused by remember { mutableStateOf(false) }
     var isDescriptionFocused by remember { mutableStateOf(false) }
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+
+    val context = LocalContext.current
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -60,7 +67,7 @@ fun AddEditNoteScreen(
                         .fillMaxWidth()
                         .onFocusChanged { isTitleFocused = it.isFocused },
                     value = title,
-                    onValueChange = setTitle,
+                    onValueChange = { onEvent(AddEditNoteEvent.OnTitleChanged(it)) },
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     textStyle = MaterialTheme.typography.titleLarge.copy(
                         color = MaterialTheme.colorScheme.onBackground
@@ -88,7 +95,7 @@ fun AddEditNoteScreen(
                         .fillMaxWidth()
                         .onFocusChanged { isDescriptionFocused = it.isFocused },
                     value = description,
-                    onValueChange = setDescription,
+                    onValueChange = { onEvent(AddEditNoteEvent.OnDescriptionChanged(it)) },
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onBackground
@@ -115,7 +122,18 @@ fun AddEditNoteScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp),
-                    onClick = {}
+                    onClick = {
+                        if (title.isNotEmpty() && description.isNotEmpty()) {
+                            onEvent(AddEditNoteEvent.InsertNote)
+                            onNavigateUp()
+                        } else {
+                            coroutineScope.launch {
+                                snackbarHostState.showSnackbar(
+                                    context.resources.getString(R.string.please_fill_completely)
+                                )
+                            }
+                        }
+                    }
                 ) {
                     Text(
                         text = stringResource(id = R.string.save),

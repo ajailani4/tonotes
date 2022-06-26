@@ -93,7 +93,7 @@ fun HomeScreen(
                                     NoteCard(
                                         note = note,
                                         onClick = {
-                                            onNavigateToNoteDetail(note.id)
+                                            onNavigateToNoteDetail(note.id!!)
                                         }
                                     )
                                     Spacer(modifier = Modifier.height(16.dp))

@@ -5,4 +5,5 @@
     <string name="title">Judul</string>
     <string name="description">Deksripsi</string>
     <string name="save">Simpan</string>
+    <string name="please_fill_completely">Mohon diisi dengan lengkap</string>
 </resources>

@@ -8,4 +8,6 @@ interface NoteRepository {
     fun getNotes(searchQuery: String): Flow<Resource<List<NoteEntity>>>
 
     fun getNoteDetail(id: Int): Flow<Resource<NoteEntity>>
+
+    suspend fun insertNote(noteEntity: NoteEntity)
 }

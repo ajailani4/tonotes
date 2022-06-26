@@ -7,7 +7,7 @@ import java.util.*
 @Entity
 data class NoteEntity(
     @PrimaryKey
-    val id: Int,
+    val id: Int? = null,
     val title: String,
     val description: String,
     val date: String
