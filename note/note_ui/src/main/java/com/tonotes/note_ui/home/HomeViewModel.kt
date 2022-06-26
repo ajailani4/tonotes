@@ -46,7 +46,7 @@ class HomeViewModel @Inject constructor(
                 notesState = when (it) {
                     is Resource.Success -> UIState.Success(it.data)
 
-                    is Resource.Error -> UIState.Error(it.message)
+                    is Resource.Error -> UIState.Fail(it.message)
                 }
             }
         }
