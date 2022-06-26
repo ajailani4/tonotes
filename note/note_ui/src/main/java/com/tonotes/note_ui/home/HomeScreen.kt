@@ -59,8 +59,7 @@ fun HomeScreen(
                 onClick = {
                     onNavigateToAddOrEditNote(0)
                 }
-            )
-                {
+            ) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = "Plus icon"
