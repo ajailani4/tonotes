@@ -2,6 +2,8 @@ package com.tonotes.note_ui.note_detail
 
 import com.tonotes.core.R
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
@@ -31,6 +33,7 @@ fun NoteDetailScreen(
     val onEvent = noteDetailViewModel::onEvent
     val noteDetailState = noteDetailViewModel.noteDetailState
     val menuVisibility = noteDetailViewModel.menuVisibility
+    val deleteDialogVis = noteDetailViewModel.deleteDialogVis
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -67,11 +70,7 @@ fun NoteDetailScreen(
                     ) {
                         DropdownMenuItem(
                             text = {
-                                Text(
-                                    text = stringResource(id = R.string.edit),
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    style = MaterialTheme.typography.labelLarge
-                                )
+                                Text(text = stringResource(id = R.string.edit))
                             },
                             onClick = {
                                 onNavigateToAddEditNote(noteId)
@@ -86,13 +85,10 @@ fun NoteDetailScreen(
                         )
                         DropdownMenuItem(
                             text = {
-                                Text(
-                                    text = stringResource(id = R.string.delete),
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    style = MaterialTheme.typography.labelLarge
-                                )
+                                Text(text = stringResource(id = R.string.delete))
                             },
                             onClick = {
+                                onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(true))
                                 onEvent(NoteDetailEvent.OnMenuVisibilityChanged(false))
                             },
                             leadingIcon = {
@@ -107,18 +103,22 @@ fun NoteDetailScreen(
             )
         }
     ) { innerPadding ->
-        Box(modifier = Modifier.padding(innerPadding)) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 10.dp, bottom = 20.dp)
-                    .padding(horizontal = 20.dp)
-            ) {
-                when (noteDetailState) {
-                    is UIState.Success -> {
-                        val note = noteDetailState.data
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+        ) {
+            when (noteDetailState) {
+                is UIState.Success -> {
+                    val note = noteDetailState.data
 
-                        if (note != null) {
+                    if (note != null) {
+                        Column(
+                            modifier = Modifier
+                                .padding(top = 10.dp, bottom = 20.dp)
+                                .padding(horizontal = 20.dp)
+                        ) {
                             Text(
                                 text = note.title,
                                 color = MaterialTheme.colorScheme.onBackground,
@@ -137,18 +137,48 @@ fun NoteDetailScreen(
                             )
                         }
                     }
+                }
 
-                    is UIState.Error -> {
-                        LaunchedEffect(Unit) {
-                            coroutineScope.launch {
-                                noteDetailState.message?.let { snackbarHostState.showSnackbar(it) }
-                            }
+                is UIState.Error -> {
+                    LaunchedEffect(Unit) {
+                        coroutineScope.launch {
+                            noteDetailState.message?.let { snackbarHostState.showSnackbar(it) }
                         }
                     }
-
-                    else -> {}
                 }
+
+                else -> {}
             }
         }
+    }
+
+    if (deleteDialogVis) {
+        AlertDialog(
+            onDismissRequest = {
+                onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+            },
+            title = {
+                Text(text = stringResource(id = R.string.delete_note))
+            },
+            text = {
+                Text(text = stringResource(id = R.string.delete_note_confirm_msg))
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+                    onEvent(NoteDetailEvent.DeleteNote)
+                    onNavigateUp()
+                }) {
+                    Text(text = stringResource(id = R.string.yes))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = {
+                    onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+                }) {
+                    Text(text = stringResource(id = R.string.no))
+                }
+            }
+        )
     }
 }

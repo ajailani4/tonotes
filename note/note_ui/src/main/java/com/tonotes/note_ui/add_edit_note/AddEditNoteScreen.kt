@@ -3,7 +3,9 @@ package com.tonotes.note_ui.add_edit_note
 import com.tonotes.core.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -66,62 +68,67 @@ fun AddEditNoteScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 10.dp, bottom = 20.dp)
-                    .padding(horizontal = 20.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
-                // Title
-                BasicTextField(
+                Column(
                     modifier = Modifier
-                        .background(color = Color.Transparent)
-                        .fillMaxWidth()
-                        .onFocusChanged { isTitleFocused = it.isFocused },
-                    value = title,
-                    onValueChange = { onEvent(AddEditNoteEvent.OnTitleChanged(it)) },
-                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                    textStyle = MaterialTheme.typography.titleLarge.copy(
-                        color = MaterialTheme.colorScheme.onBackground
-                    ),
-                    decorationBox = { innerTextField ->
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            if (title.isEmpty() && !isTitleFocused) {
-                                Text(
-                                    text = stringResource(id = R.string.title),
-                                    color = MaterialTheme.colorScheme.outline,
-                                    style = MaterialTheme.typography.titleLarge
-                                )
-                            }
+                        .padding(top = 10.dp, bottom = 80.dp)
+                        .padding(horizontal = 20.dp)
+                ) {
+                    // Title
+                    BasicTextField(
+                        modifier = Modifier
+                            .background(color = Color.Transparent)
+                            .fillMaxWidth()
+                            .onFocusChanged { isTitleFocused = it.isFocused },
+                        value = title,
+                        onValueChange = { onEvent(AddEditNoteEvent.OnTitleChanged(it)) },
+                        cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                        textStyle = MaterialTheme.typography.titleLarge.copy(
+                            color = MaterialTheme.colorScheme.onBackground
+                        ),
+                        decorationBox = { innerTextField ->
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                if (title.isEmpty() && !isTitleFocused) {
+                                    Text(
+                                        text = stringResource(id = R.string.title),
+                                        color = MaterialTheme.colorScheme.outline,
+                                        style = MaterialTheme.typography.titleLarge
+                                    )
+                                }
 
-                            innerTextField()
-                        }
-                    }
-                )
-                Spacer(modifier = Modifier.height(25.dp))
-                
-                // Description
-                BasicTextField(
-                    modifier = Modifier
-                        .background(color = Color.Transparent)
-                        .fillMaxWidth()
-                        .onFocusChanged { isDescriptionFocused = it.isFocused },
-                    value = description,
-                    onValueChange = { onEvent(AddEditNoteEvent.OnDescriptionChanged(it)) },
-                    cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
-                    textStyle = MaterialTheme.typography.bodyLarge.copy(
-                        color = MaterialTheme.colorScheme.onBackground
-                    ),
-                    decorationBox = { innerTextField ->
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            if (description.isEmpty() && !isDescriptionFocused) {
-                                Text(
-                                    text = stringResource(id = R.string.description),
-                                    color = MaterialTheme.colorScheme.outline
-                                )
+                                innerTextField()
                             }
-
-                            innerTextField()
                         }
-                    }
-                )
+                    )
+                    Spacer(modifier = Modifier.height(25.dp))
+
+                    // Description
+                    BasicTextField(
+                        modifier = Modifier
+                            .background(color = Color.Transparent)
+                            .fillMaxWidth()
+                            .onFocusChanged { isDescriptionFocused = it.isFocused },
+                        value = description,
+                        onValueChange = { onEvent(AddEditNoteEvent.OnDescriptionChanged(it)) },
+                        cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
+                        textStyle = MaterialTheme.typography.bodyLarge.copy(
+                            color = MaterialTheme.colorScheme.onBackground
+                        ),
+                        decorationBox = { innerTextField ->
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                if (description.isEmpty() && !isDescriptionFocused) {
+                                    Text(
+                                        text = stringResource(id = R.string.description),
+                                        color = MaterialTheme.colorScheme.outline
+                                    )
+                                }
+
+                                innerTextField()
+                            }
+                        }
+                    )
+                }
             }
             Surface(
                 modifier = Modifier.align(Alignment.BottomCenter),
@@ -130,7 +137,8 @@ fun AddEditNoteScreen(
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(20.dp),
+                        .padding(vertical = 10.dp)
+                        .padding(horizontal = 20.dp),
                     onClick = {
                         if (title.isNotEmpty() && description.isNotEmpty()) {
                             if (noteId == 0) {

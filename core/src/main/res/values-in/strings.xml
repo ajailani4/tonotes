@@ -4,6 +4,10 @@
     <string name="no_notes">Belum ada catatan</string>
     <string name="edit">Edit</string>
     <string name="delete">Hapus</string>
+    <string name="delete_note">Hapus Catatan</string>
+    <string name="delete_note_confirm_msg">Apakah kamu yakin ingin menghapus catatan ini?</string>
+    <string name="yes">Iya</string>
+    <string name="no">Tidak</string>
     <string name="add_note">Tambah Catatan</string>
     <string name="edit_note">Edit Catatan</string>
     <string name="title">Judul</string>
