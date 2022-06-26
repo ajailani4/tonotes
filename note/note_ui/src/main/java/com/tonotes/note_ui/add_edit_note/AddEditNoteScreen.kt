@@ -3,7 +3,9 @@ package com.tonotes.note_ui.add_edit_note
 import com.tonotes.core.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
@@ -68,6 +70,7 @@ fun AddEditNoteScreen(
                     .fillMaxSize()
                     .padding(top = 10.dp, bottom = 20.dp)
                     .padding(horizontal = 20.dp)
+                    .verticalScroll(rememberScrollState())
             ) {
                 // Title
                 BasicTextField(
