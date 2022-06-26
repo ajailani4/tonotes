@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tonotes.core.Constants
+import com.tonotes.core.Constants.NavArgument.NOTE_ID
 import com.tonotes.core.Resource
 import com.tonotes.core.UIState
 import com.tonotes.note_domain.model.Note
@@ -31,7 +32,7 @@ class NoteDetailViewModel @Inject constructor(
 
     private fun getNoteDetail() {
         viewModelScope.launch {
-            val resource = getNoteDetailUseCase(savedStateHandle.get<Int>(Constants.NOTE_ID)!!)
+            val resource = getNoteDetailUseCase(savedStateHandle.get<Int>(NOTE_ID)!!)
 
             resource.catch {
                 noteDetailState = UIState.Error(it.localizedMessage)

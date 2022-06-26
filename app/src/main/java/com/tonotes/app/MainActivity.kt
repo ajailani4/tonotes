@@ -37,9 +37,3 @@ fun Content() {
     
     Navigation(navController = navController)
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-
-}

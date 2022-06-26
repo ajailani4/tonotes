@@ -55,7 +55,8 @@ fun NoteDetailScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 10.dp, bottom = 20.dp, start = 20.dp, end = 20.dp)
+                    .padding(top = 10.dp, bottom = 20.dp)
+                    .padding(horizontal = 20.dp)
             ) {
                 when (noteDetailState) {
                     is UIState.Success -> {

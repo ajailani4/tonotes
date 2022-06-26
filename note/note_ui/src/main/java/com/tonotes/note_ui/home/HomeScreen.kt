@@ -38,7 +38,8 @@ import java.util.*
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
-    onNavigateToNoteDetail: (id: Int) -> Unit
+    onNavigateToNoteDetail: (id: Int) -> Unit,
+    onNavigateToAddOrEditNote: (id: Int) -> Unit
 ) {
     val onEvent = homeViewModel::onEvent
     val notesState = homeViewModel.notesState
@@ -55,7 +56,9 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(
                 containerColor = MaterialTheme.colorScheme.primary,
-                onClick = {}
+                onClick = {
+                    onNavigateToAddOrEditNote(0)
+                }
             )
                 {
                 Icon(

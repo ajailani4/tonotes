@@ -1,5 +1,7 @@
 package com.tonotes.core
 
-object Constants {
-    const val NOTE_ID = "noteId"
+class Constants {
+    object NavArgument {
+        const val NOTE_ID = "noteId"
+    }
 }
