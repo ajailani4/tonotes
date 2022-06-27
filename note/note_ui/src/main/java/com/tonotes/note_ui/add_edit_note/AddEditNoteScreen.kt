@@ -1,5 +1,7 @@
 package com.tonotes.note_ui.add_edit_note
 
+import android.app.Activity
+import android.view.WindowManager
 import com.tonotes.core.R
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -41,6 +43,9 @@ fun AddEditNoteScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     val context = LocalContext.current
+
+    (LocalContext.current as Activity).window
+        .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
