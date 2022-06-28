@@ -2,6 +2,7 @@ package com.tonotes.note_ui.viewmodel
 
 import com.tonotes.core.Resource
 import com.tonotes.core.UIState
+import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
 import com.tonotes.note_ui.home.HomeEvent
 import com.tonotes.note_ui.home.HomeViewModel
@@ -60,6 +61,25 @@ class HomeViewModelTest {
             }
 
             assertEquals("Notes size should be 2", 2, notes?.size)
+        }
+    }
+
+    @Test
+    fun `Get notes should return fail`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Error<List<Note>>())
+
+            doReturn(resource).`when`(getNotesUseCase)(anyString())
+
+            onEvent(HomeEvent.GetNotes)
+
+            val isSuccess = when (homeViewModel.notesState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be fail", false, isSuccess)
         }
     }
 }
