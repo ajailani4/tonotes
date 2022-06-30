@@ -14,12 +14,6 @@ class NoteRepositoryFake : NoteRepository {
             title = "Note 1",
             description = "This is a note",
             date = "30 Jun 2022"
-        ),
-        NoteEntity(
-            id = 2,
-            title = "Note 2",
-            description = "This is a note",
-            date = "30 Jun 2022"
         )
     )
 
