@@ -34,11 +34,13 @@ class NoteDetailViewModel @Inject constructor(
         private set
 
     init {
-        getNoteDetail()
+        onEvent(NoteDetailEvent.GetNoteDetail)
     }
 
     fun onEvent(event: NoteDetailEvent) {
         when (event) {
+            is NoteDetailEvent.GetNoteDetail -> getNoteDetail()
+
             is NoteDetailEvent.DeleteNote -> deleteNote()
 
             is NoteDetailEvent.OnMenuVisibilityChanged -> menuVisibility = event.menuVisibility
