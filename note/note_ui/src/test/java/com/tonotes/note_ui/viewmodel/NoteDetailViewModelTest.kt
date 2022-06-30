@@ -1,7 +1,6 @@
 package com.tonotes.note_ui.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
-import com.tonotes.core.Constants
 import com.tonotes.core.Constants.NavArgument.NOTE_ID
 import com.tonotes.core.Resource
 import com.tonotes.core.UIState

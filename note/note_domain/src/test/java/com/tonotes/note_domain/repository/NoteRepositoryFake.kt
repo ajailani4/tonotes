@@ -8,7 +8,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class NoteRepositoryFake : NoteRepository {
-    private val notes = mutableListOf<NoteEntity>()
+    private val notes = mutableListOf(
+        NoteEntity(
+            id = 1,
+            title = "Note 1",
+            description = "This is a note",
+            date = "30 Jun 2022"
+        ),
+        NoteEntity(
+            id = 2,
+            title = "Note 2",
+            description = "This is a note",
+            date = "30 Jun 2022"
+        )
+    )
+
     private lateinit var resourceType: ResourceType
 
     override fun getNotes(searchQuery: String): Flow<Resource<List<NoteEntity>>> =
@@ -26,7 +40,7 @@ class NoteRepositoryFake : NoteRepository {
         }
 
     override suspend fun insertNote(noteEntity: NoteEntity) {
-        notes.add(noteEntity)
+        TODO("Not yet implemented")
     }
 
     override suspend fun editNote(noteEntity: NoteEntity) {
