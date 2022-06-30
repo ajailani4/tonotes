@@ -1,10 +1,10 @@
 package com.tonotes.note_domain.use_case
 
 import com.tonotes.core.Resource
-import com.tonotes.note_data.local.entity.NoteEntity
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.repository.NoteRepositoryFake
 import com.tonotes.note_domain.util.ResourceType
+import com.tonotes.note_domain.util.notes
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -25,23 +25,25 @@ class GetNotesUseCaseTest {
     fun `Get notes should return success`() = runBlocking {
         noteRepositoryFake.setResourceType(ResourceType.SUCCESS)
 
-        val isSuccess = when (getNotesUseCase("").first()) {
-            is Resource.Success -> true
-            is Resource.Error -> false
-        }
+        val actualResource = getNotesUseCase("").first()
 
-        assertEquals("Resource should be success", true, isSuccess)
+        assertEquals(
+            "Resource should be success",
+            Resource.Success(notes),
+            actualResource
+        )
     }
 
     @Test
     fun `Get notes should return fail`() = runBlocking {
         noteRepositoryFake.setResourceType(ResourceType.ERROR)
 
-        val isSuccess = when (getNotesUseCase("").first()) {
-            is Resource.Success -> true
-            is Resource.Error -> false
-        }
+        val actualResource = getNotesUseCase("").first()
 
-        assertEquals("Resource should be fail", false, isSuccess)
+        assertEquals(
+            "Resource should be fail",
+            Resource.Error<List<Note>>(),
+            actualResource
+        )
     }
 }

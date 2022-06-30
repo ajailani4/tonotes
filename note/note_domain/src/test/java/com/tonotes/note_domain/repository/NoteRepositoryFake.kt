@@ -23,14 +23,14 @@ class NoteRepositoryFake : NoteRepository {
         when (resourceType) {
             ResourceType.SUCCESS -> flowOf(Resource.Success(notes))
 
-            ResourceType.ERROR -> flowOf(Resource.Error("Failed to get notes"))
+            ResourceType.ERROR -> flowOf(Resource.Error(null))
         }
 
     override fun getNoteDetail(id: Int): Flow<Resource<NoteEntity>> =
         when (resourceType) {
             ResourceType.SUCCESS -> flowOf(Resource.Success(notes.find { it.id == id }))
 
-            ResourceType.ERROR -> flowOf(Resource.Error("Failed to get note detail"))
+            ResourceType.ERROR -> flowOf(Resource.Error(null))
         }
 
     override suspend fun insertNote(noteEntity: NoteEntity) {
