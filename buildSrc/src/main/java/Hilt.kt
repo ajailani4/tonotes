@@ -8,4 +8,5 @@ object Hilt {
     const val lifecycleVM = "androidx.hilt:hilt-lifecycle-viewmodel:$lifecycleVMVersion"
     const val compiler = "androidx.hilt:hilt-compiler:$compilerVersion"
     const val androidGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
+    const val testing = "com.google.dagger:hilt-android-testing:$hiltVersion"
 }

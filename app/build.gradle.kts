@@ -81,6 +81,10 @@ dependencies {
     androidTestImplementation(AndroidXTest.JUnit)
     androidTestImplementation(AndroidXTest.espressoCore)
     androidTestImplementation(Compose.uiTestJUnit4)
+    androidTestImplementation(Hilt.testing)
+    kaptAndroidTest(Hilt.compiler)
+    androidTestImplementation(AndroidXTest.testRunner)
+
     debugImplementation(Compose.uiTooling)
     debugImplementation(Compose.uiTestManifest)
 }
