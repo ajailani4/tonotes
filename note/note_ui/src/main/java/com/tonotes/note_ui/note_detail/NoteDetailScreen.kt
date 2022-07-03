@@ -15,9 +15,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.tonotes.core.Constants.TestTag
 import com.tonotes.core.UIState
 import com.tonotes.core.util.convertToString
 import kotlinx.coroutines.launch
@@ -59,7 +61,7 @@ fun NoteDetailScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
-                            contentDescription = "More icon"
+                            contentDescription = "More vertical icon"
                         )
                     }
                     DropdownMenu(
@@ -120,6 +122,7 @@ fun NoteDetailScreen(
                                 .padding(horizontal = 20.dp)
                         ) {
                             Text(
+                                modifier = Modifier.testTag(TestTag.TITLE_TEXT),
                                 text = note.title,
                                 color = MaterialTheme.colorScheme.onBackground,
                                 style = MaterialTheme.typography.titleLarge
@@ -132,6 +135,7 @@ fun NoteDetailScreen(
                             )
                             Spacer(modifier = Modifier.height(25.dp))
                             Text(
+                                modifier = Modifier.testTag(TestTag.DESCRIPTION_TEXT),
                                 text = note.description,
                                 color = MaterialTheme.colorScheme.onBackground
                             )

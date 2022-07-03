@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.tonotes.core.Constants.NavArgument.NOTE_ID
+import com.tonotes.core.Constants.NavArgument
 import com.tonotes.note_ui.add_edit_note.AddEditNoteScreen
 import com.tonotes.note_ui.home.HomeScreen
 import com.tonotes.note_ui.note_detail.NoteDetailScreen
@@ -26,9 +26,9 @@ fun Navigation(navController: NavHostController) {
         }
 
         composable(
-            route = Screen.NoteDetailScreen.route + "/{$NOTE_ID}",
+            route = Screen.NoteDetailScreen.route + "/{${NavArgument.NOTE_ID}}",
             arguments = listOf(
-                navArgument(NOTE_ID) {
+                navArgument(NavArgument.NOTE_ID) {
                     type = NavType.IntType
                 }
             )
@@ -42,9 +42,9 @@ fun Navigation(navController: NavHostController) {
         }
 
         composable(
-            route = Screen.AddEditNoteScreen.route + "/{$NOTE_ID}",
+            route = Screen.AddEditNoteScreen.route + "/{${NavArgument.NOTE_ID}}",
             arguments = listOf(
-                navArgument(NOTE_ID) {
+                navArgument(NavArgument.NOTE_ID) {
                     type = NavType.IntType
                 }
             )
