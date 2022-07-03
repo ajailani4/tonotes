@@ -112,4 +112,27 @@ class ToNotesE2ETest {
             .onNodeWithText("Edited note description", useUnmergedTree = true)
             .assertIsDisplayed()
     }
+
+    @Test
+    fun deleteNote() {
+        composeTestRule
+            .onNodeWithText("Edited note title")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithContentDescription("More vertical icon")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText(activity.getString(R.string.delete))
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText(activity.getString(R.string.yes))
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText("Edited note title")
+            .assertDoesNotExist()
+    }
 }
