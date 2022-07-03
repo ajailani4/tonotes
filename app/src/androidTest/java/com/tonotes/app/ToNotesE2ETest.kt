@@ -94,22 +94,22 @@ class ToNotesE2ETest {
 
         composeTestRule
             .onNodeWithTag(TestTag.TITLE_TEXT_FIELD)
-            .performTextReplacement("Note title edited")
+            .performTextReplacement("Edited note title")
 
         composeTestRule
             .onNodeWithTag(TestTag.DESCRIPTION_TEXT_FIELD)
-            .performTextReplacement("Note description edited")
+            .performTextReplacement("Edited note description")
 
         composeTestRule
             .onNodeWithText(activity.getString(R.string.save))
             .performClick()
 
         composeTestRule
-            .onNodeWithText("Note title edited", useUnmergedTree = true)
+            .onNodeWithText("Edited note title", useUnmergedTree = true)
             .assertIsDisplayed()
 
         composeTestRule
-            .onNodeWithText("Note description edited", useUnmergedTree = true)
+            .onNodeWithText("Edited note description", useUnmergedTree = true)
             .assertIsDisplayed()
     }
 }
