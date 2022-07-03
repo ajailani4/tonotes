@@ -47,8 +47,7 @@ dependencies {
     testImplementation(Mockito.mockitoKotlin)
 
     androidTestImplementation(AndroidXTest.JUnit)
-    androidTestImplementation(AndroidXTest.espressoCore)
     androidTestImplementation(Hilt.testing)
-    kaptAndroidTest(Hilt.compiler)
+    kaptAndroidTest(Hilt.androidCompiler)
     androidTestImplementation(AndroidXTest.testRunner)
 }

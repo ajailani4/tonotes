@@ -65,7 +65,7 @@ fun HomeScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Plus icon"
+                    contentDescription = "Add icon"
                 )
             }
         },

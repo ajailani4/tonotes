@@ -15,7 +15,7 @@ android {
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.tonotes.app.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -79,10 +79,9 @@ dependencies {
     testImplementation(Mockito.mockitoKotlin)
 
     androidTestImplementation(AndroidXTest.JUnit)
-    androidTestImplementation(AndroidXTest.espressoCore)
     androidTestImplementation(Compose.uiTestJUnit4)
     androidTestImplementation(Hilt.testing)
-    kaptAndroidTest(Hilt.compiler)
+    kaptAndroidTest(Hilt.androidCompiler)
     androidTestImplementation(AndroidXTest.testRunner)
 
     debugImplementation(Compose.uiTooling)

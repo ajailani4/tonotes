@@ -18,9 +18,11 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.tonotes.core.Constants.TestTag
 import com.tonotes.core.UIState
 import kotlinx.coroutines.launch
 
@@ -85,7 +87,8 @@ fun AddEditNoteScreen(
                         modifier = Modifier
                             .background(color = Color.Transparent)
                             .fillMaxWidth()
-                            .onFocusChanged { isTitleFocused = it.isFocused },
+                            .onFocusChanged { isTitleFocused = it.isFocused }
+                            .testTag(TestTag.TITLE_TEXT_FIELD),
                         value = title,
                         onValueChange = { onEvent(AddEditNoteEvent.OnTitleChanged(it)) },
                         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),
@@ -113,7 +116,8 @@ fun AddEditNoteScreen(
                         modifier = Modifier
                             .background(color = Color.Transparent)
                             .fillMaxWidth()
-                            .onFocusChanged { isDescriptionFocused = it.isFocused },
+                            .onFocusChanged { isDescriptionFocused = it.isFocused }
+                            .testTag(TestTag.DESCRIPTION_TEXT_FIELD),
                         value = description,
                         onValueChange = { onEvent(AddEditNoteEvent.OnDescriptionChanged(it)) },
                         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),

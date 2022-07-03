@@ -1,7 +1,7 @@
 package com.tonotes.note_ui.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
-import com.tonotes.core.Constants.NavArgument.NOTE_ID
+import com.tonotes.core.Constants.NavArgument
 import com.tonotes.core.Resource
 import com.tonotes.core.UIState
 import com.tonotes.note_domain.model.Note
@@ -14,7 +14,6 @@ import com.tonotes.note_ui.util.note
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Assert.*
-
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -46,7 +45,7 @@ class NoteDetailViewModelTest {
     @Before
     fun setUp() {
         savedStateHandle = SavedStateHandle().apply {
-            set(NOTE_ID, 1)
+            set(NavArgument.NOTE_ID, 1)
         }
         noteDetailViewModel = NoteDetailViewModel(
             savedStateHandle,
