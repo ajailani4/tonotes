@@ -33,7 +33,8 @@ class ToNotesE2ETest {
     }
 
     @Test
-    fun addNewNote() {
+    fun addNewNote_getTheDetail_editIt_deleteIt() {
+        // Add new note
         composeTestRule
             .onNodeWithContentDescription("Add icon")
             .performClick()
@@ -61,10 +62,8 @@ class ToNotesE2ETest {
         composeTestRule
             .onNodeWithText("Note description", useUnmergedTree = true)
             .assertIsDisplayed()
-    }
 
-    @Test
-    fun getNoteDetail() {
+        // Get the detail
         composeTestRule
             .onNodeWithText("Note title")
             .performClick()
@@ -76,10 +75,12 @@ class ToNotesE2ETest {
         composeTestRule
             .onNodeWithTag(TestTag.DESCRIPTION_TEXT)
             .assertTextEquals("Note description")
-    }
 
-    @Test
-    fun editNote() {
+        composeTestRule
+            .onNodeWithContentDescription("Back icon")
+            .performClick()
+
+        // Edit the note
         composeTestRule
             .onNodeWithText("Note title")
             .performClick()
@@ -91,6 +92,10 @@ class ToNotesE2ETest {
         composeTestRule
             .onNodeWithText(activity.getString(R.string.edit))
             .performClick()
+
+        composeTestRule
+            .onNodeWithText(activity.getString(R.string.edit_note))
+            .assertIsDisplayed()
 
         composeTestRule
             .onNodeWithTag(TestTag.TITLE_TEXT_FIELD)
@@ -105,16 +110,18 @@ class ToNotesE2ETest {
             .performClick()
 
         composeTestRule
+            .onNodeWithContentDescription("Back icon")
+            .performClick()
+
+        composeTestRule
             .onNodeWithText("Edited note title", useUnmergedTree = true)
             .assertIsDisplayed()
 
         composeTestRule
             .onNodeWithText("Edited note description", useUnmergedTree = true)
             .assertIsDisplayed()
-    }
 
-    @Test
-    fun deleteNote() {
+        // Delete the note
         composeTestRule
             .onNodeWithText("Edited note title")
             .performClick()
