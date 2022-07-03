@@ -3,14 +3,7 @@ package com.tonotes.app
 import androidx.compose.ui.test.*
 import com.tonotes.core.R
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.lifecycle.SavedStateHandle
-import com.tonotes.app.repository.NoteRepositoryFake
 import com.tonotes.core.Constants.TestTag
-import com.tonotes.core.Constants.NavArgument
-import com.tonotes.note_domain.use_case.*
-import com.tonotes.note_ui.add_edit_note.AddEditNoteViewModel
-import com.tonotes.note_ui.home.HomeViewModel
-import com.tonotes.note_ui.note_detail.NoteDetailViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
@@ -26,8 +19,12 @@ class ToNotesE2ETest {
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
 
+    private lateinit var activity: MainActivity
+
     @Before
     fun setUp() {
+        activity = composeTestRule.activity
+
         composeTestRule.setContent {
             App {
                 Content()
@@ -37,8 +34,6 @@ class ToNotesE2ETest {
 
     @Test
     fun addNewNote() {
-        val activity = composeTestRule.activity
-
         composeTestRule
             .onNodeWithContentDescription("Add icon")
             .performClick()
