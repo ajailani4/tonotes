@@ -10,9 +10,9 @@ import com.tonotes.core.Constants.NavArgument.NOTE_ID
 import com.tonotes.core.Resource
 import com.tonotes.core.UIState
 import com.tonotes.note_domain.model.Note
-import com.tonotes.note_domain.use_case.EditNoteUseCase
 import com.tonotes.note_domain.use_case.GetNoteDetailUseCase
 import com.tonotes.note_domain.use_case.InsertNoteUseCase
+import com.tonotes.note_domain.use_case.EditNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*

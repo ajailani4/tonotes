@@ -4,7 +4,7 @@ import com.tonotes.core.Resource
 import com.tonotes.note_data.repository.NoteRepository
 import com.tonotes.note_domain.mapper.toNote
 import com.tonotes.note_domain.model.Note
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class GetNotesUseCase @Inject constructor(

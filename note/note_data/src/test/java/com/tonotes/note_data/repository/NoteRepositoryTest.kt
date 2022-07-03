@@ -11,7 +11,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import org.junit.Assert.assertEquals
+import org.junit.Assert.*
+
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

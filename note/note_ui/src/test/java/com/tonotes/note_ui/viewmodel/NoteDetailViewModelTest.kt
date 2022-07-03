@@ -13,8 +13,7 @@ import com.tonotes.note_ui.util.TestCoroutineRule
 import com.tonotes.note_ui.util.note
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
