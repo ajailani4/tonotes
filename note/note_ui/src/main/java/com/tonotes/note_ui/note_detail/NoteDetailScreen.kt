@@ -1,6 +1,5 @@
 package com.tonotes.note_ui.note_detail
 
-import com.tonotes.core.R
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tonotes.core.Constants.TestTag
+import com.tonotes.core.R
 import com.tonotes.core.UIState
 import com.tonotes.core.util.convertToString
 import kotlinx.coroutines.launch

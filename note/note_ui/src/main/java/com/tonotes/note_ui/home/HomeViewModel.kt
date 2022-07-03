@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tonotes.core.UIState
 import com.tonotes.core.Resource
+import com.tonotes.core.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

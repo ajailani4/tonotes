@@ -4,7 +4,8 @@ object AndroidX {
     private const val splashScreenVersion = "1.0.0-alpha01"
 
     const val coreKtx = "androidx.core:core-ktx:$coreKtxVersion"
-    const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycleRuntimeVersion}"
+    const val lifecycleRuntime =
+        "androidx.lifecycle:lifecycle-runtime-ktx:${lifecycleRuntimeVersion}"
     const val splashScreen = "androidx.core:core-splashscreen:$splashScreenVersion"
 }
 

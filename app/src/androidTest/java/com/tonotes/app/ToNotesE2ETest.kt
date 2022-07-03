@@ -1,9 +1,9 @@
 package com.tonotes.app
 
 import androidx.compose.ui.test.*
-import com.tonotes.core.R
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.tonotes.core.Constants.TestTag
+import com.tonotes.core.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before
