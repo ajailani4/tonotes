@@ -61,7 +61,7 @@ fun NoteDetailScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
-                            contentDescription = "More icon"
+                            contentDescription = "More vertical icon"
                         )
                     }
                     DropdownMenu(

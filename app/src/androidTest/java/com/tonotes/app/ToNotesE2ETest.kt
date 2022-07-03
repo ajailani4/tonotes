@@ -77,4 +77,39 @@ class ToNotesE2ETest {
             .onNodeWithTag(TestTag.DESCRIPTION_TEXT)
             .assertTextEquals("Note description")
     }
+
+    @Test
+    fun editNote() {
+        composeTestRule
+            .onNodeWithText("Note title")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithContentDescription("More vertical icon")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText(activity.getString(R.string.edit))
+            .performClick()
+
+        composeTestRule
+            .onNodeWithTag(TestTag.TITLE_TEXT_FIELD)
+            .performTextReplacement("Note title edited")
+
+        composeTestRule
+            .onNodeWithTag(TestTag.DESCRIPTION_TEXT_FIELD)
+            .performTextReplacement("Note description edited")
+
+        composeTestRule
+            .onNodeWithText(activity.getString(R.string.save))
+            .performClick()
+
+        composeTestRule
+            .onNodeWithText("Note title edited", useUnmergedTree = true)
+            .assertIsDisplayed()
+
+        composeTestRule
+            .onNodeWithText("Note description edited", useUnmergedTree = true)
+            .assertIsDisplayed()
+    }
 }
