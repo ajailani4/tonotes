@@ -62,4 +62,19 @@ class ToNotesE2ETest {
             .onNodeWithText("Note description", useUnmergedTree = true)
             .assertIsDisplayed()
     }
+
+    @Test
+    fun getNoteDetail() {
+        composeTestRule
+            .onNodeWithText("Note title")
+            .performClick()
+
+        composeTestRule
+            .onNodeWithTag(TestTag.TITLE_TEXT)
+            .assertTextEquals("Note title")
+
+        composeTestRule
+            .onNodeWithTag(TestTag.DESCRIPTION_TEXT)
+            .assertTextEquals("Note description")
+    }
 }
