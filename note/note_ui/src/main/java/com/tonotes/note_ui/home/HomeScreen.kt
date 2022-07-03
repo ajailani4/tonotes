@@ -2,6 +2,7 @@ package com.tonotes.note_ui.home
 
 import android.app.Activity
 import android.view.WindowManager
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -102,10 +104,17 @@ fun HomeScreen(
                                 }
                             } else {
                                 item {
-                                    Box(
-                                        modifier = Modifier.fillMaxSize(),
-                                        contentAlignment = Alignment.Center
+                                    Column(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(top = 160.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.img_empty_notes),
+                                            contentDescription = "Empty notes illustration"
+                                        )
+                                        Spacer(modifier = Modifier.height(30.dp))
                                         Text(
                                             text = stringResource(id = R.string.no_notes),
                                             style = MaterialTheme.typography.titleLarge
