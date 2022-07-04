@@ -84,23 +84,23 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload APK Release
-          id: upload_release_asset
-          uses: actions/upload-release-asset@v1.0.1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: app/build/outputs/app-release.apk
-            asset_name: app-release.apk
-            asset_content_type: application/zip
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: app/build/outputs/app-release.apk
+          asset_name: app-release.apk
+          asset_content_type: application/zip
 
       - name: Upload AAB
-          id: upload_release_asset
-          uses: actions/upload-release-asset@v1.0.1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          with:
-            upload_url: ${{ steps.create_release.outputs.upload_url }}
-            asset_path: app/build/outputs/app-release.aab
-            asset_name: ToNotes-v${{ steps.version.outputs.version-name }}.aab
-            asset_content_type: application/zip
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: app/build/outputs/app-release.aab
+          asset_name: ToNotes-v${{ steps.version.outputs.version-name }}.aab
+          asset_content_type: application/zip
