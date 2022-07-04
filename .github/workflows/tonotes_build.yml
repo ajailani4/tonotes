@@ -18,12 +18,11 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17"
-          cache: "gradle"
 
-      - name: Change wrapper permissions
+      - name: Change Wrapper Permissions
         run: chmod +x ./gradlew
 
-      - name: Run Tests
+      - name: Run Unit Tests
         run: ./gradlew test
 
       - name: Build Project
