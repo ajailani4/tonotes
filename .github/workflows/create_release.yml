@@ -1,0 +1,106 @@
+name: Create Release
+
+on:
+  workflow-dispatch:
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Change Wrapper Permissions
+        run: chmod +x ./gradlew
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
+  apk-and-aab:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Change Wrapper Permissions
+        run: chmod +x ./gradlew
+
+      - name: Build APK Debug
+        run: ./gradlew assembleDebug
+
+      - name: Build APK Release
+        run: ./gradlew assembleRelease
+
+      - name: Build AAB
+        run: ./gradlew app:bundleRelease
+
+      - name: Upload APK and AAB
+        uses: actions/upload-artifact@v2
+        with:
+          name: APK and AAB
+          path: app/build/outputs/
+
+  release:
+    name: Create Release
+    needs: apk-and-aab
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download APK and AAB
+        uses: actions/download-artifact@v2
+        with:
+          name: APK and AAB
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: release-${{ steps.version.outputs.version-name }}
+          release_name: Release v${{ steps.version.outputs.version-name }}
+
+      - name: Upload APK Debug
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: app/build/outputs/app-debug.apk
+          asset_name: app-debug.apk
+          asset_content_type: application/zip
+
+      - name: Upload APK Release
+          id: upload_release_asset
+          uses: actions/upload-release-asset@v1.0.1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }}
+            asset_path: app/build/outputs/app-release.apk
+            asset_name: app-release.apk
+            asset_content_type: application/zip
+
+      - name: Upload AAB
+          id: upload_release_asset
+          uses: actions/upload-release-asset@v1.0.1
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }}
+            asset_path: app/build/outputs/app-release.aab
+            asset_name: Tonotes-v${{ steps.version.outputs.version-name }}.aab
+            asset_content_type: application/zip
