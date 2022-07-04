@@ -102,5 +102,5 @@ jobs:
           with:
             upload_url: ${{ steps.create_release.outputs.upload_url }}
             asset_path: app/build/outputs/app-release.aab
-            asset_name: Tonotes-v${{ steps.version.outputs.version-name }}.aab
+            asset_name: ToNotes-v${{ steps.version.outputs.version-name }}.aab
             asset_content_type: application/zip
