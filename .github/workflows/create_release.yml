@@ -22,7 +22,7 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew test
 
-  apk-and-aab:
+  apk:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,30 +38,39 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build APK Debug
-        run: ./gradlew assembleDebug
+        run: bash ./gradlew assembleDebug
 
-      - name: Build APK Release
-        run: ./gradlew assembleRelease
-
-      - name: Build AAB
-        run: ./gradlew app:bundleRelease
-
-      - name: Upload APK and AAB
-        uses: actions/upload-artifact@v2
+      - name: Upload APK
+        uses: actions/upload-artifact@v1
         with:
-          name: APK and AAB
-          path: app/build/outputs/
+          name: apk
+          path: app/build/outputs/apk/debug/app-debug.apk
 
   release:
     name: Create Release
-    needs: apk-and-aab
+    needs: apk
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download APK and AAB
-        uses: actions/download-artifact@v2
+      - uses: actions/checkout@v2
+
+      - name: Set Up JDK
+        uses: actions/setup-java@v2
         with:
-          name: APK and AAB
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Change Wrapper Permissions
+        run: chmod +x ./gradlew
+
+      - name: Get build info
+        id: build_info
+        run: echo "::set-output name=version-name::$(bash ./gradlew -q printVersionName)"
+
+      - name: Download APK
+        uses: actions/download-artifact@v1
+        with:
+          name: apk
 
       - name: Create Release
         id: create_release
@@ -69,8 +78,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: release-${{ steps.version.outputs.version-name }}
-          release_name: Release v${{ steps.version.outputs.version-name }}
+          tag_name: release-${{ steps.build_info.outputs.version-name }}
+          release_name: Release v${{ steps.build_info.outputs.version-name }}
 
       - name: Upload APK Debug
         id: upload_release_asset
@@ -79,28 +88,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/app-debug.apk
-          asset_name: app-debug.apk
-          asset_content_type: application/zip
-
-      - name: Upload APK Release
-        id: upload_release_asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/app-release.apk
-          asset_name: app-release.apk
-          asset_content_type: application/zip
-
-      - name: Upload AAB
-        id: upload_release_asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: app/build/outputs/app-release.aab
-          asset_name: ToNotes-v${{ steps.version.outputs.version-name }}.aab
+          asset_path: apk/app-debug.apk
+          asset_name: ToNotes-debug.apk
           asset_content_type: application/zip
