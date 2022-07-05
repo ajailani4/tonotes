@@ -24,6 +24,7 @@ This project is built with multi-module architecture and implements architecture
 - Dagger Hilt
 - Flow
 - Coroutines
+- Room
 - Mockito
 
 ## Installation and Usage
