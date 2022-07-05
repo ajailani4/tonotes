@@ -7,8 +7,7 @@ import com.tonotes.note_domain.util.ResourceType
 import com.tonotes.note_domain.util.note
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
-
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
