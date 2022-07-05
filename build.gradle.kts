@@ -15,3 +15,9 @@ plugins {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
+
+tasks.register("printVersionName") {
+    doLast {
+        println(AppConfig.versionName)
+    }
+}
