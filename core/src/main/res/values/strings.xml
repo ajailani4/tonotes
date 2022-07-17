@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ToNotes</string>
+
     <string name="search_notes">Search notes</string>
     <string name="no_notes">No notes yet</string>
+    <string name="need_to_login">Need to Login</string>
+    <string name="need_to_have_an_account">You need to have an account to back up the notes</string>
+    <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
+
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="delete_note">Delete Note</string>

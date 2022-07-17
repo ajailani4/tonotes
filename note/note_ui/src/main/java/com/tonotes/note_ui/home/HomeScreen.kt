@@ -13,7 +13,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material3.*
@@ -34,7 +33,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tonotes.core.R
-import com.tonotes.core.UIState
+import com.tonotes.core.util.UIState
 import com.tonotes.note_ui.home.component.NoteCard
 import kotlinx.coroutines.launch
 
@@ -48,6 +47,8 @@ fun HomeScreen(
     val onEvent = homeViewModel::onEvent
     val notesState = homeViewModel.notesState
     val searchQuery = homeViewModel.searchQuery
+    val isLoggedIn = homeViewModel.isLoggedIn
+    val loginAlertDialogVis = homeViewModel.loginAlertDialogVis
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -66,7 +67,7 @@ fun HomeScreen(
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))}) {
                         Icon(
                             imageVector = Icons.Outlined.CloudUpload,
                             contentDescription = "Back up icon"
@@ -168,6 +169,36 @@ fun HomeScreen(
                 }
             }
         }
+    }
+
+    if (loginAlertDialogVis && !isLoggedIn) {
+        AlertDialog(
+            onDismissRequest = { onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false)) },
+            title = {
+                Text(text = stringResource(id = R.string.need_to_login))
+            },
+            text = {
+                Text(text = stringResource(id = R.string.need_to_have_an_account))
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.login))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
+                    }
+                ) {
+                    Text(text = stringResource(id = R.string.cancel))
+                }
+            }
+        )
     }
 }
 

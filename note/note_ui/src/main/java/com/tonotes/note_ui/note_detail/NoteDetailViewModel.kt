@@ -6,9 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tonotes.core.Constants.NavArgument.NOTE_ID
-import com.tonotes.core.Resource
-import com.tonotes.core.UIState
+import com.tonotes.core.util.Constants.NavArgument.NOTE_ID
+import com.tonotes.core.util.Resource
+import com.tonotes.core.util.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.DeleteNoteUseCase
 import com.tonotes.note_domain.use_case.GetNoteDetailUseCase

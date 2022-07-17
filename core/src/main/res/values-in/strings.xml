@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ToNotes</string>
+
     <string name="search_notes">Cari catatan</string>
     <string name="no_notes">Belum ada catatan</string>
+    <string name="need_to_login">Perlu Masuk</string>
+    <string name="need_to_have_an_account">Kamu memerlukan akun untuk mencadangkan catatan</string>
+    <string name="login">Masuk</string>
+    <string name="cancel">Batalkan</string>
+
     <string name="edit">Edit</string>
     <string name="delete">Hapus</string>
     <string name="delete_note">Hapus Catatan</string>

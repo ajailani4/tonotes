@@ -1,6 +1,6 @@
 package com.tonotes.note_domain.use_case
 
-import com.tonotes.core.Resource
+import com.tonotes.core.util.Resource
 import com.tonotes.note_data.repository.NoteRepository
 import com.tonotes.note_domain.mapper.toNote
 import com.tonotes.note_domain.model.Note

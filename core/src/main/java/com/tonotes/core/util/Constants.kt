@@ -1,6 +1,11 @@
-package com.tonotes.core
+package com.tonotes.core.util
 
 class Constants {
+    object DataStore {
+        const val PREFERENCES_NAME = "appPreferences"
+        const val ACCESS_TOKEN_KEY = "accessToken"
+    }
+
     object NavArgument {
         const val NOTE_ID = "noteId"
     }

@@ -1,4 +1,4 @@
-package com.tonotes.core
+package com.tonotes.core.util
 
 sealed class Resource<T> {
     data class Success<T>(val data: T? = null) : Resource<T>()

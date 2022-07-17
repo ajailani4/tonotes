@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.tonotes.core.Constants.NavArgument
+import com.tonotes.core.util.Constants.NavArgument
 import com.tonotes.note_ui.add_edit_note.AddEditNoteScreen
 import com.tonotes.note_ui.home.HomeScreen
 import com.tonotes.note_ui.note_detail.NoteDetailScreen

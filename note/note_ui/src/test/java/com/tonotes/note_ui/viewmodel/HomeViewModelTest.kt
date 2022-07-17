@@ -1,7 +1,7 @@
 package com.tonotes.note_ui.viewmodel
 
-import com.tonotes.core.Resource
-import com.tonotes.core.UIState
+import com.tonotes.core.util.Resource
+import com.tonotes.core.util.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
 import com.tonotes.note_ui.home.HomeEvent
