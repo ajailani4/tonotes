@@ -41,7 +41,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
+        kotlinCompilerExtensionVersion = Compose.compilerVersion
     }
     packagingOptions {
         resources {
@@ -71,8 +71,6 @@ dependencies {
 
     implementation(Hilt.android)
     kapt(Hilt.androidCompiler)
-    implementation(Hilt.lifecycleVM)
-    kapt(Hilt.compiler)
 
     testImplementation(JUnit.JUnit)
     testImplementation(Mockito.core)
