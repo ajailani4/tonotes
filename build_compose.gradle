@@ -43,6 +43,7 @@ dependencies {
     implementation(Compose.activity)
     implementation(Compose.ui)
     implementation(Compose.material3)
+    implementation(Compose.extMaterialIcons)
     implementation(Compose.uiToolingPreview)
     implementation(Compose.navigation)
     implementation(Compose.hiltNavigation)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">ToNotes</string>
     <string name="search_notes">Cari catatan</string>
     <string name="no_notes">Belum ada catatan</string>
     <string name="edit">Edit</string>
