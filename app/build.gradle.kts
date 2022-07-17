@@ -55,6 +55,9 @@ dependencies {
     implementation(project(Modules.noteData))
     implementation(project(Modules.noteDomain))
     implementation(project(Modules.noteUI))
+    implementation(project(Modules.accountData))
+    implementation(project(Modules.accountDomain))
+    implementation(project(Modules.accountUI))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntime)
