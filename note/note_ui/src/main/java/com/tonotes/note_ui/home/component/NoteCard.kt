@@ -42,7 +42,7 @@ fun NoteCard(
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 modifier = Modifier.align(Alignment.End),
-                text = note.date.convertToString(),
+                text = note.date.convertToString("dd MMM yyyy"),
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.labelMedium
             )
