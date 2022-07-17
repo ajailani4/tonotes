@@ -132,7 +132,7 @@ fun NoteDetailScreen(
                             )
                             Spacer(modifier = Modifier.height(10.dp))
                             Text(
-                                text = note.date.convertToString(),
+                                text = note.date.convertToString("dd MMM yyyy"),
                                 color = MaterialTheme.colorScheme.secondary,
                                 style = MaterialTheme.typography.labelLarge
                             )
