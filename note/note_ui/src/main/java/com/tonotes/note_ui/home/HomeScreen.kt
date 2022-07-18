@@ -68,7 +68,12 @@ fun HomeScreen(
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 actions = {
-                    IconButton(onClick = { onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))}) {
+                    IconButton(
+                        onClick = {
+                            onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))
+                            onEvent(HomeEvent.GetAccessToken)
+                        }
+                    ) {
                         Icon(
                             imageVector = Icons.Outlined.CloudUpload,
                             contentDescription = "Back up icon"
@@ -172,7 +177,7 @@ fun HomeScreen(
         }
     }
 
-    if (loginAlertDialogVis && !isLoggedIn) {
+    if (!isLoggedIn && loginAlertDialogVis) {
         AlertDialog(
             onDismissRequest = { onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false)) },
             title = {

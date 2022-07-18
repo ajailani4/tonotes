@@ -35,12 +35,14 @@ class HomeViewModel @Inject constructor(
 
     init {
         onEvent(HomeEvent.GetNotes)
-        getAccessToken()
+        onEvent(HomeEvent.GetAccessToken)
     }
 
     fun onEvent(event: HomeEvent) {
         when (event) {
             is HomeEvent.GetNotes -> getNotes()
+
+            is HomeEvent.GetAccessToken -> getAccessToken()
 
             is HomeEvent.OnSearchQueryChanged -> searchQuery = event.searchQuery
 
