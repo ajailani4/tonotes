@@ -8,6 +8,10 @@
     <string name="need_to_have_an_account">You need to have an account to back up the notes</string>
     <string name="login">Login</string>
     <string name="cancel">Cancel</string>
+    
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="have_no_account">Don\'t have an account?</string>
 
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>

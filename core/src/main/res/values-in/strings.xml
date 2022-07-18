@@ -9,6 +9,10 @@
     <string name="login">Masuk</string>
     <string name="cancel">Batalkan</string>
 
+    <string name="username">Username</string>
+    <string name="password">Kata Sandi</string>
+    <string name="have_no_account">Belum punya akun?</string>
+
     <string name="edit">Edit</string>
     <string name="delete">Hapus</string>
     <string name="delete_note">Hapus Catatan</string>

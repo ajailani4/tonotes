@@ -127,7 +127,6 @@ fun NoteDetailScreen(
                             Text(
                                 modifier = Modifier.testTag(TestTag.TITLE_TEXT),
                                 text = note.title,
-                                color = MaterialTheme.colorScheme.onBackground,
                                 style = MaterialTheme.typography.titleLarge
                             )
                             Spacer(modifier = Modifier.height(10.dp))
@@ -139,8 +138,7 @@ fun NoteDetailScreen(
                             Spacer(modifier = Modifier.height(25.dp))
                             Text(
                                 modifier = Modifier.testTag(TestTag.DESCRIPTION_TEXT),
-                                text = note.description,
-                                color = MaterialTheme.colorScheme.onBackground
+                                text = note.description
                             )
                         }
                     }
