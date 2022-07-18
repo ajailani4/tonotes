@@ -1,6 +1,6 @@
 package com.tonotes.account_data.remote.dto
 
-data class UserCredential(
+data class UserCredentialDto(
     val username: String,
     val accessToken: String
 )
