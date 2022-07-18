@@ -42,7 +42,8 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
     onNavigateToNoteDetail: (id: Int) -> Unit,
-    onNavigateToAddEditNote: (id: Int) -> Unit
+    onNavigateToAddEditNote: (id: Int) -> Unit,
+    onNavigateToLogin: () -> Unit
 ) {
     val onEvent = homeViewModel::onEvent
     val notesState = homeViewModel.notesState
@@ -184,6 +185,7 @@ fun HomeScreen(
                 TextButton(
                     onClick = {
                         onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
+                        onNavigateToLogin()
                     }
                 ) {
                     Text(text = stringResource(id = R.string.login))

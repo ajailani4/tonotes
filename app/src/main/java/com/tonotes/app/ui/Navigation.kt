@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.ajailani.account_ui.login.LoginScreen
 import com.tonotes.core.util.Constants.NavArgument
 import com.tonotes.note_ui.add_edit_note.AddEditNoteScreen
 import com.tonotes.note_ui.home.HomeScreen
@@ -21,6 +22,9 @@ fun Navigation(navController: NavHostController) {
                 },
                 onNavigateToAddEditNote = { id ->
                     navController.navigate(Screen.AddEditNoteScreen.route + "/$id")
+                },
+                onNavigateToLogin = {
+                    navController.navigate(Screen.LoginScreen.route)
                 }
             )
         }
@@ -52,6 +56,10 @@ fun Navigation(navController: NavHostController) {
             AddEditNoteScreen(
                 onNavigateUp = { navController.navigateUp() }
             )
+        }
+
+        composable(route = Screen.LoginScreen.route) {
+            LoginScreen()
         }
     }
 }
