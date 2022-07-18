@@ -12,6 +12,9 @@
     <string name="username">Username</string>
     <string name="password">Kata Sandi</string>
     <string name="have_no_account">Belum punya akun?</string>
+    <string name="fill_the_form">Mohon isi form dengan lengkap</string>
+    <string name="incorrect_username_or_pass">Username atau password salah</string>
+    <string name="something_wrong_happened">Maaf, terjadi kesalahan</string>
 
     <string name="edit">Edit</string>
     <string name="delete">Hapus</string>

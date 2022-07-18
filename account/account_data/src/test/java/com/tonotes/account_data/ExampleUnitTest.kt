@@ -1,4 +1,4 @@
-package com.ajailani.account_ui
+package com.tonotes.account_data
 
 import org.junit.Test
 

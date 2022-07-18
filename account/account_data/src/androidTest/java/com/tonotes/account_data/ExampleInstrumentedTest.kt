@@ -1,4 +1,4 @@
-package com.ajailani.account_ui
+package com.tonotes.account_data
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.ajailani.account_ui.test", appContext.packageName)
+        assertEquals("com.ajailani.account_data.test", appContext.packageName)
     }
 }

@@ -1,4 +1,4 @@
-package com.ajailani.account_domain
+package com.tonotes.account_domain
 
 import org.junit.Test
 
