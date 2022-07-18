@@ -1,4 +1,4 @@
-package com.tonotes.note_data.di
+package com.tonotes.core.di
 
 import com.tonotes.core.util.IoDispatcher
 import dagger.Module
