@@ -42,7 +42,10 @@ fun LoginScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             IconButton(
-                modifier = Modifier.padding(4.dp),
+                modifier = Modifier.padding(
+                    top = 8.dp,
+                    start = 4.dp
+                ),
                 onClick = onNavigateUp
             ) {
                 Icon(
@@ -51,11 +54,10 @@ fun LoginScreen(
                 )
             }
             Column(
-                modifier = Modifier.padding(20.dp),
+                modifier = Modifier.padding(horizontal = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    modifier = Modifier.padding(top = 20.dp),
                     text = stringResource(id = R.string.login),
                     style = MaterialTheme.typography.headlineLarge
                 )
