@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.VisibilityOff
@@ -27,7 +28,9 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onNavigateUp: () -> Unit
+) {
     (LocalContext.current as Activity).window
         .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
@@ -38,6 +41,15 @@ fun LoginScreen() {
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
+            IconButton(
+                modifier = Modifier.padding(4.dp),
+                onClick = onNavigateUp
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back icon"
+                )
+            }
             Column(
                 modifier = Modifier.padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -120,10 +132,4 @@ fun LoginScreen() {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewLoginScreen() {
-    LoginScreen()
 }

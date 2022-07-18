@@ -59,7 +59,9 @@ fun Navigation(navController: NavHostController) {
         }
 
         composable(route = Screen.LoginScreen.route) {
-            LoginScreen()
+            LoginScreen(
+                onNavigateUp = { navController.navigateUp() }
+            )
         }
     }
 }
