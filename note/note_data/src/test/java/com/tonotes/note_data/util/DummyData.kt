@@ -6,7 +6,7 @@ val noteEntity = NoteEntity(
     id = 1,
     title = "Note",
     description = "This is a note",
-    date = "30 Jun 2022"
+    date = "2022-07-18"
 )
 
 val noteEntityList = listOf(noteEntity, noteEntity)
