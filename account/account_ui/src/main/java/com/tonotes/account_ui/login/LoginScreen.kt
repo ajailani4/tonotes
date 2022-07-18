@@ -185,7 +185,9 @@ fun LoginScreen(
             is UIState.Fail -> {
                 LaunchedEffect(Unit) {
                     coroutineScope.launch {
-                        snackbarHostState.showSnackbar(loginState.message!!)
+                        loginState.message?.let {
+                            snackbarHostState.showSnackbar(it)
+                        }
                     }
                 }
             }
@@ -193,7 +195,9 @@ fun LoginScreen(
             is UIState.Error -> {
                 LaunchedEffect(Unit) {
                     coroutineScope.launch {
-                        snackbarHostState.showSnackbar(loginState.message!!)
+                        loginState.message?.let {
+                            snackbarHostState.showSnackbar(it)
+                        }
                     }
                 }
             }
