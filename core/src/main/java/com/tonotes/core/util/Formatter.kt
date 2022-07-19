@@ -4,8 +4,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 private val localeID = Locale(Locale.getDefault().displayLanguage, "ID")
-private val dateFormatter = SimpleDateFormat("dd MMM yyyy", localeID)
 
-fun String.convertToDate(): Date = dateFormatter.parse(this)!!
+fun String.convertToDate(): Date {
+    val dateFormatter = SimpleDateFormat("yyyy-MM-dd", localeID)
 
-fun Date.convertToString(): String = dateFormatter.format(this)
+    return dateFormatter.parse(this)!!
+}
+
+fun Date.convertToString(pattern: String): String {
+    val dateFormatter = SimpleDateFormat(pattern, localeID)
+
+    return dateFormatter.format(this)
+}

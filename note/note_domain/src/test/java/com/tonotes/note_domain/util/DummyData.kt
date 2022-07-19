@@ -7,7 +7,7 @@ val note = Note(
     id = 1,
     title = "Note 1",
     description = "This is a note",
-    date = "30 Jun 2022".convertToDate()
+    date = "2022-07-18".convertToDate()
 )
 
 val notes = listOf(note)

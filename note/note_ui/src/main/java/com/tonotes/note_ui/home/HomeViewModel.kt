@@ -5,18 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tonotes.core.Resource
-import com.tonotes.core.UIState
+import com.tonotes.core.domain.use_case.GetAccessTokenUseCase
+import com.tonotes.core.util.Resource
+import com.tonotes.core.util.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getNotesUseCase: GetNotesUseCase
+    private val getNotesUseCase: GetNotesUseCase,
+    private val getAccessTokenUseCase: GetAccessTokenUseCase
 ) : ViewModel() {
     var notesState by mutableStateOf<UIState<List<Note>>>(UIState.Idle)
         private set
@@ -24,15 +27,26 @@ class HomeViewModel @Inject constructor(
     var searchQuery by mutableStateOf("")
         private set
 
+    var isLoggedIn by mutableStateOf(false)
+        private set
+
+    var loginAlertDialogVis by mutableStateOf(false)
+        private set
+
     init {
         onEvent(HomeEvent.GetNotes)
+        onEvent(HomeEvent.GetAccessToken)
     }
 
     fun onEvent(event: HomeEvent) {
         when (event) {
             is HomeEvent.GetNotes -> getNotes()
 
+            is HomeEvent.GetAccessToken -> getAccessToken()
+
             is HomeEvent.OnSearchQueryChanged -> searchQuery = event.searchQuery
+
+            is HomeEvent.OnLoginAlertDialogVisChanged -> loginAlertDialogVis = event.loginAlertDialogVis
         }
     }
 
@@ -49,6 +63,12 @@ class HomeViewModel @Inject constructor(
                     is Resource.Error -> UIState.Fail(it.message)
                 }
             }
+        }
+    }
+
+    private fun getAccessToken() {
+        viewModelScope.launch {
+            isLoggedIn = getAccessTokenUseCase().first().isNotEmpty()
         }
     }
 }

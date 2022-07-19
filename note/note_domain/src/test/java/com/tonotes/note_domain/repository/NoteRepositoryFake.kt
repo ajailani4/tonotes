@@ -1,6 +1,6 @@
 package com.tonotes.note_domain.repository
 
-import com.tonotes.core.Resource
+import com.tonotes.core.util.Resource
 import com.tonotes.note_data.local.entity.NoteEntity
 import com.tonotes.note_data.repository.NoteRepository
 import com.tonotes.note_domain.util.ResourceType
@@ -13,7 +13,7 @@ class NoteRepositoryFake : NoteRepository {
             id = 1,
             title = "Note 1",
             description = "This is a note",
-            date = "30 Jun 2022"
+            date = "2022-07-18"
         )
     )
 

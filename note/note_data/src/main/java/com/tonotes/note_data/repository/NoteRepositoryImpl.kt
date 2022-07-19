@@ -1,6 +1,6 @@
 package com.tonotes.note_data.repository
 
-import com.tonotes.core.Resource
+import com.tonotes.core.util.Resource
 import com.tonotes.core.util.IoDispatcher
 import com.tonotes.note_data.local.NoteLocalDataSource
 import com.tonotes.note_data.local.entity.NoteEntity

@@ -1,6 +1,15 @@
-package com.tonotes.core
+package com.tonotes.core.util
 
 class Constants {
+    object Network {
+        const val BASE_URL = "https://tonotes-backend.herokuapp.com/api/v1/"
+    }
+
+    object DataStore {
+        const val PREFERENCES_NAME = "appPreferences"
+        const val ACCESS_TOKEN_KEY = "accessToken"
+    }
+
     object NavArgument {
         const val NOTE_ID = "noteId"
     }

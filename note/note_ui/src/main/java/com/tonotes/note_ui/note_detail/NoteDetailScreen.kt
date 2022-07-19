@@ -18,9 +18,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.tonotes.core.Constants.TestTag
+import com.tonotes.core.util.Constants.TestTag
 import com.tonotes.core.R
-import com.tonotes.core.UIState
+import com.tonotes.core.util.UIState
 import com.tonotes.core.util.convertToString
 import kotlinx.coroutines.launch
 
@@ -101,7 +101,10 @@ fun NoteDetailScreen(
                             }
                         )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
         }
     ) { innerPadding ->
@@ -124,20 +127,18 @@ fun NoteDetailScreen(
                             Text(
                                 modifier = Modifier.testTag(TestTag.TITLE_TEXT),
                                 text = note.title,
-                                color = MaterialTheme.colorScheme.onBackground,
                                 style = MaterialTheme.typography.titleLarge
                             )
                             Spacer(modifier = Modifier.height(10.dp))
                             Text(
-                                text = note.date.convertToString(),
+                                text = note.date.convertToString("dd MMM yyyy"),
                                 color = MaterialTheme.colorScheme.secondary,
                                 style = MaterialTheme.typography.labelLarge
                             )
                             Spacer(modifier = Modifier.height(25.dp))
                             Text(
                                 modifier = Modifier.testTag(TestTag.DESCRIPTION_TEXT),
-                                text = note.description,
-                                color = MaterialTheme.colorScheme.onBackground
+                                text = note.description
                             )
                         }
                     }
@@ -168,18 +169,22 @@ fun NoteDetailScreen(
                 Text(text = stringResource(id = R.string.delete_note_confirm_msg))
             },
             confirmButton = {
-                TextButton(onClick = {
-                    onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
-                    onEvent(NoteDetailEvent.DeleteNote)
-                    onNavigateUp()
-                }) {
+                TextButton(
+                    onClick = {
+                        onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+                        onEvent(NoteDetailEvent.DeleteNote)
+                        onNavigateUp()
+                    }
+                ) {
                     Text(text = stringResource(id = R.string.yes))
                 }
             },
             dismissButton = {
-                TextButton(onClick = {
-                    onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
-                }) {
+                TextButton(
+                    onClick = {
+                        onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+                    }
+                ) {
                     Text(text = stringResource(id = R.string.no))
                 }
             }

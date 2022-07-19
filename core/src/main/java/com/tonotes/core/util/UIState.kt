@@ -1,4 +1,4 @@
-package com.tonotes.core
+package com.tonotes.core.util
 
 sealed class UIState<out T> {
     object Idle : UIState<Nothing>()

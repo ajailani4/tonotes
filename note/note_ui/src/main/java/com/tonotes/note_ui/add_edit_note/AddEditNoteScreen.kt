@@ -21,9 +21,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.tonotes.core.Constants.TestTag
+import com.tonotes.core.util.Constants.TestTag
 import com.tonotes.core.R
-import com.tonotes.core.UIState
+import com.tonotes.core.util.UIState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

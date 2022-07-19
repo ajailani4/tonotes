@@ -19,6 +19,6 @@ fun Note.toNoteEntity(): NoteEntity {
         id = id,
         title = title,
         description = description,
-        date = date.convertToString()
+        date = date.convertToString("yyyy-MM-dd")
     )
 }
