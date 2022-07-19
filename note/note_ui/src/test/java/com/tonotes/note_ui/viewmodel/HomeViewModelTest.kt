@@ -1,5 +1,6 @@
 package com.tonotes.note_ui.viewmodel
 
+import com.tonotes.core.domain.use_case.GetAccessTokenUseCase
 import com.tonotes.core.util.Resource
 import com.tonotes.core.util.UIState
 import com.tonotes.note_domain.model.Note
@@ -30,13 +31,16 @@ class HomeViewModelTest {
     @Mock
     private lateinit var getNotesUseCase: GetNotesUseCase
 
+    @Mock
+    private lateinit var getAccessTokenUseCase: GetAccessTokenUseCase
+
     private lateinit var homeViewModel: HomeViewModel
 
     private lateinit var onEvent: (HomeEvent) -> Unit
 
     @Before
     fun setUp() {
-        homeViewModel = HomeViewModel(getNotesUseCase)
+        homeViewModel = HomeViewModel(getNotesUseCase, getAccessTokenUseCase)
         onEvent = homeViewModel::onEvent
         onEvent(HomeEvent.OnSearchQueryChanged(""))
     }
