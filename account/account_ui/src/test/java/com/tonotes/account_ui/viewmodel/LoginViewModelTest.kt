@@ -50,7 +50,10 @@ class LoginViewModelTest {
         testCoroutineRule.runTest {
             val resource = flowOf(Resource.Success(userCredential))
 
-            doReturn(resource).`when`(loginAccountUseCase)(anyString(), anyString())
+            doReturn(resource).`when`(loginAccountUseCase)(
+                username = anyString(),
+                password = anyString()
+            )
 
             onEvent(LoginEvent.LogIn)
 
@@ -69,7 +72,10 @@ class LoginViewModelTest {
         testCoroutineRule.runTest {
             val resource = flowOf(Resource.Error<UserCredential>())
 
-            doReturn(resource).`when`(loginAccountUseCase)(anyString(), anyString())
+            doReturn(resource).`when`(loginAccountUseCase)(
+                username = anyString(),
+                password = anyString()
+            )
 
             onEvent(LoginEvent.LogIn)
 
