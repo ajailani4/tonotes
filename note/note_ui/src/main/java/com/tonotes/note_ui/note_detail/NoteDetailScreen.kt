@@ -114,6 +114,7 @@ fun NoteDetailScreen(
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
+            // Observe note detail state
             when (noteDetailState) {
                 is UIState.Success -> {
                     val note = noteDetailState.data

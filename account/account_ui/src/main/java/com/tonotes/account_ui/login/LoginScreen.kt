@@ -174,6 +174,7 @@ fun LoginScreen(
             }
         }
 
+        // Observe login state
         when (loginState) {
             is UIState.Loading -> {
                 FullSizeProgressBar()
