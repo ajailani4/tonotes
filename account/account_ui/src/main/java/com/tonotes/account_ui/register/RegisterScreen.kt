@@ -26,7 +26,9 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(
+    onNavigateUp: () -> Unit
+) {
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
@@ -39,7 +41,7 @@ fun RegisterScreen() {
                     top = 8.dp,
                     start = 4.dp
                 ),
-                onClick = {}
+                onClick = onNavigateUp
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
@@ -143,7 +145,7 @@ fun RegisterScreen() {
                         }
                     },
                     style = MaterialTheme.typography.bodyLarge,
-                    onClick = {}
+                    onClick = { onNavigateUp() }
                 )
             }
         }

@@ -78,7 +78,9 @@ fun Navigation(navController: NavHostController) {
         }
 
         composable(route = Screen.RegisterScreen.route) {
-            RegisterScreen()
+            RegisterScreen(
+                onNavigateUp = { navController.navigateUp() }
+            )
         }
     }
 }
