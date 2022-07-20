@@ -2,6 +2,7 @@ package com.tonotes.account_data.remote
 
 import com.tonotes.account_data.remote.dto.BaseResponse
 import com.tonotes.account_data.remote.dto.LoginRequest
+import com.tonotes.account_data.remote.dto.RegisterRequest
 import com.tonotes.account_data.remote.dto.UserCredentialDto
 import retrofit2.Response
 import retrofit2.http.Body
@@ -11,5 +12,10 @@ interface AccountService {
     @POST("login")
     suspend fun login(
         @Body loginRequest: LoginRequest
+    ): Response<BaseResponse<UserCredentialDto>>
+
+    @POST("register")
+    suspend fun register(
+        @Body registerRequest: RegisterRequest
     ): Response<BaseResponse<UserCredentialDto>>
 }
