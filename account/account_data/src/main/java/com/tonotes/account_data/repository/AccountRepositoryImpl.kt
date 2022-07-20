@@ -25,9 +25,9 @@ class AccountRepositoryImpl @Inject constructor(
             when (response.code()) {
                 200 -> emit(Resource.Success(response.body()?.data))
 
-                401 -> emit(Resource.Error(context.resources.getString(R.string.incorrect_username_or_pass)))
+                401 -> emit(Resource.Error(context.getString(R.string.incorrect_username_or_pass)))
 
-                else -> emit(Resource.Error(context.resources.getString(R.string.something_wrong_happened)))
+                else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
         }.flowOn(ioDispatcher)
 
@@ -38,9 +38,9 @@ class AccountRepositoryImpl @Inject constructor(
             when (response.code()) {
                 201 -> emit(Resource.Success(response.body()?.data))
 
-                409 -> emit(Resource.Error(context.resources.getString(R.string.username_already_exists)))
+                409 -> emit(Resource.Error(context.getString(R.string.username_already_exists)))
 
-                else -> emit(Resource.Error(context.resources.getString(R.string.something_wrong_happened)))
+                else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
         }.flowOn(ioDispatcher)
 }
