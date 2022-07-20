@@ -40,6 +40,7 @@ import kotlinx.coroutines.launch
 fun LoginScreen(
     loginViewModel: LoginViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
+    onNavigateToRegister: () -> Unit,
     onNavigateToHome: () -> Unit
 ) {
     val onEvent = loginViewModel::onEvent
@@ -168,7 +169,7 @@ fun LoginScreen(
                         }
                     },
                     style = MaterialTheme.typography.bodyLarge,
-                    onClick = {}
+                    onClick = { onNavigateToRegister() }
                 )
             }
         }
