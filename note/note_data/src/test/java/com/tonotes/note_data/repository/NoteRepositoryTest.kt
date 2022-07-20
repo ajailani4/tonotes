@@ -39,9 +39,9 @@ class NoteRepositoryTest {
 
     @Test
     fun `Get notes should return success`() = runBlocking {
-        val resource = flowOf(noteEntityList)
+        val result = flowOf(noteEntityList)
 
-        doReturn(resource).`when`(noteLocalDataSource).getNotes(anyString())
+        doReturn(result).`when`(noteLocalDataSource).getNotes(anyString())
 
         val actualResource = noteRepository.getNotes("").first()
 
@@ -54,9 +54,9 @@ class NoteRepositoryTest {
 
     @Test
     fun `Get notes should return fail`() = runBlocking {
-        val resource = flow<List<NoteEntity>> { throw Throwable() }
+        val result = flow<List<NoteEntity>> { throw Throwable() }
 
-        doReturn(resource).`when`(noteLocalDataSource).getNotes(anyString())
+        doReturn(result).`when`(noteLocalDataSource).getNotes(anyString())
 
         val actualResource = noteRepository.getNotes("").first()
 
