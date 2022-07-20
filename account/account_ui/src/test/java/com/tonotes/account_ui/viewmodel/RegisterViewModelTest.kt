@@ -1,9 +1,9 @@
 package com.tonotes.account_ui.viewmodel
 
 import com.tonotes.account_domain.model.UserCredential
-import com.tonotes.account_domain.use_case.LoginAccountUseCase
-import com.tonotes.account_ui.login.LoginEvent
-import com.tonotes.account_ui.login.LoginViewModel
+import com.tonotes.account_domain.use_case.RegisterAccountUseCase
+import com.tonotes.account_ui.register.RegisterEvent
+import com.tonotes.account_ui.register.RegisterViewModel
 import com.tonotes.account_ui.util.TestCoroutineRule
 import com.tonotes.account_ui.util.userCredential
 import com.tonotes.core.domain.use_case.SaveAccessTokenUseCase
@@ -24,40 +24,41 @@ import org.mockito.kotlin.doReturn
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class LoginViewModelTest {
+class RegisterViewModelTest {
 
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
     @Mock
-    private lateinit var loginAccountUseCase: LoginAccountUseCase
+    private lateinit var registerAccountUseCase: RegisterAccountUseCase
 
     @Mock
     private lateinit var saveAccessTokenUseCase: SaveAccessTokenUseCase
 
-    private lateinit var loginViewModel: LoginViewModel
+    private lateinit var registerViewModel: RegisterViewModel
 
-    private lateinit var onEvent: (LoginEvent) -> Unit
+    private lateinit var onEvent: (RegisterEvent) -> Unit
 
     @Before
     fun setUp() {
-        loginViewModel = LoginViewModel(loginAccountUseCase, saveAccessTokenUseCase)
-        onEvent = loginViewModel::onEvent
+        registerViewModel = RegisterViewModel(registerAccountUseCase, saveAccessTokenUseCase)
+        onEvent = registerViewModel::onEvent
     }
 
     @Test
-    fun `Login account should return success`() {
+    fun `Register should be success`() {
         testCoroutineRule.runTest {
             val resource = flowOf(Resource.Success(userCredential))
 
-            doReturn(resource).`when`(loginAccountUseCase)(
+            doReturn(resource).`when`(registerAccountUseCase)(
                 username = anyString(),
+                name = anyString(),
                 password = anyString()
             )
 
-            onEvent(LoginEvent.LogIn)
+            onEvent(RegisterEvent.Register)
 
-            val isSuccess = when (loginViewModel.loginState) {
+            val isSuccess = when (registerViewModel.registerState) {
                 is UIState.Success -> true
 
                 else -> false
@@ -68,18 +69,19 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun `Login should return fail`() {
+    fun `Register should be fail`() {
         testCoroutineRule.runTest {
             val resource = flowOf(Resource.Error<UserCredential>())
 
-            doReturn(resource).`when`(loginAccountUseCase)(
+            doReturn(resource).`when`(registerAccountUseCase)(
                 username = anyString(),
+                name = anyString(),
                 password = anyString()
             )
 
-            onEvent(LoginEvent.LogIn)
+            onEvent(RegisterEvent.Register)
 
-            val isSuccess = when (loginViewModel.loginState) {
+            val isSuccess = when (registerViewModel.registerState) {
                 is UIState.Success -> true
 
                 else -> false

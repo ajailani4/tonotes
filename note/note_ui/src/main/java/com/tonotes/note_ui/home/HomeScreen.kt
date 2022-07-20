@@ -121,6 +121,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(25.dp))
                 }
 
+                // Observe notes state
                 when (notesState) {
                     is UIState.Success -> {
                         val notes = notesState.data

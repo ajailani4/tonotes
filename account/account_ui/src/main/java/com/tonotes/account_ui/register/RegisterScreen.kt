@@ -1,19 +1,13 @@
-package com.tonotes.account_ui.login
+package com.tonotes.account_ui.register
 
-import android.app.Activity
-import android.view.WindowManager
 import androidx.compose.foundation.layout.*
-import com.tonotes.core.R
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Visibility
-import androidx.compose.material.icons.outlined.VisibilityOff
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,30 +26,29 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tonotes.account_ui.common.FullSizeProgressBar
+import com.tonotes.account_ui.login.LoginEvent
+import com.tonotes.core.R
 import com.tonotes.core.util.UIState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(
-    loginViewModel: LoginViewModel = hiltViewModel(),
+fun RegisterScreen(
+    registerViewModel: RegisterViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onNavigateToRegister: () -> Unit,
     onNavigateToHome: () -> Unit
 ) {
-    val onEvent = loginViewModel::onEvent
-    val loginState = loginViewModel.loginState
-    val username = loginViewModel.username
-    val password = loginViewModel.password
-    val passwordVisibility = loginViewModel.passwordVisibility
+    val onEvent = registerViewModel::onEvent
+    val registerState = registerViewModel.registerState
+    val username = registerViewModel.username
+    val name = registerViewModel.name
+    val password = registerViewModel.password
+    val passwordVisibility = registerViewModel.passwordVisibility
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
     val context = LocalContext.current
-
-    (context as Activity).window
-        .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -79,18 +72,18 @@ fun LoginScreen(
                 )
             }
             Column(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(id = R.string.login),
+                    text = stringResource(id = R.string.register),
                     style = MaterialTheme.typography.headlineLarge
                 )
                 Spacer(modifier = Modifier.height(60.dp))
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = username,
-                    onValueChange = { onEvent(LoginEvent.OnUsernameChanged(it)) },
+                    onValueChange = { onEvent(RegisterEvent.OnUsernameChanged(it)) },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Person,
@@ -105,8 +98,24 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
+                    value = name,
+                    onValueChange = { onEvent(RegisterEvent.OnNameChanged(it)) },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Outlined.Badge,
+                            contentDescription = "Name icon"
+                        )
+                    },
+                    placeholder = {
+                        Text(text = stringResource(id = R.string.name))
+                    },
+                    singleLine = true
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = password,
-                    onValueChange = { onEvent(LoginEvent.OnPasswordChanged(it)) },
+                    onValueChange = { onEvent(RegisterEvent.OnPasswordChanged(it)) },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Lock,
@@ -117,7 +126,7 @@ fun LoginScreen(
                         Text(text = stringResource(id = R.string.password))
                     },
                     trailingIcon = {
-                        IconButton(onClick = { onEvent(LoginEvent.OnPasswordVisibilityChanged) }) {
+                        IconButton(onClick = { onEvent(RegisterEvent.OnPasswordVisibilityChanged) }) {
                             Icon(
                                 imageVector = if (passwordVisibility) {
                                     Icons.Outlined.VisibilityOff
@@ -138,10 +147,10 @@ fun LoginScreen(
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
-                        if (username.isNotEmpty() && password.isNotEmpty()) {
-                            onEvent(LoginEvent.LogIn)
+                        if (username.isNotEmpty() && name.isNotEmpty() && password.isNotEmpty()) {
+                            onEvent(RegisterEvent.Register)
                         } else {
-                            coroutineScope.launch { 
+                            coroutineScope.launch {
                                 snackbarHostState.showSnackbar(
                                     context.resources.getString(R.string.fill_the_form)
                                 )
@@ -150,14 +159,14 @@ fun LoginScreen(
                     }
                 ) {
                     Text(
-                        text = stringResource(id = R.string.login),
+                        text = stringResource(id = R.string.register),
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
                 Spacer(modifier = Modifier.height(15.dp))
                 ClickableText(
                     text = buildAnnotatedString {
-                        append(stringResource(id = R.string.have_no_account))
+                        append(stringResource(id = R.string.have_account))
                         append(" ")
 
                         withStyle(
@@ -165,17 +174,17 @@ fun LoginScreen(
                                 color = MaterialTheme.colorScheme.primary
                             )
                         ) {
-                            append(stringResource(id = R.string.register_here))
+                            append(stringResource(id = R.string.login_here))
                         }
                     },
                     style = MaterialTheme.typography.bodyLarge,
-                    onClick = { onNavigateToRegister() }
+                    onClick = { onNavigateUp() }
                 )
             }
         }
 
-        // Observe login state
-        when (loginState) {
+        // Observe register state
+        when (registerState) {
             is UIState.Loading -> {
                 FullSizeProgressBar()
             }
@@ -187,7 +196,7 @@ fun LoginScreen(
             is UIState.Fail -> {
                 LaunchedEffect(Unit) {
                     coroutineScope.launch {
-                        loginState.message?.let {
+                        registerState.message?.let {
                             snackbarHostState.showSnackbar(it)
                         }
                     }
@@ -197,7 +206,7 @@ fun LoginScreen(
             is UIState.Error -> {
                 LaunchedEffect(Unit) {
                     coroutineScope.launch {
-                        loginState.message?.let {
+                        registerState.message?.let {
                             snackbarHostState.showSnackbar(it)
                         }
                     }

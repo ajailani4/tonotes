@@ -175,6 +175,7 @@ fun AddEditNoteScreen(
         }
     }
 
+    // Observe note detail state
     when (noteDetailState) {
         is UIState.Success -> {
             val note = noteDetailState.data

@@ -1,6 +1,7 @@
 package com.tonotes.account_domain.repository
 
 import com.tonotes.account_data.remote.dto.LoginRequest
+import com.tonotes.account_data.remote.dto.RegisterRequest
 import com.tonotes.account_data.remote.dto.UserCredentialDto
 import com.tonotes.account_data.repository.AccountRepository
 import com.tonotes.account_domain.util.ResourceType
@@ -17,6 +18,13 @@ class AccountRepositoryFake : AccountRepository {
     private lateinit var resourceType: ResourceType
 
     override fun login(loginRequest: LoginRequest): Flow<Resource<UserCredentialDto>> =
+        when (resourceType) {
+            ResourceType.SUCCESS -> flowOf(Resource.Success(userCredentialDto))
+
+            ResourceType.ERROR -> flowOf(Resource.Error(null))
+        }
+
+    override fun register(registerRequest: RegisterRequest): Flow<Resource<UserCredentialDto>> =
         when (resourceType) {
             ResourceType.SUCCESS -> flowOf(Resource.Success(userCredentialDto))
 

@@ -6,15 +6,20 @@
     <string name="no_notes">No notes yet</string>
     <string name="need_to_login">Need to Login</string>
     <string name="need_to_have_an_account">You need to have an account to back up the notes</string>
-    <string name="login">Login</string>
     <string name="cancel">Cancel</string>
-    
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
     <string name="username">Username</string>
+    <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="have_no_account">Don\'t have an account?</string>
     <string name="register_here">Register here</string>
+    <string name="have_account">Have an account?</string>
+    <string name="login_here">Login here</string>
     <string name="fill_the_form">Please fill the form completely</string>
     <string name="incorrect_username_or_pass">Username or password is incorrect</string>
+    <string name="username_already_exists">Username already exists. Try another username</string>
     <string name="something_wrong_happened">Sorry, something wrong happened</string>
 
     <string name="edit">Edit</string>
