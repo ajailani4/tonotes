@@ -19,6 +19,7 @@
     <string name="login_here">Masuk di sini</string>
     <string name="fill_the_form">Mohon isi form dengan lengkap</string>
     <string name="incorrect_username_or_pass">Username atau password salah</string>
+    <string name="username_already_exists">Username sudah ada. Coba yang lain</string>
     <string name="something_wrong_happened">Maaf, terjadi kesalahan</string>
 
     <string name="edit">Edit</string>

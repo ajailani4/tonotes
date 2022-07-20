@@ -4,6 +4,7 @@ import com.tonotes.core.R
 import android.content.Context
 import com.tonotes.account_data.remote.AccountRemoteDataSource
 import com.tonotes.account_data.remote.dto.LoginRequest
+import com.tonotes.account_data.remote.dto.RegisterRequest
 import com.tonotes.core.util.IoDispatcher
 import com.tonotes.core.util.Resource
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -25,6 +26,19 @@ class AccountRepositoryImpl @Inject constructor(
                 200 -> emit(Resource.Success(response.body()?.data))
 
                 401 -> emit(Resource.Error(context.resources.getString(R.string.incorrect_username_or_pass)))
+
+                else -> emit(Resource.Error(context.resources.getString(R.string.something_wrong_happened)))
+            }
+        }.flowOn(ioDispatcher)
+
+    override fun register(registerRequest: RegisterRequest) =
+        flow {
+            val response = accountRemoteDataSource.register(registerRequest)
+
+            when (response.code()) {
+                201 -> emit(Resource.Success(response.body()?.data))
+
+                409 -> emit(Resource.Error(context.resources.getString(R.string.username_already_exists)))
 
                 else -> emit(Resource.Error(context.resources.getString(R.string.something_wrong_happened)))
             }

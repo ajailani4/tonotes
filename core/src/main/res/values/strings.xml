@@ -19,6 +19,7 @@
     <string name="login_here">Login here</string>
     <string name="fill_the_form">Please fill the form completely</string>
     <string name="incorrect_username_or_pass">Username or password is incorrect</string>
+    <string name="username_already_exists">Username already exists. Try another username</string>
     <string name="something_wrong_happened">Sorry, something wrong happened</string>
 
     <string name="edit">Edit</string>

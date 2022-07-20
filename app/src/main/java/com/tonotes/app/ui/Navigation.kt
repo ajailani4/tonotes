@@ -79,7 +79,16 @@ fun Navigation(navController: NavHostController) {
 
         composable(route = Screen.RegisterScreen.route) {
             RegisterScreen(
-                onNavigateUp = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() },
+                onNavigateToHome = {
+                    navController.navigate(Screen.HomeScreen.route) {
+                        launchSingleTop = true
+
+                        popUpTo(Screen.LoginScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         }
     }
