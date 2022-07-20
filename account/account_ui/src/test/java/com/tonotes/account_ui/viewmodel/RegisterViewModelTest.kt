@@ -46,7 +46,7 @@ class RegisterViewModelTest {
     }
 
     @Test
-    fun `Register should be success`() {
+    fun `Register should return success`() {
         testCoroutineRule.runTest {
             val resource = flowOf(Resource.Success(userCredential))
 
@@ -69,7 +69,7 @@ class RegisterViewModelTest {
     }
 
     @Test
-    fun `Register should be fail`() {
+    fun `Register should return fail`() {
         testCoroutineRule.runTest {
             val resource = flowOf(Resource.Error<UserCredential>())
 
