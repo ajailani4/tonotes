@@ -30,7 +30,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun AddEditNoteScreen(
     addEditNoteViewModel: AddEditNoteViewModel = hiltViewModel(),
-    onNavigateUp: () -> Unit
+    onNavigateUp: () -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val noteId = addEditNoteViewModel.noteId
     val onEvent = addEditNoteViewModel::onEvent
@@ -61,7 +62,7 @@ fun AddEditNoteScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateUp) {
+                    IconButton(onClick = onNavigateToHome) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back icon"
@@ -156,7 +157,7 @@ fun AddEditNoteScreen(
                                 onEvent(AddEditNoteEvent.EditNote)
                             }
 
-                            onNavigateUp()
+                            onNavigateToHome()
                         } else {
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar(

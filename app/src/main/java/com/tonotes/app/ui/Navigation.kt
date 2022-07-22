@@ -55,7 +55,16 @@ fun Navigation(navController: NavHostController) {
             )
         ) {
             AddEditNoteScreen(
-                onNavigateUp = { navController.navigateUp() }
+                onNavigateUp = { navController.navigateUp() },
+                onNavigateToHome = {
+                    navController.navigate(Screen.HomeScreen.route) {
+                        launchSingleTop = true
+
+                        popUpTo(Screen.HomeScreen.route) {
+                            inclusive = true
+                        }
+                    }
+                }
             )
         }
 
