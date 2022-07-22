@@ -177,7 +177,9 @@ fun RegisterScreen(
                             append(stringResource(id = R.string.login_here))
                         }
                     },
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = MaterialTheme.colorScheme.onBackground
+                    ),
                     onClick = { onNavigateUp() }
                 )
             }

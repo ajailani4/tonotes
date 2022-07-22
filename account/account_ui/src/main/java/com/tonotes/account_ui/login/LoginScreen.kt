@@ -168,7 +168,9 @@ fun LoginScreen(
                             append(stringResource(id = R.string.register_here))
                         }
                     },
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        color = MaterialTheme.colorScheme.onBackground
+                    ),
                     onClick = { onNavigateToRegister() }
                 )
             }
