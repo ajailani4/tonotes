@@ -12,7 +12,6 @@ import com.tonotes.core.util.Resource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import okhttp3.ResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -36,13 +35,10 @@ class AccountRepositoryTest {
 
     private lateinit var accountRepository: AccountRepository
 
-    private val testCoroutineDispatcher = UnconfinedTestDispatcher()
-
     @Before
     fun setUp() {
         accountRepository = AccountRepositoryImpl(
             accountRemoteDataSource,
-            testCoroutineDispatcher,
             context
         )
     }

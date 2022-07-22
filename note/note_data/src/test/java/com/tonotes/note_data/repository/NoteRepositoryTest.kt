@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -30,11 +29,9 @@ class NoteRepositoryTest {
 
     private lateinit var noteRepository: NoteRepository
 
-    private val testCoroutineDispatcher = UnconfinedTestDispatcher()
-
     @Before
     fun setUp() {
-        noteRepository = NoteRepositoryImpl(noteLocalDataSource, testCoroutineDispatcher)
+        noteRepository = NoteRepositoryImpl(noteLocalDataSource)
     }
 
     @Test

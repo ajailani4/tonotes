@@ -5,17 +5,13 @@ import android.content.Context
 import com.tonotes.account_data.remote.AccountRemoteDataSource
 import com.tonotes.account_data.remote.dto.request.LoginRequest
 import com.tonotes.account_data.remote.dto.request.RegisterRequest
-import com.tonotes.core.util.IoDispatcher
 import com.tonotes.core.util.Resource
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class AccountRepositoryImpl @Inject constructor(
     private val accountRemoteDataSource: AccountRemoteDataSource,
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @ApplicationContext private val context: Context
 ) : AccountRepository {
     override fun login(loginRequest: LoginRequest) =
@@ -29,7 +25,7 @@ class AccountRepositoryImpl @Inject constructor(
 
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
-        }.flowOn(ioDispatcher)
+        }
 
     override fun register(registerRequest: RegisterRequest) =
         flow {
@@ -42,5 +38,5 @@ class AccountRepositoryImpl @Inject constructor(
 
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
-        }.flowOn(ioDispatcher)
+        }
 }
