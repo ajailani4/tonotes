@@ -1,6 +1,6 @@
 package com.tonotes.account_domain.use_case
 
-import com.tonotes.account_data.remote.dto.RegisterRequest
+import com.tonotes.account_data.remote.dto.request.RegisterRequest
 import com.tonotes.account_data.repository.AccountRepository
 import com.tonotes.account_domain.mapper.toUserCredential
 import com.tonotes.account_domain.model.UserCredential

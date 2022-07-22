@@ -1,4 +1,4 @@
-package com.tonotes.account_data.remote.dto
+package com.tonotes.account_data.remote.dto.response
 
 data class BaseResponse<T>(
     val code: Int,

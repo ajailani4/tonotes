@@ -1,11 +1,10 @@
 package com.tonotes.account_domain.use_case
 
-import com.tonotes.account_data.remote.dto.LoginRequest
+import com.tonotes.account_data.remote.dto.request.LoginRequest
 import com.tonotes.account_data.repository.AccountRepository
 import com.tonotes.account_domain.mapper.toUserCredential
 import com.tonotes.account_domain.model.UserCredential
 import com.tonotes.core.util.Resource
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 

@@ -3,8 +3,8 @@ package com.tonotes.account_data.repository
 import com.tonotes.core.R
 import android.content.Context
 import com.tonotes.account_data.remote.AccountRemoteDataSource
-import com.tonotes.account_data.remote.dto.LoginRequest
-import com.tonotes.account_data.remote.dto.RegisterRequest
+import com.tonotes.account_data.remote.dto.request.LoginRequest
+import com.tonotes.account_data.remote.dto.request.RegisterRequest
 import com.tonotes.core.util.IoDispatcher
 import com.tonotes.core.util.Resource
 import dagger.hilt.android.qualifiers.ApplicationContext

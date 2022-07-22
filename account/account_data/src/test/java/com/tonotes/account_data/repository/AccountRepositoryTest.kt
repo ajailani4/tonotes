@@ -3,9 +3,9 @@ package com.tonotes.account_data.repository
 import com.tonotes.core.R
 import android.content.Context
 import com.tonotes.account_data.remote.AccountRemoteDataSource
-import com.tonotes.account_data.remote.dto.BaseResponse
-import com.tonotes.account_data.remote.dto.LoginRequest
-import com.tonotes.account_data.remote.dto.RegisterRequest
+import com.tonotes.account_data.remote.dto.response.BaseResponse
+import com.tonotes.account_data.remote.dto.request.LoginRequest
+import com.tonotes.account_data.remote.dto.request.RegisterRequest
 import com.tonotes.account_data.remote.dto.UserCredentialDto
 import com.tonotes.account_data.util.userCredentialDto
 import com.tonotes.core.util.Resource
@@ -22,7 +22,6 @@ import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.mock
 import retrofit2.Response
 
 @ExperimentalCoroutinesApi

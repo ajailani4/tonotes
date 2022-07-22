@@ -1,7 +1,7 @@
 package com.tonotes.account_domain.repository
 
-import com.tonotes.account_data.remote.dto.LoginRequest
-import com.tonotes.account_data.remote.dto.RegisterRequest
+import com.tonotes.account_data.remote.dto.request.LoginRequest
+import com.tonotes.account_data.remote.dto.request.RegisterRequest
 import com.tonotes.account_data.remote.dto.UserCredentialDto
 import com.tonotes.account_data.repository.AccountRepository
 import com.tonotes.account_domain.util.ResourceType
