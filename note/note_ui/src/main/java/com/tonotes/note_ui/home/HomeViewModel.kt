@@ -33,6 +33,12 @@ class HomeViewModel @Inject constructor(
     var loginAlertDialogVis by mutableStateOf(false)
         private set
 
+    var backUpNotesDialogVis by mutableStateOf(false)
+        private set
+
+    var selectedBackupType by mutableStateOf(0)
+        private set
+
     init {
         onEvent(HomeEvent.GetNotes)
         onEvent(HomeEvent.GetAccessToken)
@@ -47,6 +53,10 @@ class HomeViewModel @Inject constructor(
             is HomeEvent.OnSearchQueryChanged -> searchQuery = event.searchQuery
 
             is HomeEvent.OnLoginAlertDialogVisChanged -> loginAlertDialogVis = event.loginAlertDialogVis
+
+            is HomeEvent.OnBackUpNotesDialogVisChanged -> backUpNotesDialogVis = event.backUpNotesDialogVis
+
+            is HomeEvent.OnBackupTypeSelected -> selectedBackupType = event.selectedBackupTypes
         }
     }
 

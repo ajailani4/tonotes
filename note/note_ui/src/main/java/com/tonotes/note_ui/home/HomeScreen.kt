@@ -35,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.tonotes.core_ui.R
 import com.tonotes.core_ui.UIState
 import com.tonotes.core_ui.component.CustomAlertDialog
+import com.tonotes.note_ui.home.component.BackupTypeItem
 import com.tonotes.note_ui.home.component.NoteCard
 import kotlinx.coroutines.launch
 
@@ -51,12 +52,20 @@ fun HomeScreen(
     val searchQuery = homeViewModel.searchQuery
     val isLoggedIn = homeViewModel.isLoggedIn
     val loginAlertDialogVis = homeViewModel.loginAlertDialogVis
+    val backUpNotesDialogVis = homeViewModel.backUpNotesDialogVis
+    val selectedBackupType = homeViewModel.selectedBackupType
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
+    
+    val backupTypes = listOf(
+        stringResource(id = R.string.manually),
+        stringResource(id = R.string.daily),
+        stringResource(id = R.string.weekly)
+    )
 
     (LocalContext.current as Activity).window
         .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
@@ -72,6 +81,7 @@ fun HomeScreen(
                     IconButton(
                         onClick = {
                             onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))
+                            onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(true))
                             onEvent(HomeEvent.GetAccessToken)
                         }
                     ) {
@@ -179,25 +189,63 @@ fun HomeScreen(
         }
     }
 
-    if (!isLoggedIn && loginAlertDialogVis) {
-        CustomAlertDialog(
-            onVisibilityChanged = {
-                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
-            },
-            title = stringResource(id = R.string.need_to_login),
-            content = {
-                Text(text = stringResource(id = R.string.need_to_have_an_account))
-            },
-            confirmText = stringResource(id = R.string.login),
-            onConfirmed = {
-                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
-                onNavigateToLogin()
-            },
-            dismissText = stringResource(id = R.string.cancel),
-            onDismissed = {
-                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
-            }
-        )
+    when {
+        !isLoggedIn && loginAlertDialogVis -> {
+            CustomAlertDialog(
+                onVisibilityChanged = {
+                    onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
+                },
+                title = stringResource(id = R.string.need_to_login),
+                content = {
+                    Text(text = stringResource(id = R.string.need_to_have_an_account))
+                },
+                confirmText = stringResource(id = R.string.login),
+                onConfirmed = {
+                    onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
+                    onNavigateToLogin()
+                },
+                dismissText = stringResource(id = R.string.cancel),
+                onDismissed = {
+                    onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
+                }
+            )
+        }
+
+        isLoggedIn && backUpNotesDialogVis -> {
+            CustomAlertDialog(
+                onVisibilityChanged = {
+                    onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(false))
+                },
+                title = stringResource(id = R.string.back_up_notes),
+                content = {
+                    Column {
+                        backupTypes.forEachIndexed { index, backupType ->
+                            BackupTypeItem(
+                                backupType = backupType,
+                                isSelected = index == selectedBackupType,
+                                onClick = {
+                                    onEvent(HomeEvent.OnBackupTypeSelected(index))
+                                }
+                            )
+                        }
+                    }
+                },
+                confirmText = stringResource(
+                    id = if (selectedBackupType == 0) {
+                        R.string.back_up
+                    } else {
+                        R.string.save
+                    }
+                ),
+                onConfirmed = {
+                    onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(false))
+                },
+                dismissText = stringResource(id = R.string.cancel),
+                onDismissed = {
+                    onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(false))
+                }
+            )
+        }
     }
 }
 
