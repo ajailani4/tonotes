@@ -110,10 +110,10 @@ fun HomeScreen(
             ) {
                 item {
                     SearchTextField(
-                        onEvent = onEvent,
                         searchQuery = searchQuery,
                         onSearchQueryChanged = {
                             onEvent(HomeEvent.OnSearchQueryChanged(it))
+                            onEvent(HomeEvent.GetNotes)
                         },
                         focusManager = focusManager,
                         keyboardController = keyboardController
@@ -213,7 +213,6 @@ fun HomeScreen(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchTextField(
-    onEvent: (HomeEvent) -> Unit,
     searchQuery: String,
     onSearchQueryChanged: (String) -> Unit,
     focusManager: FocusManager,
@@ -232,7 +231,6 @@ fun SearchTextField(
         value = searchQuery,
         onValueChange = {
             onSearchQueryChanged(it)
-            onEvent(HomeEvent.GetNotes)
         },
         singleLine = true,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.primary),

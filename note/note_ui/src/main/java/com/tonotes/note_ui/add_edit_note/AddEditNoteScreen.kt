@@ -62,7 +62,7 @@ fun AddEditNoteScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateToHome) {
+                    IconButton(onClick = onNavigateUp) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back icon"

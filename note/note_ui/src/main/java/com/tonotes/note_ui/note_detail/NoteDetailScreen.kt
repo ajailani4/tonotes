@@ -29,7 +29,8 @@ import kotlinx.coroutines.launch
 fun NoteDetailScreen(
     noteDetailViewModel: NoteDetailViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onNavigateToAddEditNote: (id: Int) -> Unit
+    onNavigateToAddEditNote: (id: Int) -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val noteId = noteDetailViewModel.noteId
     val onEvent = noteDetailViewModel::onEvent
@@ -174,7 +175,7 @@ fun NoteDetailScreen(
                     onClick = {
                         onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
                         onEvent(NoteDetailEvent.DeleteNote)
-                        onNavigateUp()
+                        onNavigateToHome()
                     }
                 ) {
                     Text(text = stringResource(id = R.string.yes))
