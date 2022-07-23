@@ -1,6 +1,6 @@
 package com.tonotes.account_data.repository
 
-import com.tonotes.core.R
+import com.tonotes.core_ui.R
 import android.content.Context
 import com.tonotes.account_data.remote.AccountRemoteDataSource
 import com.tonotes.account_data.remote.dto.response.BaseResponse

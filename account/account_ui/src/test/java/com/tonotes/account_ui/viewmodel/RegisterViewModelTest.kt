@@ -8,7 +8,7 @@ import com.tonotes.account_ui.util.TestCoroutineRule
 import com.tonotes.account_ui.util.userCredential
 import com.tonotes.core.domain.use_case.SaveAccessTokenUseCase
 import com.tonotes.core.util.Resource
-import com.tonotes.core.util.UIState
+import com.tonotes.core_ui.UIState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import org.junit.Assert.*

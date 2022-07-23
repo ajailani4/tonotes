@@ -1,4 +1,4 @@
-package com.tonotes.account_ui.common
+package com.tonotes.core_ui.component
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape

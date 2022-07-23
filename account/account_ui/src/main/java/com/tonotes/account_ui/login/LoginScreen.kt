@@ -3,7 +3,6 @@ package com.tonotes.account_ui.login
 import android.app.Activity
 import android.view.WindowManager
 import androidx.compose.foundation.layout.*
-import com.tonotes.core.R
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
@@ -31,8 +30,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.tonotes.account_ui.common.FullSizeProgressBar
-import com.tonotes.core.util.UIState
+import com.tonotes.core_ui.R
+import com.tonotes.core_ui.component.FullSizeProgressBar
+import com.tonotes.core_ui.UIState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

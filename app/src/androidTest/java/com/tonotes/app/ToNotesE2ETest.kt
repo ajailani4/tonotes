@@ -3,7 +3,7 @@ package com.tonotes.app
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.tonotes.core.util.Constants.TestTag
-import com.tonotes.core.R
+import com.tonotes.core_ui.R
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.Before

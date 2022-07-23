@@ -32,8 +32,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.tonotes.core.R
-import com.tonotes.core.util.UIState
+import com.tonotes.core_ui.R
+import com.tonotes.core_ui.UIState
 import com.tonotes.note_ui.home.component.NoteCard
 import kotlinx.coroutines.launch
 

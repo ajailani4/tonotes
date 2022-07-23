@@ -3,7 +3,7 @@ package com.tonotes.note_ui.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import com.tonotes.core.util.Constants.NavArgument
 import com.tonotes.core.util.Resource
-import com.tonotes.core.util.UIState
+import com.tonotes.core_ui.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.DeleteNoteUseCase
 import com.tonotes.note_domain.use_case.GetNoteDetailUseCase

@@ -8,10 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.tonotes.account_domain.use_case.RegisterAccountUseCase
 import com.tonotes.core.domain.use_case.SaveAccessTokenUseCase
 import com.tonotes.core.util.Resource
-import com.tonotes.core.util.UIState
+import com.tonotes.core_ui.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
