@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tonotes.core_ui.R
 import com.tonotes.core_ui.UIState
+import com.tonotes.core_ui.component.CustomAlertDialog
 import com.tonotes.note_ui.home.component.NoteCard
 import kotlinx.coroutines.launch
 
@@ -179,32 +180,22 @@ fun HomeScreen(
     }
 
     if (!isLoggedIn && loginAlertDialogVis) {
-        AlertDialog(
-            onDismissRequest = { onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false)) },
-            title = {
-                Text(text = stringResource(id = R.string.need_to_login))
+        CustomAlertDialog(
+            onVisibilityChanged = {
+                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
             },
-            text = {
+            title = stringResource(id = R.string.need_to_login),
+            content = {
                 Text(text = stringResource(id = R.string.need_to_have_an_account))
             },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
-                        onNavigateToLogin()
-                    }
-                ) {
-                    Text(text = stringResource(id = R.string.login))
-                }
+            confirmText = stringResource(id = R.string.login),
+            onConfirmed = {
+                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
+                onNavigateToLogin()
             },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
-                    }
-                ) {
-                    Text(text = stringResource(id = R.string.cancel))
-                }
+            dismissText = stringResource(id = R.string.cancel),
+            onDismissed = {
+                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
             }
         )
     }
