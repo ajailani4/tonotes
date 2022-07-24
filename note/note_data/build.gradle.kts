@@ -7,6 +7,11 @@ dependencies {
 
     "implementation"(Coroutines.coroutines)
 
+    "implementation"(WorkManager.workRuntime)
+
+    "implementation"(Hilt.hiltWork)
+    "implementation"(Hilt.hiltCompiler)
+
     "implementation"(Room.runtime)
     "annotationProcessor"(Room.compiler)
     "kapt"(Room.compiler)
