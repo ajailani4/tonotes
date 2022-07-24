@@ -16,4 +16,7 @@ dependencies {
     "annotationProcessor"(Room.compiler)
     "kapt"(Room.compiler)
     "implementation"(Room.ktx)
+
+    "implementation"(Retrofit.retrofit)
+    "implementation"(Retrofit.converterMoshi)
 }
