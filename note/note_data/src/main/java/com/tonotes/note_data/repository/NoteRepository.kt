@@ -2,6 +2,7 @@ package com.tonotes.note_data.repository
 
 import com.tonotes.core.util.Resource
 import com.tonotes.note_data.local.entity.NoteEntity
+import com.tonotes.note_data.remote.dto.NotesRequest
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
@@ -14,4 +15,6 @@ interface NoteRepository {
     suspend fun editNote(noteEntity: NoteEntity)
 
     suspend fun deleteNote(id: Int)
+
+    suspend fun uploadNotes(notesRequest: NotesRequest): Flow<Resource<Any>>
 }
