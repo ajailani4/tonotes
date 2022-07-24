@@ -48,7 +48,7 @@ class NoteRepositoryImpl @Inject constructor(
         noteLocalDataSource.deleteNote(id)
     }
 
-    override suspend fun uploadNotes(notesRequest: NotesRequest) =
+    override fun uploadNotes(notesRequest: NotesRequest) =
         flow {
             val response = noteRemoteDataSource.uploadNotes(notesRequest)
 
