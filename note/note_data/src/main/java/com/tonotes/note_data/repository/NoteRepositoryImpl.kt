@@ -2,13 +2,12 @@ package com.tonotes.note_data.repository
 
 import android.content.Context
 import com.tonotes.core.util.Resource
-import com.tonotes.note_data.R
+import com.tonotes.core_ui.R
 import com.tonotes.note_data.local.NoteLocalDataSource
 import com.tonotes.note_data.local.entity.NoteEntity
 import com.tonotes.note_data.remote.NoteRemoteDataSource
 import com.tonotes.note_data.remote.dto.NotesRequest
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -55,7 +54,7 @@ class NoteRepositoryImpl @Inject constructor(
             when (response.code()) {
                 201 -> emit(Resource.Success(response.body()?.data))
 
-                else -> emit(Resource.Error(context.getString(com.tonotes.core_ui.R.string.something_wrong_happened)))
+                else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
             }
         }
 }
