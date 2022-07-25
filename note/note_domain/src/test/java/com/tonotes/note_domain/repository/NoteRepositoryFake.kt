@@ -13,7 +13,7 @@ class NoteRepositoryFake : NoteRepository {
             id = 1,
             title = "Note 1",
             description = "This is a note",
-            date = "2022-07-18"
+            date = "2022-07-18 10:00:00"
         )
     )
 
