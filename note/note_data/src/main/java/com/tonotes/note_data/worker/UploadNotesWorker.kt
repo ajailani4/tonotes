@@ -1,42 +1,43 @@
 package com.tonotes.note_data.worker
 
 import android.content.Context
+import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.tonotes.core.util.Resource
+import com.tonotes.note_data.local.NoteLocalDataSource
 import com.tonotes.note_data.mapper.toNoteDto
+import com.tonotes.note_data.remote.NoteRemoteDataSource
 import com.tonotes.note_data.remote.dto.NotesRequest
-import com.tonotes.note_data.repository.NoteRepository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.flow.first
 
 @HiltWorker
 class UploadNotesWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
-    private val noteRepository: NoteRepository
+    private val noteLocalDataSource: NoteLocalDataSource,
+    private val noteRemoteDataSource: NoteRemoteDataSource
 ) : CoroutineWorker(context, workerParams) {
     override suspend fun doWork(): Result {
         try {
-            noteRepository.getNotes("").collect {
-                when (it) {
-                    is Resource.Success -> {
-                        val notesDto = it.data?.map { noteEntity ->
-                            noteEntity.toNoteDto()
-                        }
-
-                        if (notesDto != null) {
-                            noteRepository.uploadNotes(
-                                NotesRequest(notesDto)
-                            )
-                        }
+            val notes = noteLocalDataSource.getNotes("").first()
+            val response = noteRemoteDataSource.uploadNotes(
+                NotesRequest(
+                    notes.map { noteEntity ->
+                        noteEntity.toNoteDto()
                     }
+                )
+            )
 
-                    else -> {}
-                }
+            when (response.code()) {
+                201 -> Log.d("UploadNotes status", "Success")
+
+                else -> Log.d("UploadNotes status", "Fail")
             }
         } catch (e: Exception) {
+            Log.d("UploadNotes status", "Error $e")
             return Result.retry()
         }
 

@@ -10,6 +10,7 @@ import com.tonotes.core.util.Resource
 import com.tonotes.core_ui.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
+import com.tonotes.note_domain.use_case.UploadNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -19,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getNotesUseCase: GetNotesUseCase,
-    private val getAccessTokenUseCase: GetAccessTokenUseCase
+    private val getAccessTokenUseCase: GetAccessTokenUseCase,
+    private val uploadNotesUseCase: UploadNotesUseCase
 ) : ViewModel() {
     var notesState by mutableStateOf<UIState<List<Note>>>(UIState.Idle)
         private set
@@ -49,6 +51,8 @@ class HomeViewModel @Inject constructor(
             is HomeEvent.GetNotes -> getNotes()
 
             is HomeEvent.GetAccessToken -> getAccessToken()
+
+            is HomeEvent.BackUpNotes -> backUpNotes()
 
             is HomeEvent.OnSearchQueryChanged -> searchQuery = event.searchQuery
 
@@ -80,5 +84,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             isLoggedIn = getAccessTokenUseCase().first().isNotEmpty()
         }
+    }
+
+    private fun backUpNotes() {
+        uploadNotesUseCase(selectedBackupType)
     }
 }

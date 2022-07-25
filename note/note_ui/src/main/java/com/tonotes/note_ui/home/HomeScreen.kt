@@ -240,6 +240,7 @@ fun HomeScreen(
                 ),
                 onConfirmed = {
                     onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(false))
+                    onEvent(HomeEvent.BackUpNotes)
                 },
                 dismissText = stringResource(id = R.string.cancel),
                 onDismissed = {
