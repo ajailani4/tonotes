@@ -73,7 +73,7 @@ fun HomeScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         topBar = {
-            CenterAlignedTopAppBar(
+            SmallTopAppBar(
                 title = {
                     Text(text = stringResource(id = R.string.app_name))
                 },
@@ -91,7 +91,7 @@ fun HomeScreen(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                colors = TopAppBarDefaults.smallTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.background
                 )
             )
@@ -189,6 +189,7 @@ fun HomeScreen(
         }
     }
 
+    // Observe dialog visibility state
     when {
         !isLoggedIn && loginAlertDialogVis -> {
             CustomAlertDialog(
