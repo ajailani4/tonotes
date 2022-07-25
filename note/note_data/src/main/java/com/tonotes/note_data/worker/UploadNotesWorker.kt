@@ -9,9 +9,10 @@ import com.tonotes.note_data.mapper.toNoteDto
 import com.tonotes.note_data.remote.dto.NotesRequest
 import com.tonotes.note_data.repository.NoteRepository
 import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 
 @HiltWorker
-class UploadNotesWorker(
+class UploadNotesWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
     private val noteRepository: NoteRepository
