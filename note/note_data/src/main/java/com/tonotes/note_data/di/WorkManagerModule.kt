@@ -1,4 +1,4 @@
-package com.tonotes.note_domain.di
+package com.tonotes.note_data.di
 
 import android.content.Context
 import androidx.work.WorkManager
