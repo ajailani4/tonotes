@@ -216,6 +216,7 @@ fun HomeScreen(
             CustomAlertDialog(
                 onVisibilityChanged = {
                     onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(false))
+                    onEvent(HomeEvent.GetSelectedBackupType)
                 },
                 title = stringResource(id = R.string.back_up_notes),
                 content = {
@@ -245,6 +246,7 @@ fun HomeScreen(
                 dismissText = stringResource(id = R.string.cancel),
                 onDismissed = {
                     onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(false))
+                    onEvent(HomeEvent.GetSelectedBackupType)
                 }
             )
         }
