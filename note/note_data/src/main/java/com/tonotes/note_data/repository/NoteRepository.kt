@@ -17,4 +17,8 @@ interface NoteRepository {
     suspend fun deleteNote(id: Int)
 
     fun uploadNotes(notesRequest: NotesRequest): Flow<Resource<Any>>
+
+    suspend fun saveSelectedBackupType(backupType: Int)
+
+    fun getSelectedBackupType(): Flow<Int>
 }
