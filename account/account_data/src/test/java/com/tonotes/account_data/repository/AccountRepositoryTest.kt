@@ -7,7 +7,10 @@ import com.tonotes.account_data.remote.dto.response.BaseResponse
 import com.tonotes.account_data.remote.dto.request.LoginRequest
 import com.tonotes.account_data.remote.dto.request.RegisterRequest
 import com.tonotes.account_data.remote.dto.UserCredentialDto
+import com.tonotes.account_data.util.userCredential
 import com.tonotes.account_data.util.userCredentialDto
+import com.tonotes.account_domain.model.UserCredential
+import com.tonotes.account_domain.repository.AccountRepository
 import com.tonotes.core.util.Resource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -57,15 +60,13 @@ class AccountRepositoryTest {
         doReturn(response).`when`(accountRemoteDataSource).login(any())
 
         val actualResource = accountRepository.login(
-            LoginRequest(
-                username = "george_z",
-                password = "123"
-            )
+            username = "george_z",
+            password = "123"
         ).first()
 
         assertEquals(
             "Resource should be success",
-            Resource.Success(userCredentialDto),
+            Resource.Success(userCredential),
             actualResource
         )
     }
@@ -81,15 +82,13 @@ class AccountRepositoryTest {
         doReturn(response).`when`(accountRemoteDataSource).login(any())
 
         val actualResource = accountRepository.login(
-            LoginRequest(
-                username = "george_z",
-                password = "123"
-            )
+            username = "george_z",
+            password = "123"
         ).first()
 
         assertEquals(
             "Resource should be fail",
-            Resource.Error<UserCredentialDto>(),
+            Resource.Error<UserCredential>(),
             actualResource
         )
     }
@@ -108,16 +107,14 @@ class AccountRepositoryTest {
         doReturn(response).`when`(accountRemoteDataSource).register(any())
 
         val actualResource = accountRepository.register(
-            RegisterRequest(
-                username = "george_z",
-                name = "George",
-                password = "123"
-            )
+            username = "george_z",
+            name = "George",
+            password = "123"
         ).first()
 
         assertEquals(
             "Resource should be success",
-            Resource.Success(userCredentialDto),
+            Resource.Success(userCredential),
             actualResource
         )
     }
@@ -133,16 +130,14 @@ class AccountRepositoryTest {
         doReturn(response).`when`(accountRemoteDataSource).register(any())
 
         val actualResource = accountRepository.register(
-            RegisterRequest(
-                username = "george_z",
-                name = "George",
-                password = "123"
-            )
+            username = "george_z",
+            name = "George",
+            password = "123"
         ).first()
 
         assertEquals(
             "Resource should be fail",
-            Resource.Error<UserCredentialDto>(),
+            Resource.Error<UserCredential>(),
             actualResource
         )
     }

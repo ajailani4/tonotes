@@ -4,7 +4,6 @@ apply {
 
 dependencies {
     "implementation"(project(Modules.core))
-    "implementation"(project(Modules.accountData))
 
     "implementation"(Coroutines.coroutines)
 }

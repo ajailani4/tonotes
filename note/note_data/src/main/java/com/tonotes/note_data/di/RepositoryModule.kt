@@ -1,6 +1,6 @@
 package com.tonotes.note_data.di
 
-import com.tonotes.note_data.repository.NoteRepository
+import com.tonotes.note_domain.repository.NoteRepository
 import com.tonotes.note_data.repository.NoteRepositoryImpl
 import dagger.Binds
 import dagger.Module

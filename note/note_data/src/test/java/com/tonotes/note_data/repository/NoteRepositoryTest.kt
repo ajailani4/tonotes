@@ -1,10 +1,16 @@
 package com.tonotes.note_data.repository
 
+import androidx.work.WorkManager
+import com.tonotes.core.data.PreferencesDataStore
 import com.tonotes.core.util.Resource
 import com.tonotes.note_data.local.NoteLocalDataSource
 import com.tonotes.note_data.local.entity.NoteEntity
+import com.tonotes.note_data.util.note
 import com.tonotes.note_data.util.noteEntity
 import com.tonotes.note_data.util.noteEntityList
+import com.tonotes.note_data.util.notes
+import com.tonotes.note_domain.model.Note
+import com.tonotes.note_domain.repository.NoteRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
@@ -27,11 +33,21 @@ class NoteRepositoryTest {
     @Mock
     private lateinit var noteLocalDataSource: NoteLocalDataSource
 
+    @Mock
+    private lateinit var preferencesDataStore: PreferencesDataStore
+
+    @Mock
+    private lateinit var workManager: WorkManager
+
     private lateinit var noteRepository: NoteRepository
 
     @Before
     fun setUp() {
-        noteRepository = NoteRepositoryImpl(noteLocalDataSource)
+        noteRepository = NoteRepositoryImpl(
+            noteLocalDataSource,
+            preferencesDataStore,
+            workManager
+        )
     }
 
     @Test
@@ -44,7 +60,7 @@ class NoteRepositoryTest {
 
         assertEquals(
             "Resource should be success",
-            Resource.Success(noteEntityList),
+            Resource.Success(notes),
             actualResource
         )
     }
@@ -59,7 +75,7 @@ class NoteRepositoryTest {
 
         assertEquals(
             "Resource should be fail",
-            Resource.Error<List<NoteEntity>>(),
+            Resource.Error<List<Note>>(),
             actualResource
         )
     }
@@ -74,7 +90,7 @@ class NoteRepositoryTest {
 
         assertEquals(
             "Resource should be success",
-            Resource.Success(noteEntity),
+            Resource.Success(note),
             actualResource
         )
     }
@@ -89,7 +105,7 @@ class NoteRepositoryTest {
 
         assertEquals(
             "Resource should be fail",
-            Resource.Error<NoteEntity>(),
+            Resource.Error<Note>(),
             actualResource
         )
     }
