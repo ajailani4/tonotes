@@ -1,6 +1,5 @@
 package com.tonotes.note_data.repository
 
-import android.content.Context
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
@@ -26,8 +25,7 @@ import javax.inject.Inject
 class NoteRepositoryImpl @Inject constructor(
     private val noteLocalDataSource: NoteLocalDataSource,
     private val preferencesDataStore: PreferencesDataStore,
-    private val workManager: WorkManager,
-    @ApplicationContext private val context: Context
+    private val workManager: WorkManager
 ) : NoteRepository {
     override fun getNotes(searchQuery: String) =
         flow<Resource<List<Note>>> {
