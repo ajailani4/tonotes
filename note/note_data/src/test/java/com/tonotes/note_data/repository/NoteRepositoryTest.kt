@@ -5,6 +5,7 @@ import com.tonotes.note_data.local.NoteLocalDataSource
 import com.tonotes.note_data.local.entity.NoteEntity
 import com.tonotes.note_data.util.noteEntity
 import com.tonotes.note_data.util.noteEntityList
+import com.tonotes.note_domain.repository.NoteRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
