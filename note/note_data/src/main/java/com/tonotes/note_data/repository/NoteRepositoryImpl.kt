@@ -65,25 +65,13 @@ class NoteRepositoryImpl @Inject constructor(
 
     override fun uploadNotes(backupType: Int) {
         val uploadNotesRequest = when (backupType) {
-            0 -> {
-                OneTimeWorkRequestBuilder<UploadNotesWorker>().build()
-            }
+            0 -> OneTimeWorkRequestBuilder<UploadNotesWorker>().build()
 
-            1 -> {
-                PeriodicWorkRequestBuilder<UploadNotesWorker>(1, TimeUnit.DAYS)
-                    .setInitialDelay(1, TimeUnit.DAYS)
-                    .build()
-            }
+            1 -> PeriodicWorkRequestBuilder<UploadNotesWorker>(1, TimeUnit.DAYS).build()
 
-            2 -> {
-                PeriodicWorkRequestBuilder<UploadNotesWorker>(7, TimeUnit.DAYS)
-                    .setInitialDelay(7, TimeUnit.DAYS)
-                    .build()
-            }
+            2 -> PeriodicWorkRequestBuilder<UploadNotesWorker>(7, TimeUnit.DAYS).build()
 
-            else -> {
-                OneTimeWorkRequestBuilder<UploadNotesWorker>().build()
-            }
+            else -> OneTimeWorkRequestBuilder<UploadNotesWorker>().build()
         }
 
         if (backupType == 0) {
