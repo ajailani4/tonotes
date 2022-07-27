@@ -14,9 +14,9 @@ fun NoteEntity.toNoteDto() =
         date = date
     )
 
-fun NoteEntity.toNote()=
+fun NoteEntity.toNote() =
     Note(
-        id = id!!,
+        id = id,
         title = title,
         description = description,
         date = date.convertToDate()

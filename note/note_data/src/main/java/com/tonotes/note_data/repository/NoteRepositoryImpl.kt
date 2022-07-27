@@ -47,7 +47,7 @@ class NoteRepositoryImpl @Inject constructor(
             noteLocalDataSource.getNoteDetail(id).catch {
                 emit(Resource.Error(it.localizedMessage))
             }.collect {
-                emit(Resource.Success(it.toNote()))
+                emit(Resource.Success(it?.toNote()))
             }
         }
 
