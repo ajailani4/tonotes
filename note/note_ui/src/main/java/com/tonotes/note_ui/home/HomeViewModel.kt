@@ -10,6 +10,9 @@ import com.tonotes.core.util.Resource
 import com.tonotes.core_ui.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
+import com.tonotes.note_domain.use_case.GetSelectedBackupTypeUseCase
+import com.tonotes.note_domain.use_case.SaveSelectedBackupTypeUseCase
+import com.tonotes.note_domain.use_case.UploadNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -19,7 +22,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getNotesUseCase: GetNotesUseCase,
-    private val getAccessTokenUseCase: GetAccessTokenUseCase
+    private val getAccessTokenUseCase: GetAccessTokenUseCase,
+    private val uploadNotesUseCase: UploadNotesUseCase,
+    private val saveSelectedBackupTypeUseCase: SaveSelectedBackupTypeUseCase,
+    private val getSelectedBackupTypeUseCase: GetSelectedBackupTypeUseCase
 ) : ViewModel() {
     var notesState by mutableStateOf<UIState<List<Note>>>(UIState.Idle)
         private set
@@ -33,9 +39,16 @@ class HomeViewModel @Inject constructor(
     var loginAlertDialogVis by mutableStateOf(false)
         private set
 
+    var backUpNotesDialogVis by mutableStateOf(false)
+        private set
+
+    var selectedBackupType by mutableStateOf(0)
+        private set
+
     init {
         onEvent(HomeEvent.GetNotes)
         onEvent(HomeEvent.GetAccessToken)
+        onEvent(HomeEvent.GetSelectedBackupType)
     }
 
     fun onEvent(event: HomeEvent) {
@@ -44,9 +57,20 @@ class HomeViewModel @Inject constructor(
 
             is HomeEvent.GetAccessToken -> getAccessToken()
 
+            is HomeEvent.BackUpNotes -> {
+                backUpNotes()
+                saveSelectedBackupType()
+            }
+
+            is HomeEvent.GetSelectedBackupType -> getSelectedBackupType()
+
             is HomeEvent.OnSearchQueryChanged -> searchQuery = event.searchQuery
 
             is HomeEvent.OnLoginAlertDialogVisChanged -> loginAlertDialogVis = event.loginAlertDialogVis
+
+            is HomeEvent.OnBackUpNotesDialogVisChanged -> backUpNotesDialogVis = event.backUpNotesDialogVis
+
+            is HomeEvent.OnBackupTypeSelected -> selectedBackupType = event.selectedBackupTypes
         }
     }
 
@@ -69,6 +93,22 @@ class HomeViewModel @Inject constructor(
     private fun getAccessToken() {
         viewModelScope.launch {
             isLoggedIn = getAccessTokenUseCase().first().isNotEmpty()
+        }
+    }
+
+    private fun backUpNotes() {
+        uploadNotesUseCase(selectedBackupType)
+    }
+
+    private fun saveSelectedBackupType() {
+        viewModelScope.launch {
+            saveSelectedBackupTypeUseCase(selectedBackupType)
+        }
+    }
+
+    private fun getSelectedBackupType() {
+        viewModelScope.launch {
+            selectedBackupType = getSelectedBackupTypeUseCase().first()
         }
     }
 }

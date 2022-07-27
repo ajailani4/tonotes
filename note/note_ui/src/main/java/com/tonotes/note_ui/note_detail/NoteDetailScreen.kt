@@ -22,6 +22,7 @@ import com.tonotes.core.util.Constants.TestTag
 import com.tonotes.core_ui.R
 import com.tonotes.core_ui.UIState
 import com.tonotes.core.util.convertToString
+import com.tonotes.core_ui.component.CustomAlertDialog
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -160,35 +161,23 @@ fun NoteDetailScreen(
     }
 
     if (deleteDialogVis) {
-        AlertDialog(
-            onDismissRequest = {
+        CustomAlertDialog(
+            onVisibilityChanged = {
                 onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
             },
-            title = {
-                Text(text = stringResource(id = R.string.delete_note))
-            },
-            text = {
+            title = stringResource(id = R.string.delete_note),
+            content = {
                 Text(text = stringResource(id = R.string.delete_note_confirm_msg))
             },
-            confirmButton = {
-                TextButton(
-                    onClick = {
-                        onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
-                        onEvent(NoteDetailEvent.DeleteNote)
-                        onNavigateToHome()
-                    }
-                ) {
-                    Text(text = stringResource(id = R.string.yes))
-                }
+            confirmText = stringResource(id = R.string.yes),
+            onConfirmed = {
+                onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+                onEvent(NoteDetailEvent.DeleteNote)
+                onNavigateToHome()
             },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
-                    }
-                ) {
-                    Text(text = stringResource(id = R.string.no))
-                }
+            dismissText = stringResource(id = R.string.no),
+            onDismissed = {
+                onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
             }
         )
     }

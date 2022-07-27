@@ -22,6 +22,12 @@
     <string name="username_already_exists">Username sudah ada. Coba yang lain</string>
     <string name="something_wrong_happened">Maaf, terjadi kesalahan</string>
 
+    <string name="back_up_notes">Cadangkan Catatan</string>
+    <string name="manually">Manual</string>
+    <string name="daily">Harian</string>
+    <string name="weekly">Mingguan</string>
+    <string name="back_up">Cadangkan</string>
+
     <string name="edit">Edit</string>
     <string name="delete">Hapus</string>
     <string name="delete_note">Hapus Catatan</string>

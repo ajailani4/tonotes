@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.tonotes.core.util.Constants
@@ -19,6 +20,7 @@ class PreferencesDataStore @Inject constructor(
             Constants.DataStore.PREFERENCES_NAME
         )
         private val ACCESS_TOKEN = stringPreferencesKey(Constants.DataStore.ACCESS_TOKEN_KEY)
+        private val SELECTED_BACKUP_TYPE = intPreferencesKey(Constants.DataStore.SELECTED_BACKUP_TYPE)
     }
 
     suspend fun saveAccessToken(accessToken: String) {
@@ -29,4 +31,13 @@ class PreferencesDataStore @Inject constructor(
 
     fun getAccessToken() =
         context.dataStore.data.map { it[ACCESS_TOKEN] ?: "" }
+
+    suspend fun saveSelectedBackupType(backupType: Int) {
+        context.dataStore.edit {
+            it[SELECTED_BACKUP_TYPE] = backupType
+        }
+    }
+
+    fun getSelectedBackupType() =
+        context.dataStore.data.map { it[SELECTED_BACKUP_TYPE] ?: 0 }
 }

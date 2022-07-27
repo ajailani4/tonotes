@@ -72,6 +72,11 @@ dependencies {
 
     implementation(Coroutines.coroutines)
 
+    implementation(WorkManager.workRuntime)
+
+    implementation(Hilt.hiltWork)
+    implementation(Hilt.hiltCompiler)
+
     implementation(Hilt.android)
     kapt(Hilt.androidCompiler)
 

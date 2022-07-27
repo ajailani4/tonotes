@@ -1,47 +1,59 @@
 package com.tonotes.note_domain.repository
 
 import com.tonotes.core.util.Resource
-import com.tonotes.note_data.local.entity.NoteEntity
-import com.tonotes.note_data.repository.NoteRepository
+import com.tonotes.core.util.convertToDate
+import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.util.ResourceType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class NoteRepositoryFake : NoteRepository {
     private val notes = mutableListOf(
-        NoteEntity(
+        Note(
             id = 1,
             title = "Note 1",
             description = "This is a note",
-            date = "2022-07-18 10:00:00"
+            date = "2022-07-18 10:00:00".convertToDate()
         )
     )
 
     private lateinit var resourceType: ResourceType
 
-    override fun getNotes(searchQuery: String): Flow<Resource<List<NoteEntity>>> =
+    override fun getNotes(searchQuery: String): Flow<Resource<List<Note>>> =
         when (resourceType) {
             ResourceType.SUCCESS -> flowOf(Resource.Success(notes))
 
             ResourceType.ERROR -> flowOf(Resource.Error(null))
         }
 
-    override fun getNoteDetail(id: Int): Flow<Resource<NoteEntity>> =
+    override fun getNoteDetail(id: Int): Flow<Resource<Note>> =
         when (resourceType) {
             ResourceType.SUCCESS -> flowOf(Resource.Success(notes.find { it.id == id }))
 
             ResourceType.ERROR -> flowOf(Resource.Error(null))
         }
 
-    override suspend fun insertNote(noteEntity: NoteEntity) {
+    override suspend fun insertNote(note: Note) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun editNote(noteEntity: NoteEntity) {
+    override suspend fun editNote(note: Note) {
         TODO("Not yet implemented")
     }
 
     override suspend fun deleteNote(id: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun uploadNotes(backupType: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun saveSelectedBackupType(backupType: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun getSelectedBackupType(): Flow<Int> {
         TODO("Not yet implemented")
     }
 

@@ -1,6 +1,6 @@
 package com.tonotes.account_data.di
 
-import com.tonotes.account_data.repository.AccountRepository
+import com.tonotes.account_domain.repository.AccountRepository
 import com.tonotes.account_data.repository.AccountRepositoryImpl
 import dagger.Binds
 import dagger.Module

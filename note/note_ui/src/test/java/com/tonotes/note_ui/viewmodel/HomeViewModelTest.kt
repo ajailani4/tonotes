@@ -5,6 +5,9 @@ import com.tonotes.core.util.Resource
 import com.tonotes.core_ui.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
+import com.tonotes.note_domain.use_case.GetSelectedBackupTypeUseCase
+import com.tonotes.note_domain.use_case.SaveSelectedBackupTypeUseCase
+import com.tonotes.note_domain.use_case.UploadNotesUseCase
 import com.tonotes.note_ui.home.HomeEvent
 import com.tonotes.note_ui.home.HomeViewModel
 import com.tonotes.note_ui.util.TestCoroutineRule
@@ -34,13 +37,28 @@ class HomeViewModelTest {
     @Mock
     private lateinit var getAccessTokenUseCase: GetAccessTokenUseCase
 
+    @Mock
+    private lateinit var uploadNotesUseCase: UploadNotesUseCase
+
+    @Mock
+    private lateinit var saveSelectedBackupTypeUseCase: SaveSelectedBackupTypeUseCase
+
+    @Mock
+    private lateinit var getSelectedBackupTypeUseCase: GetSelectedBackupTypeUseCase
+
     private lateinit var homeViewModel: HomeViewModel
 
     private lateinit var onEvent: (HomeEvent) -> Unit
 
     @Before
     fun setUp() {
-        homeViewModel = HomeViewModel(getNotesUseCase, getAccessTokenUseCase)
+        homeViewModel = HomeViewModel(
+            getNotesUseCase,
+            getAccessTokenUseCase,
+            uploadNotesUseCase,
+            saveSelectedBackupTypeUseCase,
+            getSelectedBackupTypeUseCase
+        )
         onEvent = homeViewModel::onEvent
         onEvent(HomeEvent.OnSearchQueryChanged(""))
     }

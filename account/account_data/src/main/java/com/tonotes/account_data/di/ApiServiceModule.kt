@@ -12,15 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
-    @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(Network.BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
-
+object ApiServiceModule {
     @Provides
     @Singleton
     fun provideAccountService(retrofit: Retrofit): AccountService =
