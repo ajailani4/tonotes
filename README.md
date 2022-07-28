@@ -4,7 +4,7 @@ ToNotes is an Android app for managing notes. With this app we can write our not
 
 ## Architecture
 
-This project is built with multi-module architecture and implements architecture that Google recommends which has three main layers, UI, Domain (optional), and Data layer.
+This project is built with multi-module architecture and implements Clean Architecture which has three main layers, UI, Domain, and Data layer.
 
 **Reference**: [Guide to app architecture](https://developer.android.com/jetpack/guide)
 
