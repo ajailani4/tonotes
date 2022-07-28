@@ -68,7 +68,7 @@ class RegisterViewModel @Inject constructor(
                     }
 
                     is Resource.Error -> {
-                        UIState.Error(it.message)
+                        UIState.Fail(it.message)
                     }
                 }
             }
