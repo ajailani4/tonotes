@@ -45,6 +45,9 @@ class HomeViewModel @Inject constructor(
     var selectedBackupType by mutableStateOf(0)
         private set
 
+    var syncIconRotationTargetValue by mutableStateOf(0f)
+        private set
+
     init {
         onEvent(HomeEvent.GetNotes)
         onEvent(HomeEvent.GetAccessToken)
@@ -63,6 +66,11 @@ class HomeViewModel @Inject constructor(
             }
 
             is HomeEvent.GetSelectedBackupType -> getSelectedBackupType()
+
+            is HomeEvent.SyncNotes -> {
+                syncNotes()
+                syncIconRotationTargetValue = -360f
+            }
 
             is HomeEvent.OnSearchQueryChanged -> searchQuery = event.searchQuery
 
@@ -110,5 +118,9 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             selectedBackupType = getSelectedBackupTypeUseCase().first()
         }
+    }
+
+    private fun syncNotes() {
+
     }
 }

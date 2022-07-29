@@ -5,6 +5,7 @@ sealed class HomeEvent {
     object GetAccessToken : HomeEvent()
     object BackUpNotes : HomeEvent()
     object GetSelectedBackupType : HomeEvent()
+    object SyncNotes : HomeEvent()
     data class OnSearchQueryChanged(val searchQuery: String) : HomeEvent()
     data class OnLoginAlertDialogVisChanged(val loginAlertDialogVis: Boolean) : HomeEvent()
     data class OnBackUpNotesDialogVisChanged(val backUpNotesDialogVis: Boolean) : HomeEvent()

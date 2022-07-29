@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -62,9 +63,21 @@ fun HomeScreen(
     val loginAlertDialogVis = homeViewModel.loginAlertDialogVis
     val backUpNotesDialogVis = homeViewModel.backUpNotesDialogVis
     val selectedBackupType = homeViewModel.selectedBackupType
+    val syncIconRotationTargetValue = homeViewModel.syncIconRotationTargetValue
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    val infiniteTransition = rememberInfiniteTransition()
+    val syncIconAngle by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = syncIconRotationTargetValue,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = 2000,
+                easing = LinearEasing
+            )
+        )
+    )
 
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -86,8 +99,13 @@ fun HomeScreen(
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 actions = {
-                    IconButton(onClick = {}) {
+                    IconButton(
+                        onClick = {
+                            onEvent(HomeEvent.SyncNotes)
+                        }
+                    ) {
                         Icon(
+                            modifier = Modifier.graphicsLayer { rotationZ = syncIconAngle },
                             imageVector = Icons.Default.Sync,
                             contentDescription = "Sync notes icon"
                         )
