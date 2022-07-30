@@ -75,22 +75,7 @@ class NoteRepositoryTest {
 
         assertEquals(
             "Resource should be success",
-            Resource.Success(notes),
-            actualResource
-        )
-    }
-
-    @Test
-    fun `Get notes should return fail`() = runBlocking {
-        val result = flow<List<NoteEntity>> { throw Throwable() }
-
-        doReturn(result).`when`(noteLocalDataSource).getNotes(anyString())
-
-        val actualResource = noteRepository.getNotes("").first()
-
-        assertEquals(
-            "Resource should be fail",
-            Resource.Error<List<Note>>(),
+            notes,
             actualResource
         )
     }
@@ -105,22 +90,7 @@ class NoteRepositoryTest {
 
         assertEquals(
             "Resource should be success",
-            Resource.Success(note),
-            actualResource
-        )
-    }
-
-    @Test
-    fun `Get note detail should return fail`() = runBlocking {
-        val resource = flow<NoteEntity> { throw Throwable() }
-
-        doReturn(resource).`when`(noteLocalDataSource).getNoteDetail(anyInt())
-
-        val actualResource = noteRepository.getNoteDetail(1).first()
-
-        assertEquals(
-            "Resource should be fail",
-            Resource.Error<Note>(),
+            note,
             actualResource
         )
     }
