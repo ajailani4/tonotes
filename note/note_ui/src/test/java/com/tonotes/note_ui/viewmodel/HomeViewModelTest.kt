@@ -1,9 +1,7 @@
 package com.tonotes.note_ui.viewmodel
 
 import com.tonotes.core.domain.use_case.GetAccessTokenUseCase
-import com.tonotes.core.util.Resource
 import com.tonotes.core_ui.UIState
-import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
 import com.tonotes.note_domain.use_case.GetSelectedBackupTypeUseCase
 import com.tonotes.note_domain.use_case.SaveSelectedBackupTypeUseCase
@@ -66,7 +64,7 @@ class HomeViewModelTest {
     @Test
     fun `Get notes should return success`() {
         testCoroutineRule.runTest {
-            val resource = flowOf(Resource.Success(notes))
+            val resource = flowOf(notes)
 
             doReturn(resource).`when`(getNotesUseCase)(anyString())
 
@@ -85,7 +83,7 @@ class HomeViewModelTest {
     @Test
     fun `Get notes should return fail`() {
         testCoroutineRule.runTest {
-            val resource = flowOf(Resource.Error<List<Note>>())
+            val resource = flowOf(Throwable())
 
             doReturn(resource).`when`(getNotesUseCase)(anyString())
 
