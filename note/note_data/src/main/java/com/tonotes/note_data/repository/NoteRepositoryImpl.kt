@@ -23,6 +23,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -34,18 +35,8 @@ class NoteRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : NoteRepository {
     override fun getNotes(searchQuery: String) =
-        flow<Resource<List<Note>>> {
-            noteLocalDataSource.getNotes(searchQuery).catch {
-                emit(Resource.Error(it.localizedMessage))
-            }.collect {
-                emit(
-                    Resource.Success(
-                        it.map { noteEntity ->
-                            noteEntity.toNote()
-                        }
-                    )
-                )
-            }
+        noteLocalDataSource.getNotes(searchQuery).map { notesEntity ->
+            notesEntity.map { it.toNote() }
         }
 
     override fun getNotesFromRemote() =
@@ -56,8 +47,8 @@ class NoteRepositoryImpl @Inject constructor(
                 200 -> {
                     val notesDto = response.body()?.data
 
-                    notesDto?.forEach { noteDto ->
-                        noteLocalDataSource.insertNote(noteDto.toNoteEntity())
+                    notesDto?.forEach { it ->
+                        noteLocalDataSource.insertNote(it.toNoteEntity())
                     }
 
                     emit(Resource.Success(context.getString(R.string.notes_sync_successfully)))
@@ -68,12 +59,8 @@ class NoteRepositoryImpl @Inject constructor(
         }
 
     override fun getNoteDetail(id: Int) =
-        flow<Resource<Note>> {
-            noteLocalDataSource.getNoteDetail(id).catch {
-                emit(Resource.Error(it.localizedMessage))
-            }.collect {
-                emit(Resource.Success(it?.toNote()))
-            }
+        noteLocalDataSource.getNoteDetail(id).map { noteEntity ->
+            noteEntity.toNote()
         }
 
     override suspend fun insertNote(note: Note) {

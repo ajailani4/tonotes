@@ -84,16 +84,10 @@ class HomeViewModel @Inject constructor(
 
     private fun getNotes() {
         viewModelScope.launch {
-            val resource = getNotesUseCase(searchQuery)
-
-            resource.catch {
+            getNotesUseCase(searchQuery).catch {
                 notesState = UIState.Error(it.localizedMessage)
             }.collect {
-                notesState = when (it) {
-                    is Resource.Success -> UIState.Success(it.data)
-
-                    is Resource.Error -> UIState.Fail(it.message)
-                }
+                notesState = UIState.Success(it)
             }
         }
     }
