@@ -27,6 +27,7 @@
     <string name="daily">Harian</string>
     <string name="weekly">Mingguan</string>
     <string name="back_up">Cadangkan</string>
+    <string name="notes_sync_successfully">Catatan berhasil disinkronkan</string>
 
     <string name="edit">Edit</string>
     <string name="delete">Hapus</string>

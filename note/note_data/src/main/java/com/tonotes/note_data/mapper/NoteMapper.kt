@@ -29,3 +29,11 @@ fun Note.toNoteEntity() =
         description = description,
         date = date.convertToString("yyyy-MM-dd HH:mm:ss")
     )
+
+fun NoteDto.toNoteEntity() =
+    NoteEntity(
+        id = id,
+        title = title,
+        description = description,
+        date = date
+    )
