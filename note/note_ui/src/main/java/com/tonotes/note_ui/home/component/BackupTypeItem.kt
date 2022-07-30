@@ -43,7 +43,7 @@ fun BackupTypeItem(
                 selected = isSelected,
                 onClick = onClick
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(15.dp))
             Text(text = backupType)
         }
     }
