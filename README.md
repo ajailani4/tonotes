@@ -1,6 +1,6 @@
 # ToNotes
 
-ToNotes is an Android app for managing notes. With this app you can write your notes, edit, and delete them. Also, we can back up the notes to the cloud and sync them to your phone.
+ToNotes is an Android app for managing notes. With this app you can write your notes, edit, and delete them. Also, you can back up the notes to the cloud and sync them to your phone.
 
 ## Architecture
 
