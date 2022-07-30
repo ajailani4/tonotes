@@ -1,6 +1,10 @@
 package com.tonotes.note_data.local
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
 import com.tonotes.note_data.local.entity.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -12,7 +16,7 @@ interface NoteDao {
             FROM NoteEntity
             WHERE title LIKE '%' || :searchQuery || '%'
             OR description LIKE '%' || :searchQuery || '%'
-            ORDER BY id DESC
+            ORDER BY date DESC
         """
     )
     fun getNotes(searchQuery: String): Flow<List<NoteEntity>>

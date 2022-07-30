@@ -23,7 +23,8 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -41,7 +42,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
+        kotlinCompilerExtensionVersion = Compose.compilerVersion
     }
     packagingOptions {
         resources {
@@ -55,6 +56,9 @@ dependencies {
     implementation(project(Modules.noteData))
     implementation(project(Modules.noteDomain))
     implementation(project(Modules.noteUI))
+    implementation(project(Modules.accountData))
+    implementation(project(Modules.accountDomain))
+    implementation(project(Modules.accountUI))
 
     implementation(AndroidX.coreKtx)
     implementation(AndroidX.lifecycleRuntime)
@@ -69,10 +73,13 @@ dependencies {
 
     implementation(Coroutines.coroutines)
 
+    implementation(WorkManager.workRuntime)
+
+    implementation(Hilt.hiltWork)
+    implementation(Hilt.hiltCompiler)
+
     implementation(Hilt.android)
     kapt(Hilt.androidCompiler)
-    implementation(Hilt.lifecycleVM)
-    kapt(Hilt.compiler)
 
     testImplementation(JUnit.JUnit)
     testImplementation(Mockito.core)

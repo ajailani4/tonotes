@@ -1,10 +1,8 @@
 package com.tonotes.note_ui.viewmodel
 
 import androidx.lifecycle.SavedStateHandle
-import com.tonotes.core.Constants.NavArgument
-import com.tonotes.core.Resource
-import com.tonotes.core.UIState
-import com.tonotes.note_domain.model.Note
+import com.tonotes.core.util.Constants.NavArgument
+import com.tonotes.core_ui.UIState
 import com.tonotes.note_domain.use_case.DeleteNoteUseCase
 import com.tonotes.note_domain.use_case.GetNoteDetailUseCase
 import com.tonotes.note_ui.note_detail.NoteDetailEvent
@@ -59,7 +57,7 @@ class NoteDetailViewModelTest {
     @Test
     fun `Get note detail should return success`() {
         testCoroutineRule.runTest {
-            val resource = flowOf(Resource.Success(note))
+            val resource = flowOf(note)
 
             doReturn(resource).`when`(getNoteDetailUseCase)(anyInt())
 
@@ -79,7 +77,7 @@ class NoteDetailViewModelTest {
     @Test
     fun `Get note detail should return fail`() {
         testCoroutineRule.runTest {
-            val resource = flowOf(Resource.Error<Note>())
+            val resource = flowOf(Throwable())
 
             doReturn(resource).`when`(getNoteDetailUseCase)(anyInt())
 

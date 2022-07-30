@@ -22,8 +22,6 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled true
-
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -34,7 +32,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = Compose.composeVersion
+        kotlinCompilerExtensionVersion = Compose.compilerVersion
     }
 }
 
@@ -43,14 +41,13 @@ dependencies {
     implementation(Compose.activity)
     implementation(Compose.ui)
     implementation(Compose.material3)
+    implementation(Compose.extMaterialIcons)
     implementation(Compose.uiToolingPreview)
     implementation(Compose.navigation)
     implementation(Compose.hiltNavigation)
 
     implementation(Hilt.android)
     kapt(Hilt.androidCompiler)
-    implementation(Hilt.lifecycleVM)
-    kapt(Hilt.compiler)
 
     testImplementation(JUnit.JUnit)
     testImplementation(Mockito.core)

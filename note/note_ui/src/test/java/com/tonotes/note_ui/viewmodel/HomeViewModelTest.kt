@@ -1,9 +1,13 @@
 package com.tonotes.note_ui.viewmodel
 
-import com.tonotes.core.Resource
-import com.tonotes.core.UIState
-import com.tonotes.note_domain.model.Note
+import com.tonotes.core.domain.use_case.GetAccessTokenUseCase
+import com.tonotes.core.util.Resource
+import com.tonotes.core_ui.UIState
 import com.tonotes.note_domain.use_case.GetNotesUseCase
+import com.tonotes.note_domain.use_case.GetSelectedBackupTypeUseCase
+import com.tonotes.note_domain.use_case.SaveSelectedBackupTypeUseCase
+import com.tonotes.note_domain.use_case.SyncNotesUseCase
+import com.tonotes.note_domain.use_case.UploadNotesUseCase
 import com.tonotes.note_ui.home.HomeEvent
 import com.tonotes.note_ui.home.HomeViewModel
 import com.tonotes.note_ui.util.TestCoroutineRule
@@ -30,13 +34,35 @@ class HomeViewModelTest {
     @Mock
     private lateinit var getNotesUseCase: GetNotesUseCase
 
+    @Mock
+    private lateinit var getAccessTokenUseCase: GetAccessTokenUseCase
+
+    @Mock
+    private lateinit var uploadNotesUseCase: UploadNotesUseCase
+
+    @Mock
+    private lateinit var saveSelectedBackupTypeUseCase: SaveSelectedBackupTypeUseCase
+
+    @Mock
+    private lateinit var getSelectedBackupTypeUseCase: GetSelectedBackupTypeUseCase
+
+    @Mock
+    private lateinit var syncNotesUseCase: SyncNotesUseCase
+
     private lateinit var homeViewModel: HomeViewModel
 
     private lateinit var onEvent: (HomeEvent) -> Unit
 
     @Before
     fun setUp() {
-        homeViewModel = HomeViewModel(getNotesUseCase)
+        homeViewModel = HomeViewModel(
+            getNotesUseCase,
+            getAccessTokenUseCase,
+            uploadNotesUseCase,
+            saveSelectedBackupTypeUseCase,
+            getSelectedBackupTypeUseCase,
+            syncNotesUseCase
+        )
         onEvent = homeViewModel::onEvent
         onEvent(HomeEvent.OnSearchQueryChanged(""))
     }
@@ -44,7 +70,7 @@ class HomeViewModelTest {
     @Test
     fun `Get notes should return success`() {
         testCoroutineRule.runTest {
-            val resource = flowOf(Resource.Success(notes))
+            val resource = flowOf(notes)
 
             doReturn(resource).`when`(getNotesUseCase)(anyString())
 
@@ -63,13 +89,51 @@ class HomeViewModelTest {
     @Test
     fun `Get notes should return fail`() {
         testCoroutineRule.runTest {
-            val resource = flowOf(Resource.Error<List<Note>>())
+            val resource = flowOf(Throwable())
 
             doReturn(resource).`when`(getNotesUseCase)(anyString())
 
             onEvent(HomeEvent.GetNotes)
 
             val isSuccess = when (homeViewModel.notesState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be fail", false, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Sync notes should return success`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Success("Synced successfully"))
+
+            doReturn(resource).`when`(syncNotesUseCase)()
+
+            onEvent(HomeEvent.SyncNotes)
+
+            val isSuccess = when (homeViewModel.syncNotesState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be success", true, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Sync notes should return fail`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Error<String>())
+
+            doReturn(resource).`when`(syncNotesUseCase)()
+
+            onEvent(HomeEvent.SyncNotes)
+
+            val isSuccess = when (homeViewModel.syncNotesState) {
                 is UIState.Success -> true
 
                 else -> false

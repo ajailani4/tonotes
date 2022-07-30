@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToNotes</string>
+
+    <string name="search_notes">Cari catatan</string>
+    <string name="no_notes">Belum ada catatan</string>
+    <string name="need_to_login">Perlu Masuk</string>
+    <string name="need_to_have_an_account">Kamu memerlukan akun untuk mencadangkan catatan</string>
+    <string name="cancel">Batalkan</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+
+    <string name="username">Username</string>
+    <string name="name">Nama</string>
+    <string name="password">Kata Sandi</string>
+    <string name="have_no_account">Belum punya akun?</string>
+    <string name="register_here">Daftar di sini</string>
+    <string name="have_account">Sudah punya akun?</string>
+    <string name="login_here">Masuk di sini</string>
+    <string name="fill_the_form">Mohon isi form dengan lengkap</string>
+    <string name="incorrect_username_or_pass">Username atau password salah</string>
+    <string name="username_already_exists">Username sudah ada. Coba yang lain</string>
+    <string name="something_wrong_happened">Maaf, terjadi kesalahan</string>
+
+    <string name="back_up_notes">Cadangkan Catatan</string>
+    <string name="manually">Manual</string>
+    <string name="daily">Harian</string>
+    <string name="weekly">Mingguan</string>
+    <string name="back_up">Cadangkan</string>
+    <string name="notes_sync_successfully">Catatan berhasil disinkronkan</string>
+
+    <string name="edit">Edit</string>
+    <string name="delete">Hapus</string>
+    <string name="delete_note">Hapus Catatan</string>
+    <string name="delete_note_confirm_msg">Apakah kamu yakin ingin menghapus catatan ini?</string>
+    <string name="yes">Iya</string>
+    <string name="no">Tidak</string>
+    <string name="add_note">Tambah Catatan</string>
+    <string name="edit_note">Edit Catatan</string>
+    <string name="title">Judul</string>
+    <string name="description">Deksripsi</string>
+    <string name="save">Simpan</string>
+    <string name="please_fill_completely">Mohon diisi dengan lengkap</string>
+</resources>

@@ -1,6 +1,10 @@
 package com.tonotes.note_ui.note_detail
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -8,7 +12,18 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material3.*
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -18,10 +33,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.tonotes.core.Constants.TestTag
-import com.tonotes.core.R
-import com.tonotes.core.UIState
+import com.tonotes.core.util.Constants.TestTag
 import com.tonotes.core.util.convertToString
+import com.tonotes.core_ui.R
+import com.tonotes.core_ui.UIState
+import com.tonotes.core_ui.component.CustomAlertDialog
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,7 +45,8 @@ import kotlinx.coroutines.launch
 fun NoteDetailScreen(
     noteDetailViewModel: NoteDetailViewModel = hiltViewModel(),
     onNavigateUp: () -> Unit,
-    onNavigateToAddEditNote: (id: Int) -> Unit
+    onNavigateToAddEditNote: (id: Int) -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val noteId = noteDetailViewModel.noteId
     val onEvent = noteDetailViewModel::onEvent
@@ -101,7 +118,10 @@ fun NoteDetailScreen(
                             }
                         )
                     }
-                }
+                },
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
         }
     ) { innerPadding ->
@@ -111,6 +131,7 @@ fun NoteDetailScreen(
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
+            // Observe note detail state
             when (noteDetailState) {
                 is UIState.Success -> {
                     val note = noteDetailState.data
@@ -124,20 +145,18 @@ fun NoteDetailScreen(
                             Text(
                                 modifier = Modifier.testTag(TestTag.TITLE_TEXT),
                                 text = note.title,
-                                color = MaterialTheme.colorScheme.onBackground,
                                 style = MaterialTheme.typography.titleLarge
                             )
                             Spacer(modifier = Modifier.height(10.dp))
                             Text(
-                                text = note.date.convertToString(),
+                                text = note.date.convertToString("dd MMM yyyy"),
                                 color = MaterialTheme.colorScheme.secondary,
                                 style = MaterialTheme.typography.labelLarge
                             )
                             Spacer(modifier = Modifier.height(25.dp))
                             Text(
                                 modifier = Modifier.testTag(TestTag.DESCRIPTION_TEXT),
-                                text = note.description,
-                                color = MaterialTheme.colorScheme.onBackground
+                                text = note.description
                             )
                         }
                     }
@@ -157,31 +176,23 @@ fun NoteDetailScreen(
     }
 
     if (deleteDialogVis) {
-        AlertDialog(
-            onDismissRequest = {
+        CustomAlertDialog(
+            onVisibilityChanged = {
                 onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
             },
-            title = {
-                Text(text = stringResource(id = R.string.delete_note))
-            },
-            text = {
+            title = stringResource(id = R.string.delete_note),
+            content = {
                 Text(text = stringResource(id = R.string.delete_note_confirm_msg))
             },
-            confirmButton = {
-                TextButton(onClick = {
-                    onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
-                    onEvent(NoteDetailEvent.DeleteNote)
-                    onNavigateUp()
-                }) {
-                    Text(text = stringResource(id = R.string.yes))
-                }
+            confirmText = stringResource(id = R.string.yes),
+            onConfirmed = {
+                onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
+                onEvent(NoteDetailEvent.DeleteNote)
+                onNavigateToHome()
             },
-            dismissButton = {
-                TextButton(onClick = {
-                    onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
-                }) {
-                    Text(text = stringResource(id = R.string.no))
-                }
+            dismissText = stringResource(id = R.string.no),
+            onDismissed = {
+                onEvent(NoteDetailEvent.OnDeleteDialogVisChanged(false))
             }
         )
     }

@@ -15,6 +15,10 @@ dependencyResolutionManagement {
 rootProject.name = "ToNotes"
 include ':app'
 include ':core'
+include ':core_ui'
 include ':note:note_data'
 include ':note:note_domain'
 include ':note:note_ui'
+include ':account:account_data'
+include ':account:account_domain'
+include ':account:account_ui'

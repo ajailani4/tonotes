@@ -6,14 +6,14 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tonotes.core.Constants.NavArgument.NOTE_ID
-import com.tonotes.core.Resource
-import com.tonotes.core.UIState
+import com.tonotes.core.util.Constants.NavArgument.NOTE_ID
+import com.tonotes.core_ui.UIState
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.EditNoteUseCase
 import com.tonotes.note_domain.use_case.GetNoteDetailUseCase
 import com.tonotes.note_domain.use_case.InsertNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -66,14 +66,10 @@ class AddEditNoteViewModel @Inject constructor(
 
     private fun getNoteDetail() {
         viewModelScope.launch {
-            val resource = getNoteDetailUseCase(noteId)
-
-            resource.collect {
-                noteDetailState = when (it) {
-                    is Resource.Success -> UIState.Success(it.data)
-
-                    is Resource.Error -> UIState.Fail(it.message)
-                }
+            getNoteDetailUseCase(noteId).catch {
+                noteDetailState = UIState.Error(it.localizedMessage)
+            }.collect {
+                noteDetailState = UIState.Success(it)
             }
         }
     }
