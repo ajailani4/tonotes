@@ -1,10 +1,12 @@
 package com.tonotes.note_ui.viewmodel
 
 import com.tonotes.core.domain.use_case.GetAccessTokenUseCase
+import com.tonotes.core.util.Resource
 import com.tonotes.core_ui.UIState
 import com.tonotes.note_domain.use_case.GetNotesUseCase
 import com.tonotes.note_domain.use_case.GetSelectedBackupTypeUseCase
 import com.tonotes.note_domain.use_case.SaveSelectedBackupTypeUseCase
+import com.tonotes.note_domain.use_case.SyncNotesUseCase
 import com.tonotes.note_domain.use_case.UploadNotesUseCase
 import com.tonotes.note_ui.home.HomeEvent
 import com.tonotes.note_ui.home.HomeViewModel
@@ -44,6 +46,9 @@ class HomeViewModelTest {
     @Mock
     private lateinit var getSelectedBackupTypeUseCase: GetSelectedBackupTypeUseCase
 
+    @Mock
+    private lateinit var syncNotesUseCase: SyncNotesUseCase
+
     private lateinit var homeViewModel: HomeViewModel
 
     private lateinit var onEvent: (HomeEvent) -> Unit
@@ -55,7 +60,8 @@ class HomeViewModelTest {
             getAccessTokenUseCase,
             uploadNotesUseCase,
             saveSelectedBackupTypeUseCase,
-            getSelectedBackupTypeUseCase
+            getSelectedBackupTypeUseCase,
+            syncNotesUseCase
         )
         onEvent = homeViewModel::onEvent
         onEvent(HomeEvent.OnSearchQueryChanged(""))
@@ -90,6 +96,44 @@ class HomeViewModelTest {
             onEvent(HomeEvent.GetNotes)
 
             val isSuccess = when (homeViewModel.notesState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be fail", false, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Sync notes should return success`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Success("Synced successfully"))
+
+            doReturn(resource).`when`(syncNotesUseCase)()
+
+            onEvent(HomeEvent.SyncNotes)
+
+            val isSuccess = when (homeViewModel.syncNotesState) {
+                is UIState.Success -> true
+
+                else -> false
+            }
+
+            assertEquals("Should be success", true, isSuccess)
+        }
+    }
+
+    @Test
+    fun `Sync notes should return fail`() {
+        testCoroutineRule.runTest {
+            val resource = flowOf(Resource.Error<String>())
+
+            doReturn(resource).`when`(syncNotesUseCase)()
+
+            onEvent(HomeEvent.SyncNotes)
+
+            val isSuccess = when (homeViewModel.syncNotesState) {
                 is UIState.Success -> true
 
                 else -> false
