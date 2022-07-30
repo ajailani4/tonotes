@@ -1,6 +1,7 @@
 package com.tonotes.note_ui.home
 
 sealed class HomeEvent {
+    object Idle : HomeEvent()
     object GetNotes : HomeEvent()
     object GetAccessToken : HomeEvent()
     object BackUpNotes : HomeEvent()

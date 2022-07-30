@@ -5,7 +5,6 @@ import android.view.WindowManager
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -58,6 +57,7 @@ fun HomeScreen(
 ) {
     val onEvent = homeViewModel::onEvent
     val notesState = homeViewModel.notesState
+    val syncNotesState = homeViewModel.syncNotesState
     val searchQuery = homeViewModel.searchQuery
     val isLoggedIn = homeViewModel.isLoggedIn
     val loginAlertDialogVis = homeViewModel.loginAlertDialogVis
@@ -99,22 +99,27 @@ fun HomeScreen(
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 actions = {
-                    IconButton(
-                        onClick = {
-                            onEvent(HomeEvent.SyncNotes)
+                    if (isLoggedIn) {
+                        IconButton(
+                            onClick = {
+                                onEvent(HomeEvent.SyncNotes)
+                            }
+                        ) {
+                            Icon(
+                                modifier = Modifier.graphicsLayer { rotationZ = syncIconAngle },
+                                imageVector = Icons.Default.Sync,
+                                contentDescription = "Sync notes icon"
+                            )
                         }
-                    ) {
-                        Icon(
-                            modifier = Modifier.graphicsLayer { rotationZ = syncIconAngle },
-                            imageVector = Icons.Default.Sync,
-                            contentDescription = "Sync notes icon"
-                        )
                     }
+
                     IconButton(
                         onClick = {
-                            onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))
-                            onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(true))
-                            onEvent(HomeEvent.GetAccessToken)
+                            if (isLoggedIn) {
+                                onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(true))
+                            } else {
+                                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))
+                            }
                         }
                     ) {
                         Icon(
@@ -203,12 +208,6 @@ fun HomeScreen(
                         }
                     }
 
-                    is UIState.Fail -> {
-                        coroutineScope.launch {
-                            notesState.message?.let { snackbarHostState.showSnackbar(it) }
-                        }
-                    }
-
                     is UIState.Error -> {
                         coroutineScope.launch {
                             notesState.message?.let { snackbarHostState.showSnackbar(it) }
@@ -223,7 +222,7 @@ fun HomeScreen(
 
     // Observe dialog visibility state
     when {
-        !isLoggedIn && loginAlertDialogVis -> {
+        loginAlertDialogVis -> {
             CustomAlertDialog(
                 onVisibilityChanged = {
                     onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
@@ -244,7 +243,7 @@ fun HomeScreen(
             )
         }
 
-        isLoggedIn && backUpNotesDialogVis -> {
+        backUpNotesDialogVis -> {
             CustomAlertDialog(
                 onVisibilityChanged = {
                     onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(false))
@@ -282,6 +281,31 @@ fun HomeScreen(
                 }
             )
         }
+    }
+
+    // Observe sync notes state
+    when (syncNotesState) {
+        is UIState.Success -> {
+            LaunchedEffect(Unit) {
+                coroutineScope.launch {
+                    syncNotesState.data?.let { snackbarHostState.showSnackbar(it) }
+                }
+            }
+
+            onEvent(HomeEvent.Idle)
+        }
+
+        is UIState.Error -> {
+            LaunchedEffect(Unit) {
+                coroutineScope.launch {
+                    syncNotesState.message?.let { snackbarHostState.showSnackbar(it) }
+                }
+            }
+
+            onEvent(HomeEvent.Idle)
+        }
+
+        else -> {}
     }
 }
 

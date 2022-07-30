@@ -12,9 +12,11 @@ import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.use_case.GetNotesUseCase
 import com.tonotes.note_domain.use_case.GetSelectedBackupTypeUseCase
 import com.tonotes.note_domain.use_case.SaveSelectedBackupTypeUseCase
+import com.tonotes.note_domain.use_case.SyncNotesUseCase
 import com.tonotes.note_domain.use_case.UploadNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,9 +27,13 @@ class HomeViewModel @Inject constructor(
     private val getAccessTokenUseCase: GetAccessTokenUseCase,
     private val uploadNotesUseCase: UploadNotesUseCase,
     private val saveSelectedBackupTypeUseCase: SaveSelectedBackupTypeUseCase,
-    private val getSelectedBackupTypeUseCase: GetSelectedBackupTypeUseCase
+    private val getSelectedBackupTypeUseCase: GetSelectedBackupTypeUseCase,
+    private val syncNotesUseCase: SyncNotesUseCase
 ) : ViewModel() {
     var notesState by mutableStateOf<UIState<List<Note>>>(UIState.Idle)
+        private set
+
+    var syncNotesState by mutableStateOf<UIState<String>>(UIState.Idle)
         private set
 
     var searchQuery by mutableStateOf("")
@@ -56,6 +62,8 @@ class HomeViewModel @Inject constructor(
 
     fun onEvent(event: HomeEvent) {
         when (event) {
+            is HomeEvent.Idle -> idle()
+
             is HomeEvent.GetNotes -> getNotes()
 
             is HomeEvent.GetAccessToken -> getAccessToken()
@@ -67,10 +75,7 @@ class HomeViewModel @Inject constructor(
 
             is HomeEvent.GetSelectedBackupType -> getSelectedBackupType()
 
-            is HomeEvent.SyncNotes -> {
-                syncNotes()
-                syncIconRotationTargetValue = -360f
-            }
+            is HomeEvent.SyncNotes -> syncNotes()
 
             is HomeEvent.OnSearchQueryChanged -> searchQuery = event.searchQuery
 
@@ -80,6 +85,10 @@ class HomeViewModel @Inject constructor(
 
             is HomeEvent.OnBackupTypeSelected -> selectedBackupType = event.selectedBackupTypes
         }
+    }
+
+    private fun idle() {
+        syncNotesState = UIState.Idle
     }
 
     private fun getNotes() {
@@ -94,7 +103,9 @@ class HomeViewModel @Inject constructor(
 
     private fun getAccessToken() {
         viewModelScope.launch {
-            isLoggedIn = getAccessTokenUseCase().first().isNotEmpty()
+            getAccessTokenUseCase().collect {
+                isLoggedIn = it.isNotEmpty()
+            }
         }
     }
 
@@ -115,6 +126,21 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun syncNotes() {
+        syncIconRotationTargetValue = -360f
 
+        viewModelScope.launch {
+            syncNotesUseCase().catch {
+                syncNotesState = UIState.Error(it.localizedMessage)
+            }.collect {
+                syncNotesState = when (it) {
+                    is Resource.Success -> {
+                        syncIconRotationTargetValue = 0f
+                        UIState.Success(it.data)
+                    }
+
+                    is Resource.Error -> UIState.Fail(it.message)
+                }
+            }
+        }
     }
 }
