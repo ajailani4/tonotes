@@ -5,10 +5,14 @@ import com.tonotes.note_data.remote.dto.NoteDto
 import com.tonotes.note_data.remote.dto.NotesRequest
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface NoteService {
+    @GET("notes")
+    suspend fun syncNotes(): Response<BaseResponse<List<NoteDto>>>
+
     @POST("notes")
     suspend fun uploadNotes(
         @Query("isList") isList: Boolean,

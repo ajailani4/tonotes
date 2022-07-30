@@ -47,12 +47,10 @@ class LoginViewModel @Inject constructor(
         loginState = UIState.Loading
 
         viewModelScope.launch {
-            val resource = loginAccountUseCase(
+            loginAccountUseCase(
                 username = username,
                 password = password
-            )
-
-            resource.catch {
+            ).catch {
                 loginState = UIState.Error(it.localizedMessage)
             }.collect {
                 loginState = when (it) {

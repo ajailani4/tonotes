@@ -5,9 +5,11 @@ import com.tonotes.note_domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
 interface NoteRepository {
-    fun getNotes(searchQuery: String): Flow<Resource<List<Note>>>
+    fun getNotes(searchQuery: String): Flow<List<Note>>
 
-    fun getNoteDetail(id: Int): Flow<Resource<Note>>
+    fun syncNotes(): Flow<Resource<String>>
+
+    fun getNoteDetail(id: Int): Flow<Note>
 
     suspend fun insertNote(note: Note)
 

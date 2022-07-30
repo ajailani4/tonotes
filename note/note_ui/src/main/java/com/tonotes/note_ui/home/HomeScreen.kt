@@ -2,6 +2,11 @@ package com.tonotes.note_ui.home
 
 import android.app.Activity
 import android.view.WindowManager
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,15 +19,18 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -49,14 +57,27 @@ fun HomeScreen(
 ) {
     val onEvent = homeViewModel::onEvent
     val notesState = homeViewModel.notesState
+    val syncNotesState = homeViewModel.syncNotesState
     val searchQuery = homeViewModel.searchQuery
     val isLoggedIn = homeViewModel.isLoggedIn
     val loginAlertDialogVis = homeViewModel.loginAlertDialogVis
     val backUpNotesDialogVis = homeViewModel.backUpNotesDialogVis
     val selectedBackupType = homeViewModel.selectedBackupType
+    val syncIconRotationTargetValue = homeViewModel.syncIconRotationTargetValue
 
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
+    val infiniteTransition = rememberInfiniteTransition()
+    val syncIconAngle by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = syncIconRotationTargetValue,
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = 2000,
+                easing = LinearEasing
+            )
+        )
+    )
 
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -78,16 +99,32 @@ fun HomeScreen(
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 actions = {
+                    if (isLoggedIn) {
+                        IconButton(
+                            onClick = {
+                                onEvent(HomeEvent.SyncNotes)
+                            }
+                        ) {
+                            Icon(
+                                modifier = Modifier.graphicsLayer { rotationZ = syncIconAngle },
+                                imageVector = Icons.Default.Sync,
+                                contentDescription = "Sync notes icon"
+                            )
+                        }
+                    }
+
                     IconButton(
                         onClick = {
-                            onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))
-                            onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(true))
-                            onEvent(HomeEvent.GetAccessToken)
+                            if (isLoggedIn) {
+                                onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(true))
+                            } else {
+                                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))
+                            }
                         }
                     ) {
                         Icon(
                             imageVector = Icons.Outlined.CloudUpload,
-                            contentDescription = "Back up icon"
+                            contentDescription = "Back up notes icon"
                         )
                     }
                 },
@@ -171,12 +208,6 @@ fun HomeScreen(
                         }
                     }
 
-                    is UIState.Fail -> {
-                        coroutineScope.launch {
-                            notesState.message?.let { snackbarHostState.showSnackbar(it) }
-                        }
-                    }
-
                     is UIState.Error -> {
                         coroutineScope.launch {
                             notesState.message?.let { snackbarHostState.showSnackbar(it) }
@@ -191,7 +222,7 @@ fun HomeScreen(
 
     // Observe dialog visibility state
     when {
-        !isLoggedIn && loginAlertDialogVis -> {
+        loginAlertDialogVis -> {
             CustomAlertDialog(
                 onVisibilityChanged = {
                     onEvent(HomeEvent.OnLoginAlertDialogVisChanged(false))
@@ -212,7 +243,7 @@ fun HomeScreen(
             )
         }
 
-        isLoggedIn && backUpNotesDialogVis -> {
+        backUpNotesDialogVis -> {
             CustomAlertDialog(
                 onVisibilityChanged = {
                     onEvent(HomeEvent.OnBackUpNotesDialogVisChanged(false))
@@ -250,6 +281,31 @@ fun HomeScreen(
                 }
             )
         }
+    }
+
+    // Observe sync notes state
+    when (syncNotesState) {
+        is UIState.Success -> {
+            LaunchedEffect(Unit) {
+                coroutineScope.launch {
+                    syncNotesState.data?.let { snackbarHostState.showSnackbar(it) }
+                }
+            }
+
+            onEvent(HomeEvent.Idle)
+        }
+
+        is UIState.Error -> {
+            LaunchedEffect(Unit) {
+                coroutineScope.launch {
+                    syncNotesState.message?.let { snackbarHostState.showSnackbar(it) }
+                }
+            }
+
+            onEvent(HomeEvent.Idle)
+        }
+
+        else -> {}
     }
 }
 

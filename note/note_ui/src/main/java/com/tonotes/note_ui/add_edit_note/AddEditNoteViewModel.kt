@@ -14,6 +14,7 @@ import com.tonotes.note_domain.use_case.EditNoteUseCase
 import com.tonotes.note_domain.use_case.GetNoteDetailUseCase
 import com.tonotes.note_domain.use_case.InsertNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -66,14 +67,10 @@ class AddEditNoteViewModel @Inject constructor(
 
     private fun getNoteDetail() {
         viewModelScope.launch {
-            val resource = getNoteDetailUseCase(noteId)
-
-            resource.collect {
-                noteDetailState = when (it) {
-                    is Resource.Success -> UIState.Success(it.data)
-
-                    is Resource.Error -> UIState.Fail(it.message)
-                }
+            getNoteDetailUseCase(noteId).catch {
+                noteDetailState = UIState.Error(it.localizedMessage)
+            }.collect {
+                noteDetailState = UIState.Success(it)
             }
         }
     }

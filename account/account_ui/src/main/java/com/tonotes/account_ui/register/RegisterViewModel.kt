@@ -52,13 +52,11 @@ class RegisterViewModel @Inject constructor(
         registerState = UIState.Loading
 
         viewModelScope.launch {
-            val resource = registerAccountUseCase(
+            registerAccountUseCase(
                 username = username,
                 name = name,
                 password = password
-            )
-
-            resource.catch {
+            ).catch {
                 registerState = UIState.Error(it.localizedMessage)
             }.collect {
                 registerState = when (it) {

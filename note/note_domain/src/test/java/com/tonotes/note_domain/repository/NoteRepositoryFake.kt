@@ -19,19 +19,16 @@ class NoteRepositoryFake : NoteRepository {
 
     private lateinit var resourceType: ResourceType
 
-    override fun getNotes(searchQuery: String): Flow<Resource<List<Note>>> =
+    override fun getNotes(searchQuery: String) = flowOf(notes)
+
+    override fun syncNotes(): Flow<Resource<String>> =
         when (resourceType) {
-            ResourceType.SUCCESS -> flowOf(Resource.Success(notes))
+            ResourceType.SUCCESS -> flowOf(Resource.Success("Synced successfully"))
 
             ResourceType.ERROR -> flowOf(Resource.Error(null))
         }
 
-    override fun getNoteDetail(id: Int): Flow<Resource<Note>> =
-        when (resourceType) {
-            ResourceType.SUCCESS -> flowOf(Resource.Success(notes.find { it.id == id }))
-
-            ResourceType.ERROR -> flowOf(Resource.Error(null))
-        }
+    override fun getNoteDetail(id: Int) = flowOf(notes.find { it.id == id }!!)
 
     override suspend fun insertNote(note: Note) {
         TODO("Not yet implemented")
