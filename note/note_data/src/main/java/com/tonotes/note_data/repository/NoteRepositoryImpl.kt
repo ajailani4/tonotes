@@ -20,8 +20,6 @@ import com.tonotes.note_data.worker.UploadNotesWorker
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.repository.NoteRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.util.concurrent.TimeUnit
@@ -39,9 +37,9 @@ class NoteRepositoryImpl @Inject constructor(
             notesEntity.map { it.toNote() }
         }
 
-    override fun getNotesFromRemote() =
+    override fun syncNotes() =
         flow {
-            val response = noteRemoteDataSource.getNotes()
+            val response = noteRemoteDataSource.syncNotes()
 
             when (response.code()) {
                 200 -> {

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface NoteRepository {
     fun getNotes(searchQuery: String): Flow<List<Note>>
 
-    fun getNotesFromRemote(): Flow<Resource<String>>
+    fun syncNotes(): Flow<Resource<String>>
 
     fun getNoteDetail(id: Int): Flow<Note>
 

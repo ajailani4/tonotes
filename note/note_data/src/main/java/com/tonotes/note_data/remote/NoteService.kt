@@ -11,7 +11,7 @@ import retrofit2.http.Query
 
 interface NoteService {
     @GET("notes")
-    suspend fun getNotes(): Response<BaseResponse<List<NoteDto>>>
+    suspend fun syncNotes(): Response<BaseResponse<List<NoteDto>>>
 
     @POST("notes")
     suspend fun uploadNotes(
