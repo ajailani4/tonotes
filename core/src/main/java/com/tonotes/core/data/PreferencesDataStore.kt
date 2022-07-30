@@ -20,7 +20,8 @@ class PreferencesDataStore @Inject constructor(
             Constants.DataStore.PREFERENCES_NAME
         )
         private val ACCESS_TOKEN = stringPreferencesKey(Constants.DataStore.ACCESS_TOKEN_KEY)
-        private val SELECTED_BACKUP_TYPE = intPreferencesKey(Constants.DataStore.SELECTED_BACKUP_TYPE)
+        private val SELECTED_BACKUP_TYPE =
+            intPreferencesKey(Constants.DataStore.SELECTED_BACKUP_TYPE)
     }
 
     suspend fun saveAccessToken(accessToken: String) {

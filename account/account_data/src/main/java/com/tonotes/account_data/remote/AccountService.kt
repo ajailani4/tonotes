@@ -1,9 +1,9 @@
 package com.tonotes.account_data.remote
 
-import com.tonotes.account_data.remote.dto.response.BaseResponse
+import com.tonotes.account_data.remote.dto.UserCredentialDto
 import com.tonotes.account_data.remote.dto.request.LoginRequest
 import com.tonotes.account_data.remote.dto.request.RegisterRequest
-import com.tonotes.account_data.remote.dto.UserCredentialDto
+import com.tonotes.account_data.remote.dto.response.BaseResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

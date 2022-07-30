@@ -9,5 +9,6 @@ class AccountRemoteDataSource @Inject constructor(
 ) {
     suspend fun login(loginRequest: LoginRequest) = accountService.login(loginRequest)
 
-    suspend fun register(registerRequest: RegisterRequest) = accountService.register(registerRequest)
+    suspend fun register(registerRequest: RegisterRequest) =
+        accountService.register(registerRequest)
 }

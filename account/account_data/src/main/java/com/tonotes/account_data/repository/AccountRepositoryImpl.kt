@@ -1,6 +1,5 @@
 package com.tonotes.account_data.repository
 
-import com.tonotes.core_ui.R
 import android.content.Context
 import com.tonotes.account_data.mapper.toUserCredential
 import com.tonotes.account_data.remote.AccountRemoteDataSource
@@ -8,6 +7,7 @@ import com.tonotes.account_data.remote.dto.request.LoginRequest
 import com.tonotes.account_data.remote.dto.request.RegisterRequest
 import com.tonotes.account_domain.repository.AccountRepository
 import com.tonotes.core.util.Resource
+import com.tonotes.core_ui.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

@@ -1,17 +1,14 @@
 package com.tonotes.account_data.repository
 
-import com.tonotes.core_ui.R
 import android.content.Context
 import com.tonotes.account_data.remote.AccountRemoteDataSource
 import com.tonotes.account_data.remote.dto.response.BaseResponse
-import com.tonotes.account_data.remote.dto.request.LoginRequest
-import com.tonotes.account_data.remote.dto.request.RegisterRequest
-import com.tonotes.account_data.remote.dto.UserCredentialDto
 import com.tonotes.account_data.util.userCredential
 import com.tonotes.account_data.util.userCredentialDto
 import com.tonotes.account_domain.model.UserCredential
 import com.tonotes.account_domain.repository.AccountRepository
 import com.tonotes.core.util.Resource
+import com.tonotes.core_ui.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking

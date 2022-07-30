@@ -7,8 +7,7 @@ import com.tonotes.account_domain.util.userCredential
 import com.tonotes.core.util.Resource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
-
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 

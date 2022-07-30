@@ -21,7 +21,7 @@
     <string name="incorrect_username_or_pass">Username or password is incorrect</string>
     <string name="username_already_exists">Username already exists. Try another username</string>
     <string name="something_wrong_happened">Sorry, something wrong happened</string>
-    
+
     <string name="back_up_notes">Back Up Notes</string>
     <string name="manually">Manually</string>
     <string name="daily">Daily</string>

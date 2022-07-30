@@ -16,7 +16,6 @@ import com.tonotes.note_domain.use_case.SyncNotesUseCase
 import com.tonotes.note_domain.use_case.UploadNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -79,9 +78,11 @@ class HomeViewModel @Inject constructor(
 
             is HomeEvent.OnSearchQueryChanged -> searchQuery = event.searchQuery
 
-            is HomeEvent.OnLoginAlertDialogVisChanged -> loginAlertDialogVis = event.loginAlertDialogVis
+            is HomeEvent.OnLoginAlertDialogVisChanged -> loginAlertDialogVis =
+                event.loginAlertDialogVis
 
-            is HomeEvent.OnBackUpNotesDialogVisChanged -> backUpNotesDialogVis = event.backUpNotesDialogVis
+            is HomeEvent.OnBackUpNotesDialogVisChanged -> backUpNotesDialogVis =
+                event.backUpNotesDialogVis
 
             is HomeEvent.OnBackupTypeSelected -> selectedBackupType = event.selectedBackupTypes
         }
