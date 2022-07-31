@@ -123,18 +123,20 @@ fun HomeScreen(
                     Text(text = stringResource(id = R.string.app_name))
                 },
                 actions = {
-                    if (isLoggedIn) {
-                        IconButton(
-                            onClick = {
+                    IconButton(
+                        onClick = {
+                            if (isLoggedIn) {
                                 onEvent(HomeEvent.SyncNotes)
+                            } else {
+                                onEvent(HomeEvent.OnLoginAlertDialogVisChanged(true))
                             }
-                        ) {
-                            Icon(
-                                modifier = Modifier.graphicsLayer { rotationZ = syncIconAngle },
-                                imageVector = Icons.Default.Sync,
-                                contentDescription = "Sync notes icon"
-                            )
                         }
+                    ) {
+                        Icon(
+                            modifier = Modifier.graphicsLayer { rotationZ = syncIconAngle },
+                            imageVector = Icons.Default.Sync,
+                            contentDescription = "Sync notes icon"
+                        )
                     }
 
                     IconButton(

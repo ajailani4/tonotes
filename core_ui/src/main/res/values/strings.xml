@@ -5,7 +5,7 @@
     <string name="search_notes">Search notes</string>
     <string name="no_notes">No notes yet</string>
     <string name="need_to_login">Need to Login</string>
-    <string name="need_to_have_an_account">You need to have an account to back up the notes</string>
+    <string name="need_to_have_an_account">You need to have an account to use this feature</string>
     <string name="cancel">Cancel</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
