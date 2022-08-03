@@ -1,7 +1,7 @@
-package com.tonotes.core.data.repository.impl
+package com.tonotes.core.data.repository
 
 import com.tonotes.core.data.PreferencesDataStore
-import com.tonotes.core.data.repository.UserCredentialRepository
+import com.tonotes.core.domain.repository.UserCredentialRepository
 import javax.inject.Inject
 
 class UserCredentialRepositoryImpl @Inject constructor(

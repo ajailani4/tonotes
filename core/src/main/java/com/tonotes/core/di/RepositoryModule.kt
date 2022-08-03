@@ -1,7 +1,7 @@
 package com.tonotes.core.di
 
-import com.tonotes.core.data.repository.UserCredentialRepository
-import com.tonotes.core.data.repository.impl.UserCredentialRepositoryImpl
+import com.tonotes.core.domain.repository.UserCredentialRepository
+import com.tonotes.core.data.repository.UserCredentialRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
