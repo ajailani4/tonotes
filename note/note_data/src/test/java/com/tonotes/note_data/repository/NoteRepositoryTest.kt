@@ -103,7 +103,7 @@ class NoteRepositoryTest {
             )
         )
 
-        doReturn("Success").`when`(context).getString(R.string.notes_sync_successfully)
+        doReturn("Success").`when`(context).getString(R.string.synced_successfully)
         doReturn(resource).`when`(noteRemoteDataSource).syncNotes()
 
         val actualResource = noteRepository.syncNotes().first()

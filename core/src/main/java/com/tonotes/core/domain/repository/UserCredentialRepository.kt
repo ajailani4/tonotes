@@ -1,4 +1,4 @@
-package com.tonotes.core.data.repository
+package com.tonotes.core.domain.repository
 
 import kotlinx.coroutines.flow.Flow
 

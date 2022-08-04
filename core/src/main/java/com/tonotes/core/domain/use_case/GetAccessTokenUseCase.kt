@@ -1,6 +1,6 @@
 package com.tonotes.core.domain.use_case
 
-import com.tonotes.core.data.repository.UserCredentialRepository
+import com.tonotes.core.domain.repository.UserCredentialRepository
 import javax.inject.Inject
 
 class GetAccessTokenUseCase @Inject constructor(
