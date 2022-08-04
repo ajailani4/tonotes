@@ -27,7 +27,7 @@
     <string name="daily">Daily</string>
     <string name="weekly">Weekly</string>
     <string name="back_up">Back Up</string>
-    <string name="notes_sync_successfully">Notes synced successfully</string>
+    <string name="synced_successfully">Notes synced successfully</string>
 
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
