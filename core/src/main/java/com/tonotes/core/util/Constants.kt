@@ -19,6 +19,12 @@ class Constants {
         const val UPLOAD_NOTES_WORKER = "uploadNotesWorker"
     }
 
+    object NotificationChannel {
+        const val BACKUP_STATUS_ID = "backupStatusChannel"
+        const val BACKUP_STATUS_NAME = "Backup Status"
+        const val BACKUP_STATUS_DESCRIPTION = "Notify user whether the backup is success of fail"
+    }
+
     object TestTag {
         const val TITLE_TEXT_FIELD = "title-textfield"
         const val DESCRIPTION_TEXT_FIELD = "description-textfield"

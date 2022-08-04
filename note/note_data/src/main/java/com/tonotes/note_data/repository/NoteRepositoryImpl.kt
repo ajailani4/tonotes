@@ -49,7 +49,7 @@ class NoteRepositoryImpl @Inject constructor(
                         noteLocalDataSource.insertNote(it.toNoteEntity())
                     }
 
-                    emit(Resource.Success(context.getString(R.string.notes_sync_successfully)))
+                    emit(Resource.Success(context.getString(R.string.synced_successfully)))
                 }
 
                 else -> emit(Resource.Error(context.getString(R.string.something_wrong_happened)))
