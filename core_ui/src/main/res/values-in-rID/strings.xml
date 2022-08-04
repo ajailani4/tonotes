@@ -27,6 +27,9 @@
     <string name="daily">Harian</string>
     <string name="weekly">Mingguan</string>
     <string name="back_up">Cadangkan</string>
+    <string name="backup_status">Status Pencadangan</string>
+    <string name="backed_up_successfully">Catatan berhasil dicadangkan</string>
+    <string name="failed_to_back_up">Catatan gagal dicadangkan</string>
     <string name="synced_successfully">Catatan berhasil disinkronkan</string>
 
     <string name="edit">Edit</string>

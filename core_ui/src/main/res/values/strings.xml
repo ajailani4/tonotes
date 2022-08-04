@@ -27,6 +27,9 @@
     <string name="daily">Daily</string>
     <string name="weekly">Weekly</string>
     <string name="back_up">Back Up</string>
+    <string name="backup_status">Backup Status</string>
+    <string name="backed_up_successfully">Notes backed up successfully</string>
+    <string name="failed_to_back_up">Notes failed to back up</string>
     <string name="synced_successfully">Notes synced successfully</string>
 
     <string name="edit">Edit</string>
