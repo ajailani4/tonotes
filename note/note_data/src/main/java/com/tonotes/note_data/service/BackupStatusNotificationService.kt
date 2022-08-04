@@ -15,7 +15,7 @@ class BackupStatusNotificationService @Inject constructor(
 
     fun showNotification(message: String) {
         val notification = NotificationCompat.Builder(context, NotificationChannel.BACKUP_STATUS_ID)
-            .setSmallIcon(R.drawable.ic_tonotes_24)
+            .setSmallIcon(R.drawable.ic_baseline_description_24)
             .setContentTitle(context.getString(R.string.backup_status))
             .setContentText(message)
             .build()
