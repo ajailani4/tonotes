@@ -22,7 +22,7 @@ class Constants {
     object NotificationChannel {
         const val BACKUP_STATUS_ID = "backupStatusChannel"
         const val BACKUP_STATUS_NAME = "Backup Status"
-        const val BACKUP_STATUS_DESCRIPTION = "Notify user whether the backup is success of fail"
+        const val BACKUP_STATUS_DESCRIPTION = "Notify user whether the backup is success or fail"
     }
 
     object TestTag {

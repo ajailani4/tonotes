@@ -131,6 +131,7 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch {
             syncNotesUseCase().catch {
+                syncIconRotationTargetValue = 0f
                 syncNotesState = UIState.Error(it.localizedMessage)
             }.collect {
                 syncNotesState = when (it) {
@@ -139,7 +140,10 @@ class HomeViewModel @Inject constructor(
                         UIState.Success(it.data)
                     }
 
-                    is Resource.Error -> UIState.Fail(it.message)
+                    is Resource.Error -> {
+                        syncIconRotationTargetValue = 0f
+                        UIState.Fail(it.message)
+                    }
                 }
             }
         }
