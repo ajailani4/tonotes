@@ -180,11 +180,11 @@ fun AddEditNoteScreen(
                         if (title.isNotEmpty() && description.text.isNotEmpty()) {
                             if (noteId == 0) {
                                 onEvent(AddEditNoteEvent.InsertNote)
+                                onNavigateToHome()
                             } else {
                                 onEvent(AddEditNoteEvent.EditNote)
+                                onNavigateUp()
                             }
-
-                            onNavigateToHome()
                         } else {
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar(
