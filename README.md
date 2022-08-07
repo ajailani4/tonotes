@@ -34,19 +34,19 @@ Modularization system that this app used is hybrid or mix. It means we separated
 - Mockito
 
 ## Screenshots
-**Home Screen**
+**Home Screen**<br/>
 ![1](https://i.postimg.cc/nhYBr02g/Screenshot-2022-08-07-20-38-49-791-com-tonotes-app.jpg)
 
-**Backup Types**
+**Backup Types**<br/>
 ![2](https://i.postimg.cc/85tStJGt/Screenshot-2022-08-07-20-39-01-184-com-tonotes-app.jpg)
 
-**Note Detail Screen**
+**Note Detail Screen**<br/>
 ![3](https://i.postimg.cc/7P5Hm9Cz/Screenshot-2022-08-07-20-39-37-950-com-tonotes-app.jpg)
 
-**Add and Edit a Note**
+**Add and Edit a Note**<br/>
 ![4](https://i.postimg.cc/pd0vB5Rk/Screenshot-2022-08-07-21-05-35-610-com-tonotes-app.jpg)
 
-**Search Notes**
+**Search Notes**<br/>
 ![5](https://i.postimg.cc/HxRCqGJy/Screenshot-2022-08-07-21-06-25-560-com-tonotes-app.jpg)
 
 ## Installation and Usage
