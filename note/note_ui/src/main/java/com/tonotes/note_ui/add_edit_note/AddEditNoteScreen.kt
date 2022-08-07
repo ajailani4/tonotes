@@ -1,6 +1,7 @@
 package com.tonotes.note_ui.add_edit_note
 
 import android.app.Activity
+import android.util.Log
 import android.view.WindowManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -42,6 +44,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.tonotes.core.util.Constants.TestTag
@@ -151,7 +154,7 @@ fun AddEditNoteScreen(
                         ),
                         decorationBox = { innerTextField ->
                             Box(contentAlignment = Alignment.CenterStart) {
-                                if (description.isEmpty() && !isDescriptionFocused) {
+                                if (description.text.isEmpty() && !isDescriptionFocused) {
                                     Text(
                                         text = stringResource(id = R.string.description),
                                         color = MaterialTheme.colorScheme.outline
@@ -174,7 +177,7 @@ fun AddEditNoteScreen(
                         .padding(vertical = 10.dp)
                         .padding(horizontal = 20.dp),
                     onClick = {
-                        if (title.isNotEmpty() && description.isNotEmpty()) {
+                        if (title.isNotEmpty() && description.text.isNotEmpty()) {
                             if (noteId == 0) {
                                 onEvent(AddEditNoteEvent.InsertNote)
                             } else {
@@ -198,9 +201,13 @@ fun AddEditNoteScreen(
                 }
             }
 
-            // Scroll down automatically when user enter new line
-            LaunchedEffect(scrollState.maxValue) {
-                scrollState.scrollTo(scrollState.maxValue)
+            // Scroll down automatically when user enter new line in description
+            description.apply {
+                if (isDescriptionFocused && selection.start == text.length) {
+                    LaunchedEffect(scrollState.maxValue) {
+                        scrollState.scrollTo(scrollState.maxValue)
+                    }
+                }
             }
         }
     }
@@ -212,7 +219,7 @@ fun AddEditNoteScreen(
 
             if (note != null) {
                 onEvent(AddEditNoteEvent.OnTitleChanged(note.title))
-                onEvent(AddEditNoteEvent.OnDescriptionChanged(note.description))
+                onEvent(AddEditNoteEvent.OnDescriptionChanged(TextFieldValue(note.description)))
                 onEvent(AddEditNoteEvent.SetDate(note.date))
             }
 
