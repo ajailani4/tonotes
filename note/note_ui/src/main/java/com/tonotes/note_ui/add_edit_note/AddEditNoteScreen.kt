@@ -65,6 +65,7 @@ fun AddEditNoteScreen(
     var isTitleFocused by remember { mutableStateOf(false) }
     var isDescriptionFocused by remember { mutableStateOf(false) }
 
+    val scrollState = rememberScrollState(0)
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -99,7 +100,7 @@ fun AddEditNoteScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
+                    .verticalScroll(scrollState)
             ) {
                 Column(
                     modifier = Modifier
@@ -195,6 +196,11 @@ fun AddEditNoteScreen(
                         style = MaterialTheme.typography.titleMedium
                     )
                 }
+            }
+
+            // Scroll down automatically when user enter new line
+            LaunchedEffect(scrollState.maxValue) {
+                scrollState.scrollTo(scrollState.maxValue)
             }
         }
     }
