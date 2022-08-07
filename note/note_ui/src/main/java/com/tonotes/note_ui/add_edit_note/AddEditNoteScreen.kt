@@ -121,7 +121,7 @@ fun AddEditNoteScreen(
                             color = MaterialTheme.colorScheme.onBackground
                         ),
                         decorationBox = { innerTextField ->
-                            Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(contentAlignment = Alignment.CenterStart) {
                                 if (title.isEmpty() && !isTitleFocused) {
                                     Text(
                                         text = stringResource(id = R.string.title),
@@ -150,7 +150,7 @@ fun AddEditNoteScreen(
                             color = MaterialTheme.colorScheme.onBackground
                         ),
                         decorationBox = { innerTextField ->
-                            Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(contentAlignment = Alignment.CenterStart) {
                                 if (description.isEmpty() && !isDescriptionFocused) {
                                     Text(
                                         text = stringResource(id = R.string.description),
