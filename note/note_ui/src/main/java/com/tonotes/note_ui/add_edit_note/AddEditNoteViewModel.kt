@@ -3,6 +3,7 @@ package com.tonotes.note_ui.add_edit_note
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -33,7 +34,8 @@ class AddEditNoteViewModel @Inject constructor(
     var title by mutableStateOf("")
         private set
 
-    var description by mutableStateOf("")
+    // TextFieldValue is used because we want to get cursor position in description text field
+    var description by mutableStateOf(TextFieldValue(""))
         private set
 
     private var date = Date()
@@ -78,7 +80,7 @@ class AddEditNoteViewModel @Inject constructor(
         viewModelScope.launch {
             insertNoteUseCase(
                 title = title,
-                description = description
+                description = description.text
             )
         }
     }
@@ -88,7 +90,7 @@ class AddEditNoteViewModel @Inject constructor(
             editNoteUseCase(
                 id = noteId,
                 title = title,
-                description = description,
+                description = description.text,
                 date = date
             )
         }
