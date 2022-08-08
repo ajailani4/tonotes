@@ -9,7 +9,7 @@ interface NoteRepository {
 
     fun syncNotes(): Flow<Resource<String>>
 
-    fun getNoteDetail(id: Int): Flow<Note>
+    fun getNoteDetail(id: Int): Flow<Note?>
 
     suspend fun insertNote(note: Note)
 

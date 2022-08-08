@@ -20,6 +20,7 @@ import com.tonotes.note_data.worker.UploadNotesWorker
 import com.tonotes.note_domain.model.Note
 import com.tonotes.note_domain.repository.NoteRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.util.concurrent.TimeUnit
@@ -56,9 +57,9 @@ class NoteRepositoryImpl @Inject constructor(
             }
         }
 
-    override fun getNoteDetail(id: Int) =
+    override fun getNoteDetail(id: Int): Flow<Note?> =
         noteLocalDataSource.getNoteDetail(id).map { noteEntity ->
-            noteEntity.toNote()
+            noteEntity?.toNote()
         }
 
     override suspend fun insertNote(note: Note) {
