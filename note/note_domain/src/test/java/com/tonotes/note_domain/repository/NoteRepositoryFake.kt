@@ -28,7 +28,7 @@ class NoteRepositoryFake : NoteRepository {
             ResourceType.ERROR -> flowOf(Resource.Error(null))
         }
 
-    override fun getNoteDetail(id: Int) = flowOf(notes.find { it.id == id }!!)
+    override fun getNoteDetail(id: Int): Flow<Note?> = flowOf(notes.find { it.id == id }!!)
 
     override suspend fun insertNote(note: Note) {
         TODO("Not yet implemented")
