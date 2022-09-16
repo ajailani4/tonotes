@@ -12,7 +12,7 @@ This app is a multi-module project that implements Clean Architecture which has 
 
 ## Modules
 Modularization system that this app used is hybrid or mix. It means we separate each features as a module, then we create sub modules of the layers (data, domain, and UI) for each feature modules.
-- **app**: An entry point to connects everything in the project (a whole modules and libraries).
+- **app**: An entry point to connects everything in the project (all modules and libraries).
 - **buildSrc**: Defines the dependencies version and dependencies itself for Gradle.
 - **core**: Collection of reusable files, such as utils that can be used on every modules.
 - **core_ui**: Same as core module, core_ui is more specific on reusable files related on UI, such as Composable, image resources, strings, etc.
