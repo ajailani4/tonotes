@@ -2,7 +2,7 @@ package com.tonotes.core.util
 
 class Constants {
     object Network {
-        const val BASE_URL = "https://tonotes-backend.herokuapp.com/api/v1/"
+        const val BASE_URL = "https://tonotes-backend.fly.dev/api/v1/"
     }
 
     object DataStore {
